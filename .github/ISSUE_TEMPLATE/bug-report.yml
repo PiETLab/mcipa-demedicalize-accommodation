@@ -1,0 +1,56 @@
+name: Bug Report
+description: Something on the site is broken or displaying incorrectly
+title: "[Bug] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for reporting a bug. Please fill in as much detail as you can.
+  - type: input
+    id: url
+    attributes:
+      label: Affected page or URL
+      description: Which page or URL is broken? (e.g. `/prototype-status` or "home page")
+      placeholder: "https://pietlab.github.io/mcipa-demedicalize-accommodation/..."
+    validations:
+      required: false
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened?
+      description: Describe what you saw, and what you expected to see.
+      placeholder: "e.g. The page shows a 404 error instead of content."
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: How can we reproduce this? (optional but helpful)
+      placeholder: |
+        1. Go to ...
+        2. Click on ...
+        3. See error
+    validations:
+      required: false
+  - type: dropdown
+    id: browser
+    attributes:
+      label: Browser / device (if relevant)
+      options:
+        - Chrome
+        - Firefox
+        - Safari
+        - Edge
+        - Mobile (specify in description)
+        - Not applicable
+    validations:
+      required: false
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional context
+      description: Screenshots, error messages, or anything else that might help.
+    validations:
+      required: false

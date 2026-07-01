@@ -1,0 +1,21 @@
+# Node / Quartz dependencies
+node_modules/
+
+# Quartz build output
+public/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+.vscode/settings.json
+.idea/
+
+# Obsidian workspace (not content)
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+.obsidian/cache
+
+# Local Quartz dev
+.quartz-cache/
