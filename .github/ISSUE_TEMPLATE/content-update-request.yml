@@ -1,0 +1,45 @@
+name: Content Update Request
+description: Request a change, addition, or correction to site content
+title: "[Content] "
+labels: ["content"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this template to request a content change — corrections, additions, clarifications, or removals.
+  - type: input
+    id: page
+    attributes:
+      label: Which page or section?
+      description: Name or URL of the page to update (leave blank if requesting a new page)
+      placeholder: "e.g. prototype-status, or a new page about X"
+    validations:
+      required: false
+  - type: textarea
+    id: current
+    attributes:
+      label: Current content (if applicable)
+      description: Paste or describe the current text that needs changing.
+    validations:
+      required: false
+  - type: textarea
+    id: requested
+    attributes:
+      label: Requested change
+      description: What should it say instead? Or what new content should be added?
+    validations:
+      required: true
+  - type: textarea
+    id: reason
+    attributes:
+      label: Reason / context
+      description: Why is this change needed? (e.g. factual correction, new policy, clarity improvement)
+    validations:
+      required: false
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional context
+      description: Any references, links, or supporting information.
+    validations:
+      required: false

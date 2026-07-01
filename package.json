@@ -1,0 +1,13 @@
+{
+  "name": "mcipa-demedicalize-accommodation",
+  "description": "MCIPA ActionForge pilot — demedicalizing accommodation: public prototype",
+  "private": true,
+  "scripts": {
+    "preview": "npx quartz build --serve",
+    "build": "npx quartz build",
+    "sync": "npx quartz sync"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

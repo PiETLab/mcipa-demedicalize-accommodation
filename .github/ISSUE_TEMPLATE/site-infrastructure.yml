@@ -1,0 +1,50 @@
+name: Site Infrastructure Issue
+description: Build failure, deployment problem, GitHub Actions error, or Quartz config issue
+title: "[Infra] "
+labels: ["site-infrastructure"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this template for technical problems with the site build, deployment pipeline, or configuration.
+        For content problems, use the **Bug Report** or **Content Update Request** templates instead.
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      options:
+        - Build failure (GitHub Actions)
+        - Deployment failure (GitHub Pages)
+        - Quartz configuration
+        - Dependency / version issue
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: What is broken or misconfigured?
+    validations:
+      required: true
+  - type: textarea
+    id: error
+    attributes:
+      label: Error message or log (if available)
+      description: Paste relevant error output from GitHub Actions or the build log.
+      render: shell
+    validations:
+      required: false
+  - type: input
+    id: workflow_run
+    attributes:
+      label: Failed workflow run URL (if applicable)
+      placeholder: "https://github.com/PiETLab/mcipa-demedicalize-accommodation/actions/runs/..."
+    validations:
+      required: false
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional context
+    validations:
+      required: false
