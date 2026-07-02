@@ -7,7 +7,7 @@ description: MCIPA ActionForge pilot — demedicalizing accommodation (public pr
 > This site is a public, in-progress prototype.  
 > Content and structure may change at any time.  
 > This is to be considered a intermediate pilot-testing release of the MCIPA working group.  
-> ..
+> ...
 
 # MCIPA · Demedicalize Accommodation
 
