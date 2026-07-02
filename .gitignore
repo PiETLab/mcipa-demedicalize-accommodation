@@ -1,6 +1,9 @@
 # Node / Quartz dependencies
 node_modules/
 
+# Quartz framework source symlink (re-created by postinstall)
+/quartz
+
 # Quartz build output
 public/
 

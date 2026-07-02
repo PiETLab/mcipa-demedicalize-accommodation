@@ -1,13 +1,19 @@
 {
   "name": "mcipa-demedicalize-accommodation",
+  "version": "0.1.0",
   "description": "MCIPA ActionForge pilot — demedicalizing accommodation: public prototype",
   "private": true,
   "scripts": {
-    "preview": "npx quartz build --serve",
-    "build": "npx quartz build",
-    "sync": "npx quartz sync"
+    "postinstall": "ln -sf node_modules/@jackyzha0/quartz/quartz quartz && cp quartz.config.ts node_modules/@jackyzha0/quartz/quartz.config.ts && cp quartz.layout.ts node_modules/@jackyzha0/quartz/quartz.layout.ts",
+    "build": "quartz build",
+    "preview": "quartz build --serve",
+    "sync": "quartz sync"
   },
   "engines": {
-    "node": ">=20"
+    "node": ">=22",
+    "npm": ">=10"
+  },
+  "devDependencies": {
+    "@jackyzha0/quartz": "github:jackyzha0/quartz#v4.5.2"
   }
 }

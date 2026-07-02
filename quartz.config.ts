@@ -14,7 +14,7 @@ const config: QuartzConfig = {
     enableSPA: true,
     enablePopovers: true,
     analytics: null, // TODO: add analytics config if needed
-    locale: "en-CA",
+    locale: "en-US",
     baseUrl: "pietlab.github.io/mcipa-demedicalize-accommodation", // TODO: update if custom domain
     ignorePatterns: ["private", "templates", ".obsidian"],
     defaultDateType: "modified",
