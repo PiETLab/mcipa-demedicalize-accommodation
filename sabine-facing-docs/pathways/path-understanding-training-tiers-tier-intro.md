@@ -71,7 +71,7 @@ Escalate to Tier-Experienced when:
 
 ## Related modules
 
-- [Pathway: Tier-Intro Initial Setup](path-tier-intro-setup-I.md)
-- [Pathway: Steady-State System Setup and Publishing Model](path-steady-state-system-setup-and-publishing-model.md)
-- [Publishing Workflow Guide](node-publishing-workflow-guide.md)
-- [Issue Handling Guide](node-issue-handling-guide.md)
+- [Pathway: Tier-Intro Initial Setup](/sabine-facing-docs/pathways/path-tier-intro-setup-I.md)
+- [Pathway: Steady-State System Setup and Publishing Model](/sabine-facing-docs/pathways/path-steady-state-system-setup-and-publishing-model.md)
+- [Publishing Workflow Guide](/sabine-facing-docs/nodes/node-publishing-workflow-guide.md)
+- [Issue Handling Guide](/sabine-facing-docs/nodes/node-issue-handling-guide.md)

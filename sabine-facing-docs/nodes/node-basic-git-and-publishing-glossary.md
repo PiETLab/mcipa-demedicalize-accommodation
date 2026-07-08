@@ -49,7 +49,7 @@ commit-and-sync
 
 ## Related modules
 
-- [Publishing Workflow Guide](node-publishing-workflow-guide.md)
-- [Configure Obsidian Git Connection and Auth](node-configure-obsidian-git-connection-and-auth.md)
-- [Have a Look Around Your New Obsidian Vault](node-look-around-your-new-obsidian-vault.md)
-- [Issue Handling Guide](node-issue-handling-guide.md)
+- [Publishing Workflow Guide](/sabine-facing-docs/nodes/node-publishing-workflow-guide.md)
+- [Configure Obsidian Git Connection and Auth](/sabine-facing-docs/nodes/node-configure-obsidian-git-connection-and-auth.md)
+- [Have a Look Around Your New Obsidian Vault](/sabine-facing-docs/nodes/node-look-around-your-new-obsidian-vault.md)
+- [Issue Handling Guide](/sabine-facing-docs/nodes/node-issue-handling-guide.md)

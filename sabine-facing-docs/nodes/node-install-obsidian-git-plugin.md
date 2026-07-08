@@ -75,5 +75,5 @@ These obsidian commands can now replace `Github Desktop`.  You can close that ap
 
 ## Related modules
 
-- [Connect Local Obsidian Vault to GitHub Repository](node-connect-local-obsidian-to-github.md)
-- [First Edit, Commit, Push, and Verify Site Update](node-first-edit-commit-push-verify.md)
+- [Connect Local Obsidian Vault to GitHub Repository](/sabine-facing-docs/nodes/node-connect-local-obsidian-to-github.md)
+- [First Edit, Commit, Push, and Verify Site Update](/sabine-facing-docs/nodes/node-first-edit-commit-push-verify.md)

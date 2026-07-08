@@ -69,7 +69,7 @@ Use this template:
 
 ## Related modules
 
-- [Pathway: Understanding Tier-Intro and Tier-Experienced](path-understanding-training-tiers-tier-intro.md)
-- [Publishing Workflow Guide](node-publishing-workflow-guide.md)
-- [Issue Handling Guide](node-issue-handling-guide.md)
-- [Pathway: Tier-Intro Initial Setup](path-tier-intro-setup-I.md)
+- [Pathway: Understanding Tier-Intro and Tier-Experienced](/sabine-facing-docs/pathways/path-understanding-training-tiers-tier-intro.md)
+- [Publishing Workflow Guide](/sabine-facing-docs/nodes/node-publishing-workflow-guide.md)
+- [Issue Handling Guide](/sabine-facing-docs/nodes/node-issue-handling-guide.md)
+- [Pathway: Tier-Intro Initial Setup](/sabine-facing-docs/pathways/path-tier-intro-setup-I.md)

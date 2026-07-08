@@ -60,7 +60,7 @@ So the operating model is source edit -> Build-and-Publish Step -> published HTM
 
 If Melanie has made a coordinated repair or update that Sabine needs to receive locally, do not treat that as part of the normal publish path.
 
-Use: [Pathway: Guided Reverse Pathway - Receive a Coordinated Update](path-guided-reverse-pathway-receive-coordinated-update.md)
+Use: [Pathway: Guided Reverse Pathway - Receive a Coordinated Update](/sabine-facing-docs/pathways/path-guided-reverse-pathway-receive-coordinated-update.md)
 
 ## GitHub web edit path
 
@@ -92,9 +92,9 @@ If a file is edited in GitHub web and committed to `main`, deployment still runs
 
 ## Related modules
 
-- [Publishing Workflow Guide](node-publishing-workflow-guide.md)
-- [Connect Local Obsidian Vault to GitHub Repository](node-connect-local-obsidian-to-github.md)
-- [First Edit, Commit, Push, and Verify Site Update](node-first-edit-commit-push-verify.md)
-- [Pathway: Tier-Intro Initial Setup](path-tier-intro-setup-I.md)
-- [Pathway: Melanie Dry Run Before Handoff](path-melanie-dry-run.md)
-- [Pathway: Guided Reverse Pathway - Receive a Coordinated Update](path-guided-reverse-pathway-receive-coordinated-update.md)
+- [Publishing Workflow Guide](/sabine-facing-docs/nodes/node-publishing-workflow-guide.md)
+- [Connect Local Obsidian Vault to GitHub Repository](/sabine-facing-docs/nodes/node-connect-local-obsidian-to-github.md)
+- [First Edit, Commit, Push, and Verify Site Update](/sabine-facing-docs/nodes/node-first-edit-commit-push-verify.md)
+- [Pathway: Tier-Intro Initial Setup](/sabine-facing-docs/pathways/path-tier-intro-setup-I.md)
+- [Pathway: Melanie Dry Run Before Handoff](/sabine-facing-docs/pathways/path-melanie-dry-run.md)
+- [Pathway: Guided Reverse Pathway - Receive a Coordinated Update](/sabine-facing-docs/pathways/path-guided-reverse-pathway-receive-coordinated-update.md)

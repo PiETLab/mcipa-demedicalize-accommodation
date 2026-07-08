@@ -66,5 +66,5 @@ Example:
 
 ## Related modules
 
-- [Pathway: Tier-Intro Initial Setup](path-tier-intro-setup-I.md)
-- [Connect Local Obsidian Vault to GitHub Repository](node-connect-local-obsidian-to-github.md)
+- [Pathway: Tier-Intro Initial Setup](/sabine-facing-docs/pathways/path-tier-intro-setup-I.md)
+- [Connect Local Obsidian Vault to GitHub Repository](/sabine-facing-docs/nodes/node-connect-local-obsidian-to-github.md)

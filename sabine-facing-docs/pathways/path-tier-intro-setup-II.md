@@ -11,26 +11,26 @@ The goal is to publish directly from Obsidian and eliminate the need for two sep
 - Local vault folder is `mcipa-demedicalize-accommodation`
 - GitHub account is created and shared with Melanie
 - Repository access is granted
-- Successful completion of [Pathway: Tier-Intro Setup I](path-tier-intro-setup-I.md)
+- Successful completion of [Pathway: Tier-Intro Setup I](/sabine-facing-docs/pathways/path-tier-intro-setup-I.md)
 
 ## Step sequence
 
 
 1. Set up authentication using OAuth.
-   **See:** [Set up authentication using OAuth](node-configure-OAuth.md)
+   **See:** [Set up authentication using OAuth](/sabine-facing-docs/nodes/node-configure-OAuth.md)
 
 2. Install Obsidian Git plugin, perform an edit and publish cycle.
-- See: [Install Obsidian Git Plugin](node-install-obsidian-git-plugin.md)
+- See: [Install Obsidian Git Plugin](/sabine-facing-docs/nodes/node-install-obsidian-git-plugin.md)
 
 3. Perform first edit and publish cycle.
-- See: [First Edit, Commit, Push, and Verify Site Update](node-first-edit-commit-push-verify.md)
+- See: [First Edit, Commit, Push, and Verify Site Update](/sabine-facing-docs/nodes/node-first-edit-commit-push-verify.md)
 
 4. Apply routine publishing discipline.
-- See: [Publishing Workflow Guide](node-publishing-workflow-guide.md)
+- See: [Publishing Workflow Guide](/sabine-facing-docs/nodes/node-publishing-workflow-guide.md)
 
 5. Learn issue triage baseline.
-- See: [Issue Handling Guide](node-issue-handling-guide.md)
-- See: [Minimum Issue Label Set](node-minimum-issue-label-set.md)
+- See: [Issue Handling Guide](/sabine-facing-docs/nodes/node-issue-handling-guide.md)
+- See: [Minimum Issue Label Set](/sabine-facing-docs/nodes/node-minimum-issue-label-set.md)
 
 ## Completion checklist
 
@@ -48,4 +48,4 @@ The goal is to publish directly from Obsidian and eliminate the need for two sep
 
 ## Related pathway
 
-- [Pathway: Melanie Dry Run Before Handoff](path-melanie-dry-run.md)
+- [Pathway: Melanie Dry Run Before Handoff](/sabine-facing-docs/pathways/path-melanie-dry-run.md)

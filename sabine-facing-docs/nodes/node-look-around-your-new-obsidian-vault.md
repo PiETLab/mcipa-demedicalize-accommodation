@@ -36,5 +36,5 @@ Content Operator (Sabine).
 
 ## Related modules
 
-- [Vault Setup and Naming](node-vault-prep.md)
-- [Install Obsidian Git Plugin](node-install-obsidian-git-plugin.md)
+- [Vault Setup and Naming](/sabine-facing-docs/nodes/node-vault-prep.md)
+- [Install Obsidian Git Plugin](/sabine-facing-docs/nodes/node-install-obsidian-git-plugin.md)

@@ -13,26 +13,26 @@ Provide a step-by-step initial setup path for Sabine from first-time configurati
 ## Step sequence
 
 1. Complete account/access prerequisites.
-- See: [GitHub Account Setup and Handoff](node-github-account-setup.md)
+- See: [GitHub Account Setup and Handoff](/sabine-facing-docs/nodes/node-github-account-setup.md)
 
 2. Do vault hygiene first: decide where all vaults will live and create the parent `Vaults` directory if it does not already exist.
-- See: [Prepping for Vault Import](node-vault-prep.md)
+- See: [Prepping for Vault Import](/sabine-facing-docs/nodes/node-vault-prep.md)
 
 1. Complete one-time clone setup for the vault folder.
-- See: [One-Time Clone Setup](node-one-time-clone-setup.md)
+- See: [One-Time Clone Setup](/sabine-facing-docs/nodes/node-one-time-clone-setup.md)
 
 4. Have a look around your new Obsidian vault.
-- See: [Have a Look Around Your New Obsidian Vault](node-look-around-your-new-obsidian-vault.md)
+- See: [Have a Look Around Your New Obsidian Vault](/sabine-facing-docs/nodes/node-look-around-your-new-obsidian-vault.md)
 
 5. Perform first edit and publish cycle.
-- See: [First Edit and 'commit-and-push' Operation](node-first-edit-commit-push-verify.md)
+- See: [First Edit and 'commit-and-push' Operation](/sabine-facing-docs/nodes/node-first-edit-commit-push-verify.md)
 
 8. Apply routine publishing discipline.
-- See: [Publishing Workflow Guide](node-publishing-workflow-guide.md)
+- See: [Publishing Workflow Guide](/sabine-facing-docs/nodes/node-publishing-workflow-guide.md)
 
 9. Learn issue triage baseline.
-- See: [Issue Handling Guide](node-issue-handling-guide.md)
-- See: [Minimum Issue Label Set](node-minimum-issue-label-set.md)
+- See: [Issue Handling Guide](/sabine-facing-docs/nodes/node-issue-handling-guide.md)
+- See: [Minimum Issue Label Set](/sabine-facing-docs/nodes/node-minimum-issue-label-set.md)
 
 ## Completion checklist
 
@@ -50,4 +50,4 @@ Provide a step-by-step initial setup path for Sabine from first-time configurati
 
 ## Related pathway
 
-- [Pathway: Melanie Dry Run Before Handoff](path-melanie-dry-run.md)
+- [Pathway: Melanie Dry Run Before Handoff](/sabine-facing-docs/pathways/path-melanie-dry-run.md)

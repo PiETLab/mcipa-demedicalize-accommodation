@@ -58,8 +58,8 @@ Note: cloning is meant to create a new repository folder in the chosen parent di
 
 ## Related modules
 
-- [GitHub Account Setup](node-github-account-setup.md)
-- [Configure Obsidian Git Connection and Auth](node-configure-obsidian-git-connection-and-auth.md)
+- [GitHub Account Setup](/sabine-facing-docs/nodes/node-github-account-setup.md)
+- [Configure Obsidian Git Connection and Auth](/sabine-facing-docs/nodes/node-configure-obsidian-git-connection-and-auth.md)
 
 
 ## Alternatives

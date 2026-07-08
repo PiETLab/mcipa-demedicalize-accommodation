@@ -15,16 +15,16 @@ Content Operator (Sabine) and Infrastructure Steward (Melanie).
 ## Preconditions
 
 - Dedicated project vault exists
-- GitHub account exists and repository access is confirmed (see [GitHub Account Setup](node-github-account-setup.md))
+- GitHub account exists and repository access is confirmed (see [GitHub Account Setup](/sabine-facing-docs/nodes/node-github-account-setup.md))
 - Obsidian Git plugin is installed
 
 ## Sequence
 
 1. Complete one-time local repository setup:
-- [One-Time Clone Setup](node-one-time-clone-setup.md)
+- [One-Time Clone Setup](/sabine-facing-docs/nodes/node-one-time-clone-setup.md)
 
 2. Configure Obsidian Git connection/auth and run pull test:
-- [Configure Obsidian Git Connection and Auth](node-configure-obsidian-git-connection-and-auth.md)
+- [Configure Obsidian Git Connection and Auth](/sabine-facing-docs/nodes/node-configure-obsidian-git-connection-and-auth.md)
 
 ## Verify success
 
@@ -47,6 +47,6 @@ Content Operator (Sabine) and Infrastructure Steward (Melanie).
 
 ## Related nodes
 
-- [One-Time Clone Setup](node-one-time-clone-setup.md)
-- [Configure Obsidian Git Connection and Auth](node-configure-obsidian-git-connection-and-auth.md)
-- [First Edit, Commit, Push, and Verify Site Update](node-first-edit-commit-push-verify.md)
+- [One-Time Clone Setup](/sabine-facing-docs/nodes/node-one-time-clone-setup.md)
+- [Configure Obsidian Git Connection and Auth](/sabine-facing-docs/nodes/node-configure-obsidian-git-connection-and-auth.md)
+- [First Edit, Commit, Push, and Verify Site Update](/sabine-facing-docs/nodes/node-first-edit-commit-push-verify.md)

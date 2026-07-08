@@ -104,6 +104,6 @@ Now we will test the authenticated connection.
 
 ## Related modules
 
-- [One-Time Clone Setup](node-one-time-clone-setup.md)
-- [First Edit, Commit, Push, and Verify Site Update](node-first-edit-commit-push-verify.md)
-- [New User Auth and Access Checklist](node-new-user-auth-and-access-checklist.md)
+- [One-Time Clone Setup](/sabine-facing-docs/nodes/node-one-time-clone-setup.md)
+- [First Edit, Commit, Push, and Verify Site Update](/sabine-facing-docs/nodes/node-first-edit-commit-push-verify.md)
+- [New User Auth and Access Checklist](/sabine-facing-docs/nodes/node-new-user-auth-and-access-checklist.md)

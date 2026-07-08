@@ -38,6 +38,6 @@ Infrastructure Steward (Melanie), or any equivalent Tier-Experienced maintainer 
 
 ## Related modules
 
-- [Configure Obsidian Git Connection and Auth](node-configure-obsidian-git-connection-and-auth.md)
-- [GitHub Account Setup](node-github-account-setup.md)
-- [First Edit, Commit, Push, and Verify Site Update](node-first-edit-commit-push-verify.md)
+- [Configure Obsidian Git Connection and Auth](/sabine-facing-docs/nodes/node-configure-obsidian-git-connection-and-auth.md)
+- [GitHub Account Setup](/sabine-facing-docs/nodes/node-github-account-setup.md)
+- [First Edit, Commit, Push, and Verify Site Update](/sabine-facing-docs/nodes/node-first-edit-commit-push-verify.md)

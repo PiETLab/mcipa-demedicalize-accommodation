@@ -24,7 +24,7 @@ Use this pathway only when a Tier-Experienced maintainer has explicitly told Sab
 - Do not continue local edits while resync is in progress.
 
 3. Follow maintainer guidance to receive the coordinated update.
-- Use: [Authenticate Obsidian Git Plugin to Sync with GitHub.com](node-configure-obsidian-git-connection-and-auth.md)
+- Use: [Authenticate Obsidian Git Plugin to Sync with GitHub.com](/sabine-facing-docs/nodes/node-configure-obsidian-git-connection-and-auth.md)
 
 4. Verify the local vault now reflects the coordinated change.
 - Open the affected files or notes.
@@ -48,6 +48,6 @@ Use this pathway only when a Tier-Experienced maintainer has explicitly told Sab
 
 ## Related pathways
 
-- [Pathway: Tier-Intro Setup I](path-tier-intro-setup-I.md)
-- [Pathway: Add a New User - Auth and Access](path-add-a-new-user-auth-and-access.md)
-- [Pathway: Escalation - What It Is and How to Do It](path-escalation-what-and-how.md)
+- [Pathway: Tier-Intro Setup I](/sabine-facing-docs/pathways/path-tier-intro-setup-I.md)
+- [Pathway: Add a New User - Auth and Access](/sabine-facing-docs/pathways/path-add-a-new-user-auth-and-access.md)
+- [Pathway: Escalation - What It Is and How to Do It](/sabine-facing-docs/pathways/path-escalation-what-and-how.md)
