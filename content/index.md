@@ -11,6 +11,8 @@ description: MCIPA ActionForge pilot — demedicalizing accommodation (public pr
 
 # MCIPA · Demedicalize Accommodation
 
+https://pietlab.github.io/mcipa-demedicalize-accommodation/
+
 Welcome to the **MCIPA ActionForge pilot** for demedicalizing accommodation processes.
 
 This repository is a public prototype for publishing, coordination, and issue-based action workflows.
