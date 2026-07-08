@@ -13,12 +13,12 @@ gh auth login
 6. For question `**How would you like to authenticate GitHub CLI?**`, answer `**Login with a web browser**`
 7. Follow the instructions, Press Enter to open the browser
 8. In the browser, 
-   ![[/sabine-facing-docs/nodes/node-configure-OAuth/IMG-20260702191220411.png]]
+   ![OAuth continue screen](./node-configure-OAuth/IMG-20260702191220411.png)
    Select `Continue`
 9. Use the code in the Terminal and click `Continue`
-   ![[/sabine-facing-docs/nodes/node-configure-OAuth/IMG-20260702191243447.png]]
+   ![OAuth device code screen](./node-configure-OAuth/IMG-20260702191243447.png)
 10. You will see something like this (won't be this exactly)
-   ![[/sabine-facing-docs/nodes/node-configure-OAuth/IMG-20260702191350152.png]]
+   ![OAuth authorize app screen](./node-configure-OAuth/IMG-20260702191350152.png)
 
 
 
