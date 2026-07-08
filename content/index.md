@@ -9,8 +9,6 @@ description: MCIPA ActionForge pilot — demedicalizing accommodation (public pr
 > This is to be considered a intermediate pilot-testing release of the MCIPA working group.  
 > test test
 
-
-
 # MCIPA · Demedicalize Accommodation
 
 Welcome to the **MCIPA ActionForge pilot** for demedicalizing accommodation processes.
@@ -19,6 +17,7 @@ This repository is a public prototype for publishing, coordination, and issue-ba
 
 ## What's here
 
+- [[Advocacy Paper]]
 - [[prototype-status|Prototype Status]] — current development stage and known limitations
 - *(More content sections to follow)*
 
