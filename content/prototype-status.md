@@ -21,16 +21,16 @@ tags:
 
 ## Known gaps / TODO
 
-- [ ] Main content pages not yet written
-- [ ] Quartz version pinned to `latest` — should be pinned to a specific release
+- [x] Main content pages not yet written
+- [x] Quartz version pinned to `latest` — should be pinned to a specific release
 - [ ] GitHub Pages custom domain not yet configured
 - [ ] Analytics not yet configured (placeholder in `quartz.config.ts`)
 - [ ] Label taxonomy not yet applied in the GitHub UI — see `docs/label-taxonomy.md`
 
 ## Planned next steps
 
-1. Write core content pages (accommodation process, key actors, etc.)
-2. Pin Quartz version
+1. ~~Write core content pages (accommodation process, key actors, etc.)~~
+2. ~~Pin Quartz version~~
 3. Configure custom domain (if applicable)
 4. Onboard Sabine — see [onboarding checklist](../docs/onboarding-handoff.md)
 
