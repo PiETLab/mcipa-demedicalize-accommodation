@@ -15,11 +15,11 @@ Provide a clear entry point into modular documentation.
 ### Understanding - Content Operator (Sabine)
 
 
-| Pathway                                                                                                                       | Primary audience                                               | What it is for                                                                                      |
-| ----------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| Pathway                                                                                                           | Primary audience                                               | What it is for                                                                                      |
+| ----------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
 | [Pathway: Steady-State System Setup and Publishing Model](path-steady-state-system-setup-and-publishing-model.md) | Content Operator (Sabine) and Infrastructure Steward (Melanie) | System mental model for how source edits become website updates through the Build-and-Publish Step. |
 | [Pathway: Understanding Tier-Intro and Tier-Experienced](path-understanding-training-tiers-tier-intro.md)         | Content Operator (Sabine)                                      | Plain-language explanation of role boundaries, non-goals, and when to escalate.                     |
-| 'commit-and-push' in two different ways                                                                                       |                                                                |                                                                                                     |
+| 'commit-and-push' in two different ways                                                                           |                                                                |                                                                                                     |
 
 Useful supporting node:
 
