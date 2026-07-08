@@ -15,27 +15,27 @@ Provide a clear entry point into modular documentation.
 ### Understanding - Content Operator (Sabine)
 
 
-| Pathway                                                                                                           | Primary audience                                               | What it is for                                                                                      |
-| ----------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
-| [Pathway: Steady-State System Setup and Publishing Model](path-steady-state-system-setup-and-publishing-model.md) | Content Operator (Sabine) and Infrastructure Steward (Melanie) | System mental model for how source edits become website updates through the Build-and-Publish Step. |
-| [Pathway: Understanding Tier-Intro and Tier-Experienced](path-understanding-training-tiers-tier-intro.md)         | Content Operator (Sabine)                                      | Plain-language explanation of role boundaries, non-goals, and when to escalate.                     |
-| 'commit-and-push' in two different ways                                                                           |                                                                |                                                                                                     |
+| Pathway                                                                                                                       | Primary audience                                               | What it is for                                                                                      |
+| ----------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| [Pathway: Steady-State System Setup and Publishing Model](../pathways/path-steady-state-system-setup-and-publishing-model.md) | Content Operator (Sabine) and Infrastructure Steward (Melanie) | System mental model for how source edits become website updates through the Build-and-Publish Step. |
+| [Pathway: Understanding Tier-Intro and Tier-Experienced](../pathways/path-understanding-training-tiers-tier-intro.md)         | Content Operator (Sabine)                                      | Plain-language explanation of role boundaries, non-goals, and when to escalate.                     |
+| 'commit-and-push' in two different ways                                                                                       |                                                                |                                                                                                     |
 
 Useful supporting node:
 
-- [Basic Git and Publishing Glossary](node-basic-git-and-publishing-glossary.md)
+- [Basic Git and Publishing Glossary](../nodes/node-basic-git-and-publishing-glossary.md)
 
 
 ### Doing - Content Operator (Sabine)
 
 | Pathway                                                                                                                                 | Primary audience                                               | What it is for                                                                                            |
 | --------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
-| [Pathway: Tier-Intro Setup I](path-tier-intro-setup-I.md)                                                                               | Content Operator (Sabine)                                      | Step-by-step first-time setup and first successful publish.                                               |
-| [Pathway: Tier-Intro Setup II](path-tier-intro-setup-II.md)                                                                             | Content Operator (Sabine)                                      | Step-by-step first-time setup and first successful publish.                                               |
-| [Pathway: Guided Reverse Pathway - Receive a Coordinated Update](path-guided-reverse-pathway-receive-coordinated-update.md) | Content Operator (Sabine) and Infrastructure Steward (Melanie) | Rare guided exception for receiving a coordinated repair or update from GitHub back into the local vault. |
-| [Publishing workflow](node-publishing-workflow-guide.md)                                                                                   | Content Operator (Sabine)                                      |                                                                                                           |
+| [Pathway: Tier-Intro Setup I](../pathways/path-tier-intro-setup-I.md)                                                                               | Content Operator (Sabine)                                      | Step-by-step first-time setup and first successful publish.                                               |
+| [Pathway: Tier-Intro Setup II](../pathways/path-tier-intro-setup-II.md)                                                                             | Content Operator (Sabine)                                      | Step-by-step first-time setup and first successful publish.                                               |
+| [Pathway: Guided Reverse Pathway - Receive a Coordinated Update](../pathways/path-guided-reverse-pathway-receive-coordinated-update.md) | Content Operator (Sabine) and Infrastructure Steward (Melanie) | Rare guided exception for receiving a coordinated repair or update from GitHub back into the local vault. |
+| [Publishing workflow](../nodes/node-publishing-workflow-guide.md)                                                                                   | Content Operator (Sabine)                                      |                                                                                                           |
 |                                                                                                                                         |                                                                |                                                                                                           |
-| [Pathway: Escalation - What It Is and How to Do It](path-escalation-what-and-how.md)                                        | Content Operator (Sabine)                                      | Practical escalation definition, triggers, and exact steps for handing off blocked/risky cases.           |
+| [Pathway: Escalation - What It Is and How to Do It](../pathways/path-escalation-what-and-how.md)                                        | Content Operator (Sabine)                                      | Practical escalation definition, triggers, and exact steps for handing off blocked/risky cases.           |
 
 
 
@@ -51,8 +51,8 @@ Useful supporting node:
 
 | Pathway                                                                                                                       | Primary audience           | What it is for                                                                                      |
 | ----------------------------------------------------------------------------------------------------------------------------- | -------------------------- | --------------------------------------------------------------------------------------------------- |
-| [Pathway: Add a New User - Auth and Access](path-add-a-new-user-auth-and-access.md)                               | Infrastructure Steward (Melanie) | Repeatable maintainer flow to onboard a new user and verify Obsidian pull/push works.               |
-| [Pathway: Melanie Dry Run Before Handoff](path-melanie-dry-run.md)                                                | Infrastructure Steward (Melanie) | Emulate Sabine's flow to test instructions and capture friction before handoff.                     |
+| [Pathway: Add a New User - Auth and Access](../pathways/path-add-a-new-user-auth-and-access.md)                               | Infrastructure Steward (Melanie) | Repeatable maintainer flow to onboard a new user and verify Obsidian pull/push works.               |
+| [Pathway: Melanie Dry Run Before Handoff](../pathways/path-melanie-dry-run.md)                                                | Infrastructure Steward (Melanie) | Emulate Sabine's flow to test instructions and capture friction before handoff.                     |
 
 
 
@@ -60,45 +60,45 @@ Useful supporting node:
 
 ### If you are the Content Operator (Sabine)
 
-1. [Pathway: Tier-Intro Initial Setup](path-tier-intro-setup-I.md)
-2. [GitHub Account Setup](node-github-account-setup.md) (if account setup is still pending)
-3. [Pathway: Understanding Tier-Intro and Tier-Experienced](path-understanding-training-tiers-tier-intro.md)
-4. [Pathway: Escalation - What It Is and How to Do It](path-escalation-what-and-how.md)
-5. [Pathway: Guided Reverse Pathway - Receive a Coordinated Update](path-guided-reverse-pathway-receive-coordinated-update.md) (only when told to do so)
+1. [Pathway: Tier-Intro Initial Setup](../pathways/path-tier-intro-setup-I.md)
+2. [GitHub Account Setup](../nodes/node-github-account-setup.md) (if account setup is still pending)
+3. [Pathway: Understanding Tier-Intro and Tier-Experienced](../pathways/path-understanding-training-tiers-tier-intro.md)
+4. [Pathway: Escalation - What It Is and How to Do It](../pathways/path-escalation-what-and-how.md)
+5. [Pathway: Guided Reverse Pathway - Receive a Coordinated Update](../pathways/path-guided-reverse-pathway-receive-coordinated-update.md) (only when told to do so)
 
 ### If you are the Infrastructure Steward (Melanie)
 
-1. [Pathway: Melanie Dry Run Before Handoff](path-melanie-dry-run.md)
-2. [Pathway: Add a New User - Auth and Access](path-add-a-new-user-auth-and-access.md)
+1. [Pathway: Melanie Dry Run Before Handoff](../pathways/path-melanie-dry-run.md)
+2. [Pathway: Add a New User - Auth and Access](../pathways/path-add-a-new-user-auth-and-access.md)
 
 ### If you want system orientation (steady state)
 
-1. [Pathway: Steady-State System Setup and Publishing Model](path-steady-state-system-setup-and-publishing-model.md)
-2. [Pathway: Guided Reverse Pathway - Receive a Coordinated Update](path-guided-reverse-pathway-receive-coordinated-update.md)
+1. [Pathway: Steady-State System Setup and Publishing Model](../pathways/path-steady-state-system-setup-and-publishing-model.md)
+2. [Pathway: Guided Reverse Pathway - Receive a Coordinated Update](../pathways/path-guided-reverse-pathway-receive-coordinated-update.md)
 
 ## Core references
 
-- [Minimum Issue Label Set](node-minimum-issue-label-set.md)
-- [Basic Git and Publishing Glossary](node-basic-git-and-publishing-glossary.md)
-- [File and Folder Naming Convention](node-file-folder-naming-convention.md)
-- [Install Obsidian Git Plugin](node-install-obsidian-git-plugin.md)
-- [One-Time Clone Setup](node-one-time-clone-setup.md)
-- [Configure Obsidian Git Connection and Auth](node-configure-obsidian-git-connection-and-auth.md)
-- [New User Auth and Access Checklist](node-new-user-auth-and-access-checklist.md)
-- [Publishing Workflow Guide](node-publishing-workflow-guide.md)
-- [Issue Handling Guide](node-issue-handling-guide.md)
+- [Minimum Issue Label Set](../nodes/node-minimum-issue-label-set.md)
+- [Basic Git and Publishing Glossary](../nodes/node-basic-git-and-publishing-glossary.md)
+- [File and Folder Naming Convention](../nodes/node-file-folder-naming-convention.md)
+- [Install Obsidian Git Plugin](../nodes/node-install-obsidian-git-plugin.md)
+- [One-Time Clone Setup](../nodes/node-one-time-clone-setup.md)
+- [Configure Obsidian Git Connection and Auth](../nodes/node-configure-obsidian-git-connection-and-auth.md)
+- [New User Auth and Access Checklist](../nodes/node-new-user-auth-and-access-checklist.md)
+- [Publishing Workflow Guide](../nodes/node-publishing-workflow-guide.md)
+- [Issue Handling Guide](../nodes/node-issue-handling-guide.md)
 
 ## Integrated foundational modules
 
 The original 01-07 guides are now integrated as first-class modules:
 
-- [Vault Setup and Naming](node-vault-prep.md)
-- [Pathway: Sabine Execution Roadmap](path-sabine-execution-roadmap.md)
-- [Publishing Workflow Guide](node-publishing-workflow-guide.md)
-- [Issue Handling Guide](node-issue-handling-guide.md)
-- [GitHub Account Setup](node-github-account-setup.md)
-- [Minimum Issue Label Set](node-minimum-issue-label-set.md)
-- [File and Folder Naming Convention](node-file-folder-naming-convention.md)
+- [Vault Setup and Naming](../nodes/node-vault-prep.md)
+- [Pathway: Sabine Execution Roadmap](../pathways/path-sabine-execution-roadmap.md)
+- [Publishing Workflow Guide](../nodes/node-publishing-workflow-guide.md)
+- [Issue Handling Guide](../nodes/node-issue-handling-guide.md)
+- [GitHub Account Setup](../nodes/node-github-account-setup.md)
+- [Minimum Issue Label Set](../nodes/node-minimum-issue-label-set.md)
+- [File and Folder Naming Convention](../nodes/node-file-folder-naming-convention.md)
 
 ## Rule
 
