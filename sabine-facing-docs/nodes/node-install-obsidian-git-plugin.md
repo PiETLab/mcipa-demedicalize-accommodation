@@ -31,19 +31,19 @@ Installing the plugin does not by itself initialize a Git repository.
 8. Enable the plugin. 
 9. Make a small edit to `content/index.md` for testing purposes.
 10. Look in the bottom corner, you should see
-    ![[/sabine-facing-docs/nodes/node-install-obsidian-git-plugin/IMG-20260702130226382.png]]
+    ![Screenshot](./node-install-obsidian-git-plugin/IMG-20260702130226382.png)
 
 11. Open command pallete (Cmd+P)  or this icon on the vertical left ribbon
-    ![[/sabine-facing-docs/nodes/node-install-obsidian-git-plugin/IMG-20260702192735781.png]]
+    ![Screenshot](./node-install-obsidian-git-plugin/IMG-20260702192735781.png)
 
 
 12. Start typing `Git:commit` and select that command.
     You should see this 
-    ![[/sabine-facing-docs/nodes/node-install-obsidian-git-plugin/IMG-20260702193133695.png]]
+    ![Screenshot](./node-install-obsidian-git-plugin/IMG-20260702193133695.png)
 
 13. Now start typing `Git:push`.
     You should see this
-    ![[/sabine-facing-docs/nodes/node-install-obsidian-git-plugin/IMG-20260702193223869.png]]
+    ![Screenshot](./node-install-obsidian-git-plugin/IMG-20260702193223869.png)
 
 
 14. You can use `Git:commit-and-sync` as a short cut for these two steps.
@@ -55,7 +55,7 @@ These obsidian commands can now replace `Github Desktop`.  You can close that ap
 ### Some Possible Warning
 
 
-    ![[/sabine-facing-docs/nodes/node-install-obsidian-git-plugin/IMG-20260701224756687.png]]
+    ![Screenshot](./node-install-obsidian-git-plugin/IMG-20260701224756687.png)
 
 
 

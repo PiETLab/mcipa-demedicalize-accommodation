@@ -21,12 +21,12 @@ Content Operator (Sabine) and Infrastructure Steward (Melanie).
 2. In the file `contents/index.md`, make a small, non-critical modification (like adding a word somewhere).
 3. Go to the Github Desktop app.  You should see a visualization of the change you made in a "before vs after" type of format (this is called the `diff`)
 4. In the bottom left corner, there is an area like this.  You can type in a comment under Description (e.g., "I added one word to test things out"). Then click `Commit 1 file to main`.
-   ![[/sabine-facing-docs/nodes/node-first-edit-commit-push-verify/IMG-20260702182426866.png]]
+   ![Screenshot](./node-first-edit-commit-push-verify/IMG-20260702182426866.png)
    
    This completes the first part of 'commit-and-push'.
    
 5. The you will see something like this below.  You can click `Push origin`
-   ![[/sabine-facing-docs/nodes/node-first-edit-commit-push-verify/IMG-20260702182552618.png]]
+   ![Screenshot](./node-first-edit-commit-push-verify/IMG-20260702182552618.png)
    
    This completes the second part of 'commit-and-push'.
    
