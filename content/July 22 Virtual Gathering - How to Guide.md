@@ -12,7 +12,7 @@ Please see the short project concept note: [[The ActionForge Project Concept]].
 
 Before the session:
 
-- Read the [[content/Advocacy Paper|Advocacy Paper]] paper.
+- Read the [[Advocacy Paper|Advocacy Paper]].
 - Notice anything you think may need discussion, clarification, revision, or further attention.
 - Choose one point you might want to raise as feedback.
 
