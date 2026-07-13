@@ -16,7 +16,7 @@ Please see the short project concept note: [[The ActionForge Project Concept]].
 - Notice anything you think may need discussion, clarification, revision, or further attention.
 - Choose one point you might want to raise as feedback. 
 
-Your feedback might be about:
+**Your feedback might be about**:
 
 - something in the paper that is unclear;
 - a point you agree with but think needs stronger wording;
