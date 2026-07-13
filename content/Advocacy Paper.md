@@ -3,13 +3,13 @@
 
 ## Executive Summary
 
-Postsecondary accommodation systems were created to improve access for disabled students. In practice, however, many current models rely heavily on medical documentation, formal diagnosis, and individualized disclosure processes that can create new barriers rather than remove them. Students are often required to secure costly assessments, obtain physician letters, repeatedly verify chronic conditions, and navigate complex administrative procedures before receiving support. These requirements disproportionately burden low-income students, racialized students, international students, students with episodic or mental health disabilities, and students whose disabilities are not easily legible through conventional medical frameworks (Waterfield & Whelan, 2017; Shanouda & Spagnuolo, 2021).
+Postsecondary accommodation systems were created to improve access for disabled students. In practice, however, many current models rely heavily on medical documentation, formal diagnosis, and individualized disclosure processes that can create new barriers rather than remove them. Students are often required to secure costly assessments, obtain physician letters, repeatedly verify chronic conditions, and navigate complex administrative procedures before receiving support. These requirements disproportionately burden students navigtating interlocking oppressions, including low-income students, racialized students, international students, students with episodic or mental health disabilities, and students whose disabilities are not easily legible through conventional medical frameworks (Waterfield & Whelan, 2017; Shanouda & Spagnuolo, 2021).
 
 A growing body of scholarship suggests that accommodation systems frequently reproduce existing inequalities in higher education. Research identifies barriers including stigma, fear of discrimination, lack of awareness of services, negative faculty interactions, distrust of institutional processes, and burdensome documentation requirements (Lindsay et al., 2018; Lyman et al., 2016; M. et al., 2010). Other studies show that students from higher socioeconomic backgrounds are more likely to obtain expensive psychoeducational assessments and navigate institutional procedures successfully, while working-class students face structural exclusion (Waterfield & Whelan, 2017). Critical scholarship further argues that race, class, disability, and migration status intersect in ways often ignored by one-size-fits-all accommodation systems (Stapleton & James, 2020; Baker, 2019).
 
 At the same time, many institutions have begun implementing alternative approaches. Universities such as Portland State University, the University of Arizona, Syracuse University, and Cornell University have adopted more flexible documentation standards, case-by-case determinations, common-sense review processes, or explicit commitments to reduce the medicalization of accommodations. These models demonstrate that less burdensome systems are both possible and already operational in peer institutions.
 
-This Advocacy Paper argues that postsecondary institutions should move from a narrow compliance-based accommodation model toward an equity-centered access model. The dominant framework often treats access as an individual transaction: a student proves disability, receives a letter, and negotiates accommodations alone. By contrast, an equity-centered model understands access as a shared institutional responsibility requiring proactive design, reduced bureaucracy, transparent processes, and recognition of intersecting forms of oppression (Sins Invalid, 2019; Mingus, 2011).
+This Advocacy Paper argues that postsecondary institutions should move from a narrow compliance-based accommodation model toward an access-centered access model. The dominant framework often treats access as an individual transaction: a student proves disability, receives a letter, and negotiates accommodations alone. By contrast, an access-centered model understands access as a shared institutional responsibility requiring proactive design, reduced bureaucracy, transparent processes, and recognition of intersecting forms of oppression (Sins Invalid, 2019; Mingus, 2011).
 
 ## Core Findings
 
@@ -32,19 +32,19 @@ Institutions should treat accessibility as a campus-wide responsibility rather t
 
 1.     Reduce reliance on medical documentation and accept broader forms of evidence, including self-attestation in appropriate cases.
 
-2.     Create case-by-case review systems grounded in reasonableness, equity, and good faith.
+2.     Create case-by-case review systems grounded in access, equity, and good faith.
 
 3.     Introduce transparent appeal and conflict-resolution mechanisms.
 
-4.     Expand faculty responsibility for inclusive pedagogy and low-barrier course design.
+4.     Expand faculty responsibility for inclusive pedagogy and access-centered course design.
 
-5.     Collect equity data to monitor racialized, class-based, and disability-based disparities in accommodation access.
+5.     Collect equity data to monitor racialized, class-based, and disability-based disparities in academic accommodation access.
 
 6.     Advocate provincially for funding models that do not incentivize restrictive gatekeeping.
 
 ## Why Action Is Urgent
 
-Institutions increasingly promote diversity, equity, inclusion, and belonging while maintaining accommodation systems that many students experience as adversarial, slow, and exclusionary. This gap between institutional commitments and lived reality undermines student success, retention, and trust. Reforming accommodation systems is therefore not a peripheral administrative matter. It is central to educational equity, legal compliance, and the public mission of the university.
+Institutions increasingly promote diversity, equity, inclusion, and belonging while maintaining accommodation systems that many students experience as adversarial, slow, and exclusionary. This gap between institutional commitments and lived reality undermines student success, retention, and trust. Reforming accommodation systems is therefore not a peripheral administrative matter. It is central to educational equity and the public mission of public post-secondary educational institutions in Canada.
 
 # 1. Introduction
 
@@ -52,27 +52,27 @@ Across Canada and internationally, postsecondary institutions have expanded thei
 
 The contradiction is clear: institutions increasingly speak the language of inclusion while preserving access systems that many students experience as exclusionary. This Advocacy Paper addresses that contradiction and proposes a pathway toward de-medicalized, equitable, and institutionally accountable accommodation systems.
 
-The issue is not whether accommodations matter. They do. Research consistently shows that accommodations can be crucial to persistence, degree completion, and educational survival for many disabled students (Baker, 2019). The issue is that the current model frequently places the burden of access on students themselves. Students must identify as disabled in institutionally recognized ways, obtain approved evidence, navigate unfamiliar systems, and advocate repeatedly for needs that institutions could often anticipate and design for in advance.
+The issue is not whether accommodations matter; they do. Research consistently shows that accommodations can be crucial to persistence, degree completion, and educational survival for many disabled students (Baker, 2019). The issue is that the current model frequently places the burden of access on students themselves. Students must identify as disabled in institutionally recognized ways, obtain approved evidence, navigate unfamiliar systems, and advocate repeatedly for needs that institutions could often anticipate and design for in advance.
 
 # 2. The Current Accommodation Model
 
 Most postsecondary accommodation systems follow a common sequence:
 
-1.     Student experiences barrier or impairment-related difficulty
+1.     Student experiences barriers to access 
 
-2.     Student seeks diagnosis or documentation
+2.     Student is compelled to seek diagnosis or medical documentation
 
-3.     Student discloses disability to accessibility office
+3.     Student is compelled to disclose medical documentation, disability, and/or "functional limitations" to accessibility office
 
-4.     Office determines eligibility
+4.     Accessibility Office determines eligibility
 
 5.     Accommodation letter issued
 
 6.     Student negotiates implementation with faculty or staff
 
-7.     Student re-engages system if barriers persist
+7.     Student re-engages system on an annual basis 
 
-This model appears neutral and orderly. In practice, each stage can create obstacles.
+This model appears neutral and orderly. In practice, each stage creates obstacles.
 
 Documentation Burdens
 
@@ -98,7 +98,7 @@ Universities cannot credibly claim commitment to equity while maintaining system
 
 Outdated Medicalized Assumptions
 
-Traditional systems often rely on a deficit model: disability is treated as an individual medical problem requiring expert verification. Contemporary disability scholarship instead emphasizes the role of institutions, environments, norms, and policies in producing disablement (Hamraie, 2017; Sins Invalid, 2019).
+Traditional systems often rely on a deficit model: disability is treated as an individual medical problem requiring expert verification. Contemporary disability scholarship and self-advocacy instead emphasizes the role of institutions, environments, norms, and policies in producing barriers to access (Hamraie, 2017; Sins Invalid, 2019).
 
 Growing Peer Institution Innovation
 
@@ -126,8 +126,8 @@ If institutions reduce unnecessary documentation barriers, shift responsibility 
 
 This Advocacy Paper therefore advances a shift:
 
-**From:** proving disability to receive exceptions  
-**To:** designing equitable systems that remove barriers proactively
+**From:** medically proving disability to receive retrofitted academic accommodations   
+**To:** designing equitable systems that remove barriers proactively and center access
 
 The following sections review evidence, comparative models, policy options, and recommendations for implementation.
 
@@ -187,9 +187,30 @@ The cases below are instructive because they show reform is already possible wit
 
 # 9.Student-Led Reform Campaigns
 
-Insert table here
+| Source | Model / Approach | Key Demands or Positions | Strengths | Policy Lessons |
+|---|---|---|---|---|
+| Access Advocacy Project (Emerson College Student Disability Union) | Disability Justice; de-medicalization of disability and access | Calls for the de-medicalization of disability, access, and support systems. | Offers a systemic critique of accommodation processes and shifts attention from individual impairment to institutional barriers. | Accommodation systems should reduce reliance on medical verification and place greater responsibility on institutions to create access. |
+| UC Access Now Demandifesto | Social Model of Disability and Universal Design | Calls for students receiving SSI/SSDI benefits to be exempt from additional documentation requirements and advocates for believing disabled students when they identify access needs. | Provides concrete policy demands and emphasizes trust in disabled students’ self-reported access needs. | Documentation requirements should be proportional, and institutions should recognize existing evidence of disability where available. |
+| Hybrid Access Now (UCLA Student Coalitions) | Anti-ableist and anti-racist approach; no explicit disability model identified | Advocates for hybrid and remote learning options and highlights the impact of medical bias and cost barriers on disabled students of colour. | Draws attention to the intersection of disability, race, and educational access. | Accommodation reform should address intersecting forms of inequity and expand access beyond individualized accommodations. |
+| “Beyond Accommodations” (Rachel Cheang) | Disability Justice | Recommends eliminating medical documentation requirements and centering lived experience in accommodation processes. | Provides a detailed policy-oriented critique of existing accommodation systems and highlights barriers faced by BIPOC and international students. | Lived experience and functional barriers should be recognized as legitimate forms of evidence in accommodation decision-making. |
+| Simon Fraser Student Society Issues Policies | Disability Justice | Opposes sick note requirements, disability gatekeeping, and coercive responses to student mental health needs. | Connects accommodation reform to broader issues of institutional power, surveillance, and student wellbeing. | Access policies should minimize gatekeeping and avoid punitive or policing-based responses to disability and mental health. |
+| Disability Justice Student Initiative (Brown University) | Disability Justice | Works with campus partners to reduce barriers to academic success for disabled students. | Demonstrates collaborative approaches to institutional change and accessibility advocacy. | Students should be treated as partners in accessibility governance and policy development. |
+| Disability Justice at Brown (DJAB) | Disability Justice | Advocates for a Disability Justice Cultural Center and supports disability community organizing. | Emphasizes community-building, resource sharing, and collective access. | Accommodation reform should be complemented by investments in disability community and belonging. |
+| Students for Barrier-Free Access (University of Toronto) | Disability Justice | Provides peer support, advocacy, resource sharing, and campaigns related to disability policy and student rights. | Combines direct student support with policy advocacy and institutional accountability. | Effective access initiatives should integrate community support, policy reform, and student-led advocacy. |
 
-# 10. Cross cutting findings and implications for policy design
+# 10. Faculty individual interventions 
+
+| Source | Model / Approach | Key Interventions or Positions | Strengths | Policy Lessons |
+|---|---|---|---|---|
+| Jesse Rice-Evans | Anti-ableist; Open Access Pedagogy; Student-Centered Pedagogy | Critiques documentation-based accommodation systems as classist and exclusionary. Advocates for access pedagogy, flexibility, and believing students when they communicate access needs. | Connects access to broader questions of equity and educational participation. Provides practical access pedagogy strategies for instructors. | Institutions should reduce reliance on documentation and support pedagogical approaches that respond to access needs without requiring formal accommodation processes. |
+| Jay Polish | Anti-ableist; Consent-Based Pedagogy | Advocates for consent-based approaches to teaching, low-stakes assignments, and flexible participation practices. Developed the Personal Traffic Lights approach to facilitate communication about access and engagement. | Centers consent, student autonomy, and relationship-building. Offers practical classroom tools for creating accessible learning environments. | Access should be understood as relational and collaborative rather than solely administrative. |
+| Aimi Hamraie | Disability Justice | Proposes access-centered teaching practices, including voluntary access questionnaires and proactive course design. Emphasizes sharing access needs rather than disclosing disability identities or diagnoses. | Provides concrete strategies for accessible course design and embeds access considerations into pedagogy from the outset. | Accommodation systems should prioritize access needs and functional barriers rather than diagnostic verification. |
+| Lydia X. Z. Brown | Disability Justice | Provides syllabus language that invites students to communicate access needs without requiring documentation. Promotes access-centered and non-carceral approaches to disability support. | Demonstrates how faculty can reduce barriers through syllabus design and classroom practices. | Institutions should support flexible access pathways that do not depend exclusively on formal accommodation processes. |
+| Mimi Khúc | Disability Justice | Advocates for student-centered and access-centered pedagogy. Rejects documentation requirements in her own teaching and critiques dominant academic norms around merit, productivity, and disability. | Connects access to broader critiques of academic culture and institutional power. Highlights resistance faced by faculty who move beyond formal accommodation systems. | Reform requires attention not only to accommodation procedures but also to the values and assumptions embedded in higher education. |
+| Zoe Wool | Disability Justice; Critical Disability Politics; Universal Design | Critiques conventional accessibility statements and provides examples of more critical and responsive syllabus language. Encourages proactive consideration of access in course design. | Bridges accommodation practices, disability politics, and universal design principles. | Accessibility should be embedded throughout teaching and learning rather than addressed only through reactive accommodations. |
+| Sara Goldrick-Rab | Basic Needs and Student Success Framework | Focuses on academic access through attention to food insecurity, housing insecurity, and other basic-needs barriers. Provides examples of syllabus language addressing student support needs. | Expands conversations about access beyond disability to include broader structural barriers to participation and success. | Access policies should recognize that educational participation is shaped by intersecting social, economic, and material conditions. |
+
+# 11. Cross cutting findings and implications for policy design
 
 |   |   |
 |---|---|
@@ -201,7 +222,7 @@ Insert table here
 |Institutional Commitments Require Structural Change|Commitments to inclusion, flexibility, and de-medicalization should be operationalized through concrete procedures, accountability measures, implementation timelines, and mechanisms for monitoring outcomes.|
 |Student Leadership Drives Reform|Students with disabilities should be included as partners in the design, implementation, and evaluation of accommodation systems. Formal governance and consultation mechanisms can help ensure that policies reflect lived experience and respond to emerging barriers.|
 
-# 11. Policy Options for Postsecondary Institutions
+# 12. Policy Options for Postsecondary Institutions
 
 Based on the literature and comparative scan, institutions generally face four broad policy choices. These options range from maintaining the status quo to undertaking structural redesign.
 
@@ -213,7 +234,7 @@ Based on the literature and comparative scan, institutions generally face four b
 |**Option 3: Hybrid Equity-Centered Model**|Reduce reliance on medical documentation while retaining formal processes where necessary. Accommodation decisions draw on multiple forms of evidence, including self-report, prior history, functional assessment, and case-by-case review. Features include low-barrier intake, temporary supports, proportional evidence standards, transparent review criteria, appeals processes, shared faculty responsibility, and expanded universal design practices.|Balances equity goals with administrative feasibility; reduces delays and exclusion; maintains procedural integrity where appropriate; adaptable across institutional contexts; improves resource allocation.|Requires staff retraining; may face resistance from units accustomed to rigid documentation standards; requires safeguards against discretionary bias.|Significant improvements in access and equity with a manageable institutional transition.|
 |**Option 4: Fully De-Medicalized Universal Access Model**|Move away from disability verification for most supports and redesign teaching and learning environments around broad flexibility and universal design. Examples include flexible deadlines, multiple assessment formats, attendance flexibility, standard captioning, note-taking supports, and diagnosis-free access to many accommodations.|Minimizes stigma and bureaucracy; benefits a wide range of students beyond those formally identified as disabled; aligns with inclusive pedagogical approaches.|Requires substantial institutional change; may generate faculty workload concerns if poorly implemented; some specialized accommodations would still require individualized processes; likely to face significant political resistance.|A transformative long-term approach with substantial equity benefits, but challenging to implement rapidly in many postsecondary institutions.|
 
-# 12. Feasibility Matrix
+# 13. Feasibility Matrix
 
 |   |   |   |   |   |
 |---|---|---|---|---|
@@ -227,7 +248,7 @@ Based on the literature and comparative scan, institutions generally face four b
 |Key Risk|Continued exclusion and inequity|Symbolic reform without structural change|Inconsistent implementation if safeguards are weak|Institutional resistance and implementation challenges|
 |Key Opportunity|Stability and predictability|Quick improvements to student experience|Balances equity goals with administrative practicality|Reimagines access beyond accommodation systems|
 
-# 13. Minimum Policy Direction
+# 14. Minimum Policy Direction
 
 The literature reviewed in this white paper, together with comparative institutional examples and student-led reform initiatives, suggests that maintaining strictly documentation-driven accommodation systems is increasingly difficult to justify. Research consistently demonstrates that documentation requirements can delay support, reproduce socioeconomic and racial inequities, discourage help-seeking, and place disproportionate burdens on students. At the same time, examples from postsecondary institutions across North America demonstrate that more flexible approaches are both possible and already in use.
 
@@ -235,7 +256,7 @@ The evidence suggests that **Option 3: Hybrid Equity-Centered Reform** should be
 
 This should not be understood as a radical or aspirational model. Rather, Option 3 represents a pragmatic baseline that responds directly to the barriers identified in the literature while building on practices that have already been implemented at other institutions. **Option 4: Fully De-Medicalized Universal Access** remains an important long-term horizon for institutions committed to transforming access and reducing reliance on individualized accommodation systems. However, the evidence reviewed here suggests that institutions need not wait for system-wide transformation before addressing the most significant barriers embedded within current accommodation processes. At a minimum, institutions should adopt the reforms outlined in Option 3.
 
-# 14. Stakeholder likely benefits, concerns, and mitigation
+# 15. Stakeholder likely benefits, concerns, and mitigation
 
 |   |   |   |   |
 |---|---|---|---|
@@ -246,7 +267,7 @@ This should not be understood as a radical or aspirational model. Rather, Option
 |Senior Administration|Improved student retention, stronger alignment with equity commitments, reduced complaints, and enhanced institutional legitimacy.|Reputational risk, implementation challenges, administrative disruption, and concerns about misuse or inconsistency.|Use proportional review processes, monitor outcomes, communicate reform goals clearly, and implement changes through pilot projects before broader rollout.|
 |Government / Funders|Improved student success, retention, completion, accessibility, and equity outcomes.|Concerns about accountability, resource allocation, and maintaining procedural integrity.|Establish monitoring and evaluation mechanisms, collect implementation data, and report on outcomes and continuous improvement efforts.|
 
-# 15. Policy Recommendations
+# 16. Policy Recommendations
 
 The evidence suggests that meaningful reform requires more than administrative efficiency. Institutions must redesign accommodation systems around equity, transparency, and shared responsibility. The following recommendations are structured for practical implementation.
 
