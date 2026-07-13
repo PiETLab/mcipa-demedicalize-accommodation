@@ -2,7 +2,7 @@
 
 ## Purpose of the session
 
-On July 22, Sabine will lead a virtual gathering session for participants connected with the MCIPA project. The session will help us test the ActionForge approach using the *Demedicalize Accommodation* call-to-action paper.
+On July 22, Sabine, a collaborator on this project, will lead a virtual gathering session for participants connected with the MCIPA project. The session will help us assess the content of the *Demedicalize Accommodation* advocacy paper and  test the ActionForge approach.
 
 ActionForge is a project concept that uses GitHub as a public place to organize, preserve, and improve project materials. You do **not** need to know how to code or use GitHub as a software tool. For this session, GitHub will simply be used as a structured way to submit feedback for the project team to review.
 
@@ -10,13 +10,23 @@ Please see the short project concept note: [[The ActionForge Project Concept]].
 
 ## What we are asking you to do
 
-Before the session:
+**Before the session**:
 
 - Read the [[Advocacy Paper|Advocacy Paper]].
 - Notice anything you think may need discussion, clarification, revision, or further attention.
 - Choose one point you might want to raise as feedback.
 
-During the session:
+Your feedback might be about:
+
+- something in the paper that is unclear;
+- a point you agree with but think needs stronger wording;
+- a concern about language, framing, accessibility, or inclusion;
+- something important that seems missing;
+- a suggestion for revision;
+- a question the paper should address;
+- a substantive disagreement or complication.
+
+**During the session**:
 
 - Sabine will explain how the ActionForge feedback process works.
 - You will be guided through a simple form on the project website for submitting feedback through GitHub Issues (URL will be provided at the start of the session).
@@ -28,7 +38,7 @@ We are also testing whether this feedback process is accessible and comfortable 
 
 ## What kind of feedback can you submit?
 
-Your issue might be about:
+**Your issue might be about**:
 
 - something in the paper that is unclear;
 - a point you agree with but think needs stronger wording;
