@@ -50,12 +50,12 @@ function testPassageIssueFormat() {
       "",
       "- Page: `Executive Summary`",
       "- Section: `Executive Summary`",
-      "- Published page: `https://pietlab.github.io/mcipa-demedicalize-accommodation/Advocacy-Paper`",
+      "- Published page: <https://pietlab.github.io/mcipa-demedicalize-accommodation/Advocacy-Paper>",
       "- Published page branch: `main`",
       "- Published page commit: `abc123def456`",
       "- Published page commit date: `2026-07-18`",
-      "- Passage link: `https://pietlab.github.io/mcipa-demedicalize-accommodation/Advocacy-Paper#feedback-block-a82f19c4`",
-      "- Selected-text link: `https://pietlab.github.io/mcipa-demedicalize-accommodation/Advocacy-Paper#:~:text=Quoted%20passage`",
+      "- Passage link: <https://pietlab.github.io/mcipa-demedicalize-accommodation/Advocacy-Paper#feedback-block-a82f19c4>",
+      "- Selected-text link: <https://pietlab.github.io/mcipa-demedicalize-accommodation/Advocacy-Paper#:~:text=Quoted%20passage>",
       "- Passage identifier: `feedback-block-a82f19c4`",
       "",
       "## Submission information",
@@ -81,7 +81,7 @@ function testPageIssueFormatWithOmittedOptionalFields() {
   assert.deepEqual(result.labels, ["public-submission", "page-feedback"])
   assert.equal(countTopLevelHeadings(result.body), 3)
   assert.ok(result.body.includes("- Page: `Site generally`"))
-  assert.ok(result.body.includes("- Published page: `Not provided`"))
+  assert.ok(result.body.includes("- Published page: Not provided"))
   assert.ok(result.body.includes("- Published page branch: `Not provided`"))
   assert.ok(result.body.includes("- Published page commit: `Not provided`"))
   assert.ok(result.body.includes("- Published page commit date: `Not provided`"))
@@ -124,11 +124,66 @@ function testLengthCapsAreApplied() {
   assert.ok(result.body.includes("…") || result.title.includes("…"))
 }
 
+function testSelectedPassagePreservesEscapedLinebreaks() {
+  const result = renderPublicIssue({
+    feedbackType: "passage",
+    title: "Preserve multiline segment",
+    pageTitle: "Executive Summary",
+    pageUrl: "https://pietlab.github.io/mcipa-demedicalize-accommodation/Advocacy-Paper",
+    sectionHeading: "Executive Summary",
+    blockId: "feedback-block-a82f19c4",
+    quotedText: "Executive Summary\\nSegment 4 of 4\\nThis is the selected passage.",
+    comment: "Looks good.",
+  })
+
+  assert.ok(result.body.includes("> Executive Summary\n> Segment 4 of 4\n> This is the selected passage."))
+}
+
+function testSelectedTextLinkMissingReasonIncludesMaxLength() {
+  const result = renderPublicIssue({
+    feedbackType: "passage",
+    title: "Missing selected text link note",
+    pageTitle: "Executive Summary",
+    pageUrl: "https://pietlab.github.io/mcipa-demedicalize-accommodation/Advocacy-Paper",
+    sectionHeading: "Executive Summary",
+    blockId: "feedback-block-a82f19c4",
+    quotedText: "x".repeat(181),
+    selectedText: "x".repeat(181),
+    comment: "Looks good.",
+  })
+
+  assert.ok(result.body.includes("- Selected-text link: Not provided (text segment length > 180)"))
+}
+
+function testIncludesReportedBlockFallbackWhenDifferent() {
+  const result = renderPublicIssue({
+    feedbackType: "passage",
+    title: "Reported block fallback",
+    pageTitle: "Executive Summary",
+    pageUrl: "https://pietlab.github.io/mcipa-demedicalize-accommodation/Advocacy-Paper",
+    sectionHeading: "Executive Summary",
+    blockId: "feedback-block-intro123",
+    blockUrl: "https://pietlab.github.io/mcipa-demedicalize-accommodation/Advocacy-Paper#feedback-block-intro123",
+    reportedBlockId: "feedback-block-item456",
+    reportedBlockUrl: "https://pietlab.github.io/mcipa-demedicalize-accommodation/Advocacy-Paper#feedback-block-item456",
+    quotedText: "This produces five recurring harms:\n1. Delayed support",
+    comment: "Looks good.",
+  })
+
+  assert.ok(result.body.includes("- Passage link: <https://pietlab.github.io/mcipa-demedicalize-accommodation/Advocacy-Paper#feedback-block-intro123>"))
+  assert.ok(result.body.includes("- Passage link (reported block): <https://pietlab.github.io/mcipa-demedicalize-accommodation/Advocacy-Paper#feedback-block-item456>"))
+  assert.ok(result.body.includes("- Passage identifier: `feedback-block-intro123`"))
+  assert.ok(result.body.includes("- Passage identifier (reported block): `feedback-block-item456`"))
+}
+
 function main() {
   testPassageIssueFormat()
   testPageIssueFormatWithOmittedOptionalFields()
   testMarkdownCannotBreakStructure()
   testLengthCapsAreApplied()
+  testSelectedPassagePreservesEscapedLinebreaks()
+  testSelectedTextLinkMissingReasonIncludesMaxLength()
+  testIncludesReportedBlockFallbackWhenDifferent()
 
   console.log("Public issue format tests passed.")
 }

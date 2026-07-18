@@ -64,6 +64,8 @@ async function testValidPassageSubmission() {
       sectionHeading: "Executive Summary",
       blockId: "feedback-block-a82f19c4",
       blockUrl: "https://pietlab.github.io/mcipa-demedicalize-accommodation/Advocacy-Paper#feedback-block-a82f19c4",
+      reportedBlockId: "feedback-block-legacy123",
+      reportedBlockUrl: "https://pietlab.github.io/mcipa-demedicalize-accommodation/Advocacy-Paper#feedback-block-legacy123",
       textFragmentUrl: "https://pietlab.github.io/mcipa-demedicalize-accommodation/Advocacy-Paper#:~:text=Quoted%20passage",
       quotedText: "Quoted passage here",
       selectedText: "Quoted passage here",
@@ -87,7 +89,8 @@ async function testValidPassageSubmission() {
   assert.ok(issueBody.body.includes("## Selected passage"))
   assert.ok(issueBody.body.includes("## Passage location"))
   assert.ok(issueBody.body.includes("- Published page branch: `main`"))
-  assert.ok(issueBody.body.includes("- Passage link: `https://pietlab.github.io/mcipa-demedicalize-accommodation/Advocacy-Paper#feedback-block-a82f19c4`"))
+  assert.ok(issueBody.body.includes("- Passage link: <https://pietlab.github.io/mcipa-demedicalize-accommodation/Advocacy-Paper#feedback-block-a82f19c4>"))
+  assert.ok(issueBody.body.includes("- Passage link (reported block): <https://pietlab.github.io/mcipa-demedicalize-accommodation/Advocacy-Paper#feedback-block-legacy123>"))
   assert.ok(issueBody.body.includes("- Published page commit: `abc123def456`"))
   assert.ok(issueBody.body.includes("- Published page commit date: `2026-07-18`"))
 }
@@ -246,6 +249,40 @@ async function testUnexpectedFailuresStayGeneric() {
   assert.equal(payload.error, "Unable to process submission.")
 }
 
+async function testPassageSubmissionPreservesMultilineFeedback() {
+  const githubCalls = []
+  const fetchImpl = async (url, init) => {
+    githubCalls.push({ url, init })
+    return new Response(JSON.stringify({ html_url: "https://github.com/PiETLab/mcipa-demedicalize-accommodation/issues/125", number: 125 }), {
+      status: 201,
+      headers: { "Content-Type": "application/json" },
+    })
+  }
+
+  const response = await handleFeedbackRequest(
+    jsonRequest({
+      feedbackType: "passage",
+      title: "Multiline feedback check",
+      comment: "Testing\\nExecutive Summary\\nSegment 4 of 4\\nThis is a multiline feedback body.",
+      pageTitle: "Executive Summary",
+      pageUrl: "https://pietlab.github.io/mcipa-demedicalize-accommodation/Advocacy-Paper",
+      sectionHeading: "Executive Summary",
+      blockId: "feedback-block-a82f19c4",
+      quotedText: "Executive Summary\\nSegment 4 of 4\\nQuoted passage",
+      website: "",
+    }),
+    env,
+    { fetchImpl },
+  )
+
+  assert.equal(response.status, 201)
+  assert.equal(githubCalls.length, 1)
+
+  const issueBody = JSON.parse(githubCalls[0].init.body)
+  assert.ok(issueBody.body.includes("> Testing\n> Executive Summary\n> Segment 4 of 4\n> This is a multiline feedback body."))
+  assert.ok(issueBody.body.includes("> Executive Summary\n> Segment 4 of 4\n> Quoted passage"))
+}
+
 async function main() {
   await testValidPassageSubmission()
   await testValidPageSubmission()
@@ -254,6 +291,7 @@ async function main() {
   await testValidatesPageUrlAndBodySize()
   await testGithubFailureIsGeneric()
   await testUnexpectedFailuresStayGeneric()
+  await testPassageSubmissionPreservesMultilineFeedback()
   console.log("Public feedback worker tests passed.")
 }
 
