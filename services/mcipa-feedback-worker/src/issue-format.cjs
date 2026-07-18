@@ -13,6 +13,8 @@ const LIMITS = Object.freeze({
   body: 20000,
 })
 
+const TEXT_FRAGMENT_MAX_CHARS = 180
+
 function normalizeWhitespace(value) {
   return String(value ?? "")
     .replace(/\r\n?/g, "\n")
@@ -53,7 +55,12 @@ function renderInlineCode(value, limit, fallback = "Not provided") {
 }
 
 function renderQuotedBlock(value, limit) {
-  const text = truncate(normalizeWhitespace(value), limit)
+  const text = truncate(
+    normalizeWhitespace(value)
+      // Accept escaped newline sequences and render as real line breaks.
+      .replace(/\\r\\n|\\n|\\r/g, "\n"),
+    limit,
+  )
   const source = text.length > 0 ? text : "Not provided"
   return source
     .split("\n")
@@ -63,6 +70,16 @@ function renderQuotedBlock(value, limit) {
 
 function renderBullet(label, value, limit, fallback = "Not provided") {
   return `- ${label}: ${renderInlineCode(value, limit, fallback)}`
+}
+
+function renderLinkBullet(label, value, limit, fallback = "Not provided", note = "") {
+  const url = sanitizeInline(value, limit, "")
+  if (!url) {
+    const suffix = note ? ` (${note})` : ""
+    return `- ${label}: ${fallback}${suffix}`
+  }
+
+  return `- ${label}: <${url}>`
 }
 
 function normalizeSubmissionType(feedbackType) {
@@ -83,6 +100,14 @@ function renderPublicIssue(input = {}) {
   const sections = []
 
   if (isPassage) {
+    const selectedTextLength = normalizeWhitespace(input.selectedText || input.quotedText || "").length
+    const secondaryBlockUrl = sanitizeInline(input.reportedBlockUrl, LIMITS.url, "")
+    const hasSecondaryBlockUrl = Boolean(secondaryBlockUrl) && secondaryBlockUrl !== sanitizeInline(input.blockUrl, LIMITS.url, "")
+    const missingFragmentNote =
+      !input.textFragmentUrl && selectedTextLength > TEXT_FRAGMENT_MAX_CHARS
+        ? `text segment length > ${TEXT_FRAGMENT_MAX_CHARS}`
+        : ""
+
     sections.push(
       "## Selected passage",
       "",
@@ -96,13 +121,17 @@ function renderPublicIssue(input = {}) {
       "",
       renderBullet("Page", input.pageTitle, LIMITS.pageTitle, "Site generally"),
       renderBullet("Section", input.sectionHeading, LIMITS.heading),
-      renderBullet("Published page", input.pageUrl || input.blockUrl, LIMITS.url),
+      renderLinkBullet("Published page", input.pageUrl || input.blockUrl, LIMITS.url),
       renderBullet("Published page branch", input.publishedBranch, LIMITS.heading),
       renderBullet("Published page commit", input.publishedCommit, LIMITS.commit),
       renderBullet("Published page commit date", input.publishedCommitDate, LIMITS.date),
-      renderBullet("Passage link", input.blockUrl, LIMITS.url),
-      renderBullet("Selected-text link", input.textFragmentUrl, LIMITS.url),
+      renderLinkBullet("Passage link", input.blockUrl, LIMITS.url),
+      ...(hasSecondaryBlockUrl ? [renderLinkBullet("Passage link (reported block)", secondaryBlockUrl, LIMITS.url)] : []),
+      renderLinkBullet("Selected-text link", input.textFragmentUrl, LIMITS.url, "Not provided", missingFragmentNote),
       renderBullet("Passage identifier", input.blockId, LIMITS.heading),
+      ...(input.reportedBlockId && input.reportedBlockId !== input.blockId
+        ? [renderBullet("Passage identifier (reported block)", input.reportedBlockId, LIMITS.heading)]
+        : []),
       "",
     )
   } else {
@@ -114,7 +143,7 @@ function renderPublicIssue(input = {}) {
       "## Page information",
       "",
       renderBullet("Page", input.pageTitle, LIMITS.pageTitle, "Site generally"),
-      renderBullet("Published page", input.pageUrl, LIMITS.url),
+      renderLinkBullet("Published page", input.pageUrl, LIMITS.url),
       renderBullet("Published page branch", input.publishedBranch, LIMITS.heading),
       renderBullet("Published page commit", input.publishedCommit, LIMITS.commit),
       renderBullet("Published page commit date", input.publishedCommitDate, LIMITS.date),

@@ -25,6 +25,8 @@ const FORM_KEYS = new Set([
   "sectionHeadingDisplay",
   "blockId",
   "blockUrl",
+  "reportedBlockId",
+  "reportedBlockUrl",
   "textFragmentUrl",
   "quotedText",
   "selectedText",
@@ -54,6 +56,8 @@ export interface NormalizedSubmission {
   sectionHeading?: string
   blockId?: string
   blockUrl?: string
+  reportedBlockId?: string
+  reportedBlockUrl?: string
   textFragmentUrl?: string
   quotedText?: string
   selectedText?: string
@@ -95,6 +99,22 @@ function requireStringField(value: unknown, fieldName: string, limit: number) {
   return text
 }
 
+function requireMultilineField(value: unknown, fieldName: string, limit: number) {
+  const text = normalizeWhitespace(value)
+    // Some clients submit escaped newlines ("\\n") in hidden fields.
+    // Decode them so issue blocks preserve line breaks.
+    .replace(/\\r\\n|\\n|\\r/g, "\n")
+  if (!text) {
+    throw new SubmissionError(400, "missing_field", `Missing required field: ${fieldName}.`)
+  }
+
+  if (text.length > limit) {
+    throw new SubmissionError(400, "field_too_long", `Field too long: ${fieldName}.`)
+  }
+
+  return text
+}
+
 function optionalInlineField(value: unknown, fieldName: string, limit: number) {
   const text = collapseInlineWhitespace(value)
   if (!text) {
@@ -110,6 +130,9 @@ function optionalInlineField(value: unknown, fieldName: string, limit: number) {
 
 function optionalMultilineField(value: unknown, fieldName: string, limit: number) {
   const text = normalizeWhitespace(value)
+    // Some clients submit escaped newlines ("\\n") in hidden fields.
+    // Decode them so GitHub issue quoted blocks preserve line breaks.
+    .replace(/\\r\\n|\\n|\\r/g, "\n")
   if (!text) {
     return undefined
   }
@@ -206,7 +229,7 @@ export function normalizeSubmission(raw: Record<string, unknown>, env: Partial<W
   const feedbackType = normalizeFeedbackType(raw.feedbackType ?? raw.feedbackMode)
   const title = requireStringField(raw.title, "title", LIMITS.title)
   const displayName = optionalInlineField(raw.displayName ?? raw.name, "displayName", LIMITS.name)
-  const comment = requireStringField(raw.comment ?? raw.feedback, "comment", LIMITS.feedback)
+  const comment = requireMultilineField(raw.comment ?? raw.feedback, "comment", LIMITS.feedback)
 
   const pageTitle = optionalInlineField(raw.pageTitle, "pageTitle", LIMITS.pageTitle)
   const publishedBranch = optionalInlineField(raw.publishedBranch, "publishedBranch", LIMITS.heading)
@@ -214,10 +237,12 @@ export function normalizeSubmission(raw: Record<string, unknown>, env: Partial<W
   const publishedCommitDate = optionalInlineField(raw.publishedCommitDate, "publishedCommitDate", LIMITS.heading)
   const sectionHeading = optionalInlineField(raw.sectionHeading ?? raw.sectionHeadingDisplay, "sectionHeading", LIMITS.heading)
   const blockId = optionalInlineField(raw.blockId, "blockId", LIMITS.heading)
+  const reportedBlockId = optionalInlineField(raw.reportedBlockId, "reportedBlockId", LIMITS.heading)
   const quotedText = optionalMultilineField(raw.quotedText ?? raw.selectedText ?? raw.selectedPassageDisplay, "quotedText", LIMITS.quote)
   const selectedText = optionalMultilineField(raw.selectedText ?? raw.selectedPassageDisplay, "selectedText", LIMITS.quote)
   const pageUrl = verifyAllowedPageUrl(raw.pageUrl ?? raw.pageUrlUser, env) ?? verifyAllowedPageUrl(raw.blockUrl, env)
   const blockUrl = verifyAllowedPageUrl(raw.blockUrl, env)
+  const reportedBlockUrl = verifyAllowedPageUrl(raw.reportedBlockUrl, env)
   const textFragmentUrl = verifyAllowedFragmentUrl(raw.textFragmentUrl, env)
 
   if (feedbackType === "passage") {
@@ -251,6 +276,8 @@ export function normalizeSubmission(raw: Record<string, unknown>, env: Partial<W
     sectionHeading: sectionHeading ?? undefined,
     blockId: blockId ?? undefined,
     blockUrl: blockUrl ?? undefined,
+    reportedBlockId: reportedBlockId ?? undefined,
+    reportedBlockUrl: reportedBlockUrl ?? undefined,
     textFragmentUrl: textFragmentUrl ?? undefined,
     quotedText: quotedText ?? undefined,
     selectedText: selectedText ?? undefined,
