@@ -53,7 +53,7 @@ To manually trigger a deploy, use the **Actions** tab → **Deploy Quartz site t
 | [docs/troubleshooting.md](docs/troubleshooting.md) | Common problems and fixes |
 | [docs/onboarding-handoff.md](docs/onboarding-handoff.md) | Onboarding checklist for Sabine |
 | [docs/label-taxonomy.md](docs/label-taxonomy.md) | GitHub issue label definitions |
-| [content/prototype-status.md](content/prototype-status.md) | Current prototype status |
+| [content/prototype-status.md](content/Policy%20and%20Admin/Prototype%20Status.md) | Current prototype status |
 
 ## Contributing / Issues
 

@@ -14,10 +14,10 @@ This Advocacy Paper argues that postsecondary institutions should move from a na
 ## Core Findings
 
 1.     **Medical documentation requirements function as structural barriers.**  
-They impose financial, administrative, and emotional costs on students, particularly those already marginalized.
+They impose financial, administrative, and emotional costs on students, particularly those already marginalized.  
 
 2.     **Current systems often privilege students with economic and cultural capital.**  
-Students who can afford assessments, understand bureaucratic processes, or advocate confidently are more likely to succeed.
+Students who can afford assessments, understand bureaucratic processes, or advocate confidently are more likely to succeed.  
 
 3.     **Disclosure-based systems create avoidable harm.**  
 Many students avoid accommodations because of stigma, fear of retaliation, or concern that they will be perceived as less capable.
@@ -74,33 +74,33 @@ Most postsecondary accommodation systems follow a common sequence:
 
 This model appears neutral and orderly. In practice, each stage creates obstacles.
 
-Documentation Burdens
+## Documentation Burdens
 
 Students may need physician letters, psychoeducational testing, psychiatric records, or specialist reports. These documents can be expensive, delayed, geographically inaccessible, or difficult to obtain for students without family doctors or extended health coverage. Students with chronic or lifelong disabilities may be asked to repeatedly re-confirm conditions that are permanent or well-established (Shanouda & Spagnuolo, 2021).
 
-Disclosure Burdens
+## Disclosure Burdens
 
 Disclosure is often framed as a simple administrative step. Research shows it is frequently a complex social and political decision shaped by stigma, fear of judgment, prior discrimination, and uncertainty about consequences (Lindsay et al., 2018; Venville et al., 2014; Thompson-Ebanks & Jarman, 2018).
 
-Negotiation Burdens
+##  Negotiation Burdens
 
 Even after approval, students may need to explain accommodations repeatedly to instructors, challenge resistance, or monitor whether supports are actually implemented. This turns access into ongoing labor rather than an assured institutional process (Karpicz, 2020).
 
 # 3. Why Reform Is Needed Now
 
-Rising Student Need
+## Rising Student Need
 
 Postsecondary institutions are seeing increased demand related to mental health, neurodivergence, chronic illness, episodic disability, trauma, caregiving pressures, and financial stress. Many students experience functional barriers regardless of whether they possess formal documentation.
 
-Equity Commitments Require Structural Change
+## Equity Commitments Require Structural Change
 
 Universities cannot credibly claim commitment to equity while maintaining systems that advantage students with money, time, medical access, and bureaucratic confidence. Where access depends on privilege, equity goals remain unmet.
 
-Outdated Medicalized Assumptions
+## Outdated Medicalized Assumptions
 
 Traditional systems often rely on a deficit model: disability is treated as an individual medical problem requiring expert verification. Contemporary disability scholarship and self-advocacy instead emphasizes the role of institutions, environments, norms, and policies in producing barriers to access (Hamraie, 2017; Sins Invalid, 2019).
 
-Growing Peer Institution Innovation
+## Growing Peer Institution Innovation
 
 Multiple universities have already adopted more flexible approaches, demonstrating that reform is practical and administratively feasible.
 
@@ -125,8 +125,7 @@ This produces five recurring harms:
 If institutions reduce unnecessary documentation barriers, shift responsibility for access from individual students to campus systems, and build transparent equitable processes, then more students will access support earlier, retention and trust will improve, and campuses will better align practice with public commitments.
 
 This Advocacy Paper therefore advances a shift:
-
-**From:** medically proving disability to receive retrofitted academic accommodations   
+**From:** medically proving disability to receive retrofitted academic accommodations
 **To:** designing equitable systems that remove barriers proactively and center access
 
 The following sections review evidence, comparative models, policy options, and recommendations for implementation.
@@ -135,15 +134,15 @@ The following sections review evidence, comparative models, policy options, and 
 
 This Advocacy Paper draws on three complementary evidence sources:
 
-1. Comparative Institutional Policy Scan
+## Source 1. Comparative Institutional Policy Scan
 
 A targeted review was conducted of postsecondary institutions that have adopted less medicalized accommodation practices or alternative documentation standards. Examples include Portland State University, University of Arizona, Syracuse University, Cornell University, Ohio State University, UCLA, and University of Guelph-Humber. These cases were examined to identify reform pathways, administrative models, and implementation risks.
 
-2. Scholarly Literature Review
+## Source 2. Scholarly Literature Review
 
 This paper synthesizes interdisciplinary scholarship from disability studies, higher education studies, education policy, critical race theory, DisCrit (Disability Critical Race Studies), and Disability Justice. The review includes qualitative studies, systematic reviews, policy analyses, autoethnographies, and doctoral dissertations examining barriers to accommodations, disclosure dynamics, class inequality, racialized exclusion, and institutional reform.
 
-3. Critical Policy Analysis
+## Source 3. Critical Policy Analysis
 
 Beyond describing barriers, this Advocacy Paper evaluates how accommodation systems distribute burden, power, and legitimacy. It asks not only whether a system exists, but who benefits from its design, who is filtered out, and what assumptions are embedded in its procedures.
 
@@ -231,27 +230,25 @@ The cases below are instructive because they show reform is already possible wit
 
 Based on the literature and comparative scan, institutions generally face four broad policy choices. These options range from maintaining the status quo to undertaking structural redesign.
 
-|   |   |   |   |   |
-|---|---|---|---|---|
-|**Policy Option**|**Description**|**Advantages**|**Disadvantages**|**Likely Outcome**|
-|**Option 1: Maintain the Existing Documentation-Based Model**|Retain the current system in which students typically must provide formal medical or psychoeducational documentation to access accommodations, with only minor administrative adjustments.|Familiar to administrators and faculty; perceived as legally defensible through standardized proof requirements; minimal transition costs; preserves existing workflows.|Continues class-based and racialized inequities; delays access to support; discourages students from seeking accommodations; reinforces gatekeeping culture; contradicts institutional equity commitments.|Administrative stability in the short term, but increasing concerns about legitimacy, equity, and accessibility over time.|
-|**Option 2: Limited Reform Within the Existing System**|Maintain the current model while introducing targeted improvements such as simplified forms, faster processing times, reduced renewal requirements, temporary accommodations pending documentation, and staff training.|Politically easier to implement; lower cost than major redesign; can improve student experiences quickly; may reduce administrative backlogs.|Burden of proof remains largely unchanged; structural inequities persist; risks creating the appearance of reform without addressing foundational barriers.|Incremental improvements in service delivery, but core problems remain unresolved.|
-|**Option 3: Access-Centered Reform**|Reduce reliance on medical documentation while retaining formal processes where necessary. Accommodation decisions draw on multiple forms of evidence, including self-report, prior history, functional assessment, and case-by-case review. Features include low-barrier intake, temporary supports, proportional evidence standards, transparent review criteria, appeals processes, shared faculty responsibility, and expanded universal design practices.|Balances equity goals with administrative feasibility; reduces delays and exclusion; maintains procedural integrity where appropriate; adaptable across institutional contexts; improves resource allocation.|Requires staff retraining; may face resistance from units accustomed to rigid documentation standards; requires safeguards against discretionary bias.|Significant improvements in access and equity with a manageable institutional transition.|
-|**Option 4: Fully De-Medicalized Access-Centered Model**|Move away from disability verification for most supports and redesign teaching and learning environments around broad flexibility and universal design. Examples include flexible deadlines, multiple assessment formats, attendance flexibility, standard captioning, note-taking supports, and diagnosis-free access to many accommodations.|Minimizes stigma and bureaucracy; benefits a wide range of students beyond those formally identified as disabled; aligns with inclusive pedagogical approaches.|Requires substantial institutional change; may generate faculty workload concerns if poorly implemented; some specialized accommodations would still require individualized processes; likely to face significant political resistance.|A transformative long-term approach with substantial equity benefits, but challenging to implement rapidly in many postsecondary institutions.|
+| **Policy Option**                                             | **Description**                                                                                                                                                                                                                                                                                                                                                                                                                                                | **Advantages**                                                                                                                                                                                                | **Disadvantages**                                                                                                                                                                                                                       | **Likely Outcome**                                                                                                                             |
+| ------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Option 1: Maintain the Existing Documentation-Based Model** | Retain the current system in which students typically must provide formal medical or psychoeducational documentation to access accommodations, with only minor administrative adjustments.                                                                                                                                                                                                                                                                     | Familiar to administrators and faculty; perceived as legally defensible through standardized proof requirements; minimal transition costs; preserves existing workflows.                                      | Continues class-based and racialized inequities; delays access to support; discourages students from seeking accommodations; reinforces gatekeeping culture; contradicts institutional equity commitments.                              | Administrative stability in the short term, but increasing concerns about legitimacy, equity, and accessibility over time.                     |
+| **Option 2: Limited Reform Within the Existing System**       | Maintain the current model while introducing targeted improvements such as simplified forms, faster processing times, reduced renewal requirements, temporary accommodations pending documentation, and staff training.                                                                                                                                                                                                                                        | Politically easier to implement; lower cost than major redesign; can improve student experiences quickly; may reduce administrative backlogs.                                                                 | Burden of proof remains largely unchanged; structural inequities persist; risks creating the appearance of reform without addressing foundational barriers.                                                                             | Incremental improvements in service delivery, but core problems remain unresolved.                                                             |
+| **Option 3: Access-Centered Reform**                          | Reduce reliance on medical documentation while retaining formal processes where necessary. Accommodation decisions draw on multiple forms of evidence, including self-report, prior history, functional assessment, and case-by-case review. Features include low-barrier intake, temporary supports, proportional evidence standards, transparent review criteria, appeals processes, shared faculty responsibility, and expanded universal design practices. | Balances equity goals with administrative feasibility; reduces delays and exclusion; maintains procedural integrity where appropriate; adaptable across institutional contexts; improves resource allocation. | Requires staff retraining; may face resistance from units accustomed to rigid documentation standards; requires safeguards against discretionary bias.                                                                                  | Significant improvements in access and equity with a manageable institutional transition.                                                      |
+| **Option 4: Fully De-Medicalized Access-Centered Model**      | Move away from disability verification for most supports and redesign teaching and learning environments around broad flexibility and universal design. Examples include flexible deadlines, multiple assessment formats, attendance flexibility, standard captioning, note-taking supports, and diagnosis-free access to many accommodations.                                                                                                                 | Minimizes stigma and bureaucracy; benefits a wide range of students beyond those formally identified as disabled; aligns with inclusive pedagogical approaches.                                               | Requires substantial institutional change; may generate faculty workload concerns if poorly implemented; some specialized accommodations would still require individualized processes; likely to face significant political resistance. | A transformative long-term approach with substantial equity benefits, but challenging to implement rapidly in many postsecondary institutions. |
 
 # 13. Feasibility Matrix
 
-|   |   |   |   |   |
-|---|---|---|---|---|
-|**Criteria**|**Option 1: Status Quo**|**Option 2: Limited Reform**|**Option 3: Hybrid Equity Model**|**Option 4: Universal Access**|
-|Administrative Change Required|Minimal|Limited|Moderate|Extensive|
-|Reliance on Medical Documentation|High|High to Moderate|Moderate to Low|Low|
-|Potential to Reduce Documentation Burden|Limited|Moderate|High|Very High|
-|Potential to Address Equity Concerns|Limited|Moderate|High|High|
-|Degree of Institutional Transformation|Minimal|Incremental|Substantial|Transformative|
-|Alignment with De-Medicalization Goals|Low|Low to Moderate|High|Very High|
-|Key Risk|Continued exclusion and inequity|Symbolic reform without structural change|Inconsistent implementation if safeguards are weak|Institutional resistance and implementation challenges|
-|Key Opportunity|Stability and predictability|Quick improvements to student experience|Balances equity goals with administrative practicality|Reimagines access beyond accommodation systems|
+| **Criteria**                             | **Option 1: Status Quo**         | **Option 2: Limited Reform**              | **Option 3: Hybrid Equity Model**                      | **Option 4: Universal Access**                         |
+| ---------------------------------------- | -------------------------------- | ----------------------------------------- | ------------------------------------------------------ | ------------------------------------------------------ |
+| Administrative Change Required           | Minimal                          | Limited                                   | Moderate                                               | Extensive                                              |
+| Reliance on Medical Documentation        | High                             | High to Moderate                          | Moderate to Low                                        | Low                                                    |
+| Potential to Reduce Documentation Burden | Limited                          | Moderate                                  | High                                                   | Very High                                              |
+| Potential to Address Equity Concerns     | Limited                          | Moderate                                  | High                                                   | High                                                   |
+| Degree of Institutional Transformation   | Minimal                          | Incremental                               | Substantial                                            | Transformative                                         |
+| Alignment with De-Medicalization Goals   | Low                              | Low to Moderate                           | High                                                   | Very High                                              |
+| Key Risk                                 | Continued exclusion and inequity | Symbolic reform without structural change | Inconsistent implementation if safeguards are weak     | Institutional resistance and implementation challenges |
+| Key Opportunity                          | Stability and predictability     | Quick improvements to student experience  | Balances equity goals with administrative practicality | Reimagines access beyond accommodation systems         |
 
 # 14. Minimum Policy Direction
 
@@ -263,14 +260,13 @@ This should not be understood as a radical or aspirational model. Rather, Option
 
 # 15. Stakeholder likely benefits, concerns, and mitigation
 
-|   |   |   |   |
-|---|---|---|---|
-|**Stakeholder**|**Likely Benefits**|**Likely Concerns / Risks**|**Mitigation Strategies**|
-|Students|Faster access to support, reduced documentation burdens, less stigma, greater flexibility, and more responsive accommodation processes.|Concerns about fairness, consistency of decisions, privacy, and whether reforms will result in meaningful improvements to access.|Publish transparent decision-making criteria, establish accessible appeals processes, and involve students in policy development and evaluation.|
-|Accessibility Offices|Reduced gatekeeping responsibilities, more student-centered processes, and improved alignment with institutional equity goals.|Increased workload during implementation, inconsistent decision-making across staff, and challenges maintaining procedural consistency.|Provide staff training, develop clear review standards, conduct regular audits of decisions, and implement reforms through phased rollouts.|
-|Faculty|Clearer accommodation processes, fewer disputes with students, greater role clarity, and improved support for student success.|Concerns about workload, academic standards, and expanded responsibility for access.|Provide templates, training, practical supports, and clear institutional standards regarding faculty responsibilities.|
-|Senior Administration|Improved student retention, stronger alignment with equity commitments, reduced complaints, and enhanced institutional legitimacy.|Reputational risk, implementation challenges, administrative disruption, and concerns about misuse or inconsistency.|Use proportional review processes, monitor outcomes, communicate reform goals clearly, and implement changes through pilot projects before broader rollout.|
-|Government / Funders|Improved student success, retention, completion, accessibility, and equity outcomes.|Concerns about accountability, resource allocation, and maintaining procedural integrity.|Establish monitoring and evaluation mechanisms, collect implementation data, and report on outcomes and continuous improvement efforts.|
+| **Stakeholder**       | **Likely Benefits**                                                                                                                     | **Likely Concerns / Risks**                                                                                                             | **Mitigation Strategies**                                                                                                                                   |
+| --------------------- | --------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Students              | Faster access to support, reduced documentation burdens, less stigma, greater flexibility, and more responsive accommodation processes. | Concerns about fairness, consistency of decisions, privacy, and whether reforms will result in meaningful improvements to access.       | Publish transparent decision-making criteria, establish accessible appeals processes, and involve students in policy development and evaluation.            |
+| Accessibility Offices | Reduced gatekeeping responsibilities, more student-centered processes, and improved alignment with institutional equity goals.          | Increased workload during implementation, inconsistent decision-making across staff, and challenges maintaining procedural consistency. | Provide staff training, develop clear review standards, conduct regular audits of decisions, and implement reforms through phased rollouts.                 |
+| Faculty               | Clearer accommodation processes, fewer disputes with students, greater role clarity, and improved support for student success.          | Concerns about workload, academic standards, and expanded responsibility for access.                                                    | Provide templates, training, practical supports, and clear institutional standards regarding faculty responsibilities.                                      |
+| Senior Administration | Improved student retention, stronger alignment with equity commitments, reduced complaints, and enhanced institutional legitimacy.      | Reputational risk, implementation challenges, administrative disruption, and concerns about misuse or inconsistency.                    | Use proportional review processes, monitor outcomes, communicate reform goals clearly, and implement changes through pilot projects before broader rollout. |
+| Government / Funders  | Improved student success, retention, completion, accessibility, and equity outcomes.                                                    | Concerns about accountability, resource allocation, and maintaining procedural integrity.                                               | Establish monitoring and evaluation mechanisms, collect implementation data, and report on outcomes and continuous improvement efforts.                     |
 
 # 16. Policy Recommendations
 
@@ -278,7 +274,7 @@ The evidence suggests that meaningful reform requires more than administrative e
 
 ## Recommendation 1: Reduce Reliance on Medical Documentation
 
-### **Action**
+### Action
 
 Adopt a proportional evidence model in which students may establish need through multiple pathways, including:
 
@@ -292,11 +288,11 @@ Adopt a proportional evidence model in which students may establish need through
 
 ·      professional documentation where absolutely necessary/as a last resort
 
-### **Rationale**
+### Rationale
 
 Heavy documentation requirements disproportionately burden low-income students, racialized students, international students, and students without consistent healthcare access (Waterfield & Whelan, 2017; Shanouda & Spagnuolo, 2021).
 
-### **Implementation Steps**
+### Implementation Steps
 
 1.     Revise documentation policy language.
 
@@ -308,7 +304,7 @@ Heavy documentation requirements disproportionately burden low-income students, 
 
 ## Recommendation 2: Introduce Immediate Temporary Supports
 
-### **Action**
+### Action
 
 Allow students to receive interim accommodations while review is underway.
 
@@ -322,11 +318,11 @@ Examples:
 
 ·      attendance flexibility where reasonable
 
-### **Rationale**
+### Rationale
 
 Students should not lose academic standing while waiting weeks or months for paperwork.
 
-### **Implementation Steps**
+### Implementation Steps
 
 1.     Establish automatic 30–60 day interim supports.
 
@@ -336,15 +332,15 @@ Students should not lose academic standing while waiting weeks or months for pap
 
 ## Recommendation 3: Build Transparent Appeals and Conflict Resolution
 
-### **Action**
+### Action
 
 Create formal review and appeal processes when accommodations are denied, delayed, or poorly implemented.
 
-### **Rationale**
+### Rationale
 
 Many current systems depend on informal negotiation where power favors institutions.
 
-### **Implementation Steps**
+### Implementation Steps
 
 1.     Publish appeal timelines.
 
@@ -356,7 +352,7 @@ Many current systems depend on informal negotiation where power favors instituti
 
 ## Recommendation 4: Shift Faculty Responsibility Toward Inclusive Course Design
 
-### **Action**
+### Action
 
 Move some access supports upstream through accessible pedagogy and course design.
 
@@ -372,11 +368,11 @@ Examples:
 
 ·      multiple participation pathways
 
-### **Rationale**
+### Rationale
 
 Not every barrier should require an individual accommodation letter.
 
-### **Implementation Steps**
+### Implementation Steps
 
 1.     Faculty training modules.
 
@@ -387,16 +383,11 @@ Not every barrier should require an individual accommodation letter.
 4.     Include access reviews in curriculum approvals.
 
 ## Recommendation 5: Embed Intersectional Equity Review
-
-### **Action**
-
+### Action
 Audit accommodation systems for disparities linked to race, class, gender, migration status, and disability type.
-
-### **Rationale**
-
+### Rationale
 Race-neutral systems can still produce unequal outcomes (Stapleton & James, 2020; Baker, 2019).
-
-### **Implementation Steps**
+### Implementation Steps
 
 1.     Collect voluntary demographic data.
 
@@ -408,15 +399,15 @@ Race-neutral systems can still produce unequal outcomes (Stapleton & James, 2020
 
 ## Recommendation 6: Create Student Co-Governance Structures
 
-### **Action**
+### Action
 
 Include disabled students in governance, policy design, and evaluation.
 
-### **Rationale**
+### Rationale
 
 Students possess lived expertise often absent from administrative design.
 
-### **Implementation Steps**
+### Implementation Steps
 
 1.     Establish Accessibility Advisory Council.
 
@@ -428,15 +419,15 @@ Students possess lived expertise often absent from administrative design.
 
 ## Recommendation 7: Advocate for Provincial/Funder Reform
 
-### **Action**
+### Action
 
 Work with governments and sector bodies to revise funding formulas and accessibility rules that incentivize restrictive documentation practices.
 
-### **Rationale**
+### Rationale
 
 Some institutional gatekeeping is driven by external compliance and funding structures.
 
-### **Implementation Steps**
+### Implementation Steps
 
 1.     Joint submissions through university associations.
 
@@ -446,7 +437,7 @@ Some institutional gatekeeping is driven by external compliance and funding stru
 
 # 16. Resource Requirements
 
-## **Moderate Investments**
+## Moderate Investments
 
 ·      staff training
 
@@ -458,7 +449,7 @@ Some institutional gatekeeping is driven by external compliance and funding stru
 
 ·      accessibility supports infrastructure
 
-## **Likely Returns**
+## Likely Returns
 
 ·      improved retention
 
