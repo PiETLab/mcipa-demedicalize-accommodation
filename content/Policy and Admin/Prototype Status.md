@@ -32,7 +32,7 @@ tags:
 1. ~~Write core content pages (accommodation process, key actors, etc.)~~
 2. ~~Pin Quartz version~~
 3. Configure custom domain (if applicable)
-4. Onboard Sabine — see [onboarding checklist](../docs/onboarding-handoff.md)
+4. Onboard Sabine — see [onboarding checklist](docs/onboarding-handoff.md)
 
 ---
 

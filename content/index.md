@@ -20,7 +20,7 @@ This repository is a public prototype for publishing, coordination, and issue-ba
 ## What's here
 
 - [[Advocacy Paper]]
-- [[prototype-status|Prototype Status]] — current development stage and known limitations
+- [[content/Policy and Admin/Prototype Status|Prototype Status]] — current development stage and known limitations
 - *(More content sections to follow)*
 
 ## How to contribute
