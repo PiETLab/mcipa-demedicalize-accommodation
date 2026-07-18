@@ -15,8 +15,10 @@ This Advocacy Paper argues that postsecondary institutions should move from a na
 
 1.     **Medical documentation requirements function as structural barriers.**  
 They impose financial, administrative, and emotional costs on students, particularly those already marginalized.  
+
 2.     **Current systems often privilege students with economic and cultural capital.**  
 Students who can afford assessments, understand bureaucratic processes, or advocate confidently are more likely to succeed.  
+
 3.     **Disclosure-based systems create avoidable harm.**  
 Many students avoid accommodations because of stigma, fear of retaliation, or concern that they will be perceived as less capable.
 
@@ -123,8 +125,7 @@ This produces five recurring harms:
 If institutions reduce unnecessary documentation barriers, shift responsibility for access from individual students to campus systems, and build transparent equitable processes, then more students will access support earlier, retention and trust will improve, and campuses will better align practice with public commitments.
 
 This Advocacy Paper therefore advances a shift:
-
-**From:** medically proving disability to receive retrofitted academic accommodations   
+**From:** medically proving disability to receive retrofitted academic accommodations
 **To:** designing equitable systems that remove barriers proactively and center access
 
 The following sections review evidence, comparative models, policy options, and recommendations for implementation.

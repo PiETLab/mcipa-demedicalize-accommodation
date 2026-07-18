@@ -500,7 +500,7 @@ Completion criteria status:
 
 Implementation summary:
 
-1. The consolidated Quartz feedback form now submits to the deployed Cloudflare Worker through one shared public endpoint constant in `quartz.layout.ts`.
+onsolidated Quartz feedback form now submits to the deployed Cloudflare Worker through one shared public endpoint constant in `quartz.layout.ts`.
 2. The form uses `POST` with JSON, shows a pending state during submission, and parses the Worker response for success and failure handling.
 3. On success, the form shows a safe GitHub issue link using the server-returned URL and resets only after the issue link has been exposed.
 4. On failure, the form keeps the user’s entered content intact so it can be corrected and resubmitted.
@@ -662,6 +662,141 @@ Checklist for the later Quartz pass:
 3. Adjust the icon-only or unlabeled control that WAVE marks as the empty button.
 4. Improve the header/search contrast if the theme tokens still produce low contrast.
 5. Validate locally first, then confirm the deployed site again before merging.
+
+## P1-22 — Conduct controlled end-to-end tests
+
+Copilot suitability: **Partly**
+
+Execution summary:
+
+1. Ran controlled production submissions for all three required modes:
+	- site-level submission,
+	- block-level passage submission,
+	- selected-text submission.
+2. Verified resulting issues and form behavior against the P1-22 checklist.
+3. Used production issue output as the source of truth for end-to-end verification.
+
+### P1-22 Completion Check Results
+
+Run date: 2026-07-18 (production end-to-end checks)
+
+1. Site-level submission works in production: **PASS**
+	- Issue is created successfully from the paper-level feedback route.
+	- The form displays the created-issue link after success.
+
+2. Block-level passage submission works in production: **PASS**
+	- Issue is created successfully from passage controls.
+	- Passage metadata and quoted content are present in the expected format.
+
+3. Selected-text submission works in production: **PASS**
+	- Issue is created successfully from selected-text flow.
+	- Selection context and selected-text rendering are present as expected.
+
+4. Issue structure and metadata checks: **PASS**
+	- Titles are correct for each mode.
+	- Issues are authored by the service account.
+	- `public-submission` label is applied.
+	- Section heading and quoted passage fields are populated in the approved format.
+
+5. Link behavior checks: **PASS**
+	- Published page links resolve correctly.
+	- Anchored passage links resolve using current production-compatible anchor strategy.
+	- Selected-text links work where supported; unsupported cases are represented explicitly.
+
+6. Data-safety checks: **PASS**
+	- No GitHub token or internal implementation secret is exposed in issue content.
+	- No unintended private data exposure was observed in the controlled submissions.
+
+7. Form post-submit behavior checks: **PASS**
+	- Success path displays the created-issue link.
+	- Refresh does not auto-resubmit the form.
+
+Operator note:
+
+- Test issues should be closed or tagged `test` after verification.
+
+P1-22 completion result:
+
+- **COMPLETE** — all three submission modes work in production, issue content matches the approved format, and no confidential data exposure was observed in controlled testing.
+
+## P1-23 — Verify source-link behaviour, if included
+
+Copilot suitability: **Yes for implementation; you verify output**
+
+Phase 1 decision:
+
+- **Deferred for Phase 1**. Commit-specific Markdown source permalinks are not included in current issue output.
+
+Rationale for deferral:
+
+1. Reliable rendered-passage-to-source-line mapping is not yet guaranteed across all passage capture modes.
+2. Branch-based source links can drift over time and are not sufficient for durable historical traceability.
+3. The current Phase 1 passage connection already meets release needs via:
+	- quoted passage,
+	- passage identifier,
+	- published-page link,
+	- section heading,
+	- published branch/commit metadata.
+
+Current implementation status:
+
+1. Issue output includes `publishedBranch`, `publishedCommit`, and `publishedCommitDate` metadata.
+2. Issue output does **not** currently include:
+	- source-relative file path,
+	- commit-specific GitHub file permalink,
+	- source line ranges.
+
+Future implementation criteria (post-Phase 1):
+
+1. Add source links only when mapping confidence is high enough for stable line attribution.
+2. Prefer commit-specific file permalinks over branch links.
+3. Add line ranges only when source mapping is trustworthy and repeatable.
+
+### P1-23 Completion Criteria Status
+
+1. Reliable source permalinks are included: **NO**
+2. Deferral is explicitly documented in the design record: **YES**
+
+P1-23 completion result:
+
+- **COMPLETE (deferred-by-design)** — source permalinks are intentionally deferred for Phase 1 and the deferral is explicitly documented.
+
+## P1-24 — Final closeout pass and scope approval
+
+Copilot suitability: **Yes for checks and audit; you approve scope boundary**
+
+Execution summary:
+
+1. Re-ran repository safety checks for secret exposure and endpoint boundaries.
+2. Resolved the only diff-hygiene blocker reported by `git diff --check`.
+3. Produced and reviewed the final changed-file inventory for Phase 1 closeout.
+4. Received explicit operator approval to include the full reviewed set, including `scripts/patch-quartz-render-page-cache-bust.cjs`.
+
+### P1-24 Completion Check Results
+
+Run date: 2026-07-18 (local environment)
+
+1. No token literal leak indicators in repository diff: **PASS**
+	- `github_pat_` scan returned no matches.
+	- `GITHUB_TOKEN` references are expected secret-name usage in worker/config/tests only.
+
+2. GitHub API boundary usage remains intentional: **PASS**
+	- `api.github.com` usage appears only in Worker issue-creation code and aligned tests.
+
+3. Diff hygiene (`git diff --check`) is clean: **PASS**
+	- Cleared trailing whitespace in `content/Advocacy Paper.md`.
+
+4. Regression tests pass after closeout checks: **PASS**
+	- `npm run test` passed (`passage-identifiers`, `public-issue-format`, `public-feedback-worker`).
+
+5. Final scope boundary reviewed and approved: **PASS**
+	- Included modified files reviewed as in-scope for Phase 1 closeout.
+	- Included untracked helper script:
+	  - `scripts/patch-quartz-render-page-cache-bust.cjs`
+
+P1-24 completion result:
+
+- **COMPLETE** — closeout checks are clean, security-boundary review passed, test suite is green, and the final change boundary has explicit operator approval.
 
 
 
