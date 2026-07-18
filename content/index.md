@@ -23,7 +23,3 @@ This website is a public prototype for publishing, coordination, and issue-based
 ## How to contribute
 
 See [[Policy and Admin/Public Feedback Policy|Public Feedback Policy]] for how to contribute to this initiative.
-
----
-
-*Last updated: see page metadata above.*

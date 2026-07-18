@@ -6,7 +6,7 @@ On July 22, Sabine, a collaborator on this project, will lead a virtual gatherin
 
 ActionForge is a project concept that uses GitHub as a public place to organize, preserve, and improve project materials. You do **not** need to know how to code or use GitHub as a software tool. For this session, GitHub will simply be used as a structured way to submit feedback for the project team to review.
 
-Please see the short project concept note: [[content/Policy and Admin/The ActionForge Project Concept]].
+Please see the short project concept note: [[Policy and Admin/The ActionForge Project Concept]].
 
 ## What we are asking you to do
 
