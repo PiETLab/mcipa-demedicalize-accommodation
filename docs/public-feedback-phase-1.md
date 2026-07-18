@@ -798,5 +798,55 @@ P1-24 completion result:
 
 - **COMPLETE** — closeout checks are clean, security-boundary review passed, test suite is green, and the final change boundary has explicit operator approval.
 
+## P1-25 — Commit, push, and open a pull request
+
+Copilot suitability: **Yes, with your approval**
+
+Execution summary:
+
+1. Proposed a review-friendly commit split and received explicit operator approval.
+2. Created the approved commit series on `feature/public-feedback-phase-1`.
+3. Pushed the branch with upstream tracking.
+4. Opened a pull request from `feature/public-feedback-phase-1` into `main`.
+5. Added a focused merge-readiness checklist comment to support reviewer decision-making.
+
+Approved commit structure implemented:
+
+1. `feat: add public feedback form behavior and passage controls`
+2. `feat: harden Cloudflare public-submission worker and issue rendering`
+3. `test: cover public feedback submission and issue formatting`
+4. `docs: finalize Phase 1 closeout records and policy wording`
+5. `chore: keep Quartz sync/cache-bust wiring in repo`
+
+Push command used:
+
+```bash
+git push -u origin feature/public-feedback-phase-1
+```
+
+Pull request created:
+
+- `https://github.com/PiETLab/mcipa-demedicalize-accommodation/pull/53`
+
+### P1-25 Completion Check Results
+
+Run date: 2026-07-18 (local environment + GitHub PR workflow)
+
+1. Pull request exists: **PASS**
+	- PR #53 was created from `feature/public-feedback-phase-1` to `main`.
+
+2. Automated checks pass: **PARTIAL (local pass confirmed; GitHub check-run state to confirm in PR UI)**
+	- Local `npm test` passed after final commit split.
+	- Local `npm run build` passed.
+	- Final required GitHub check status remains a merge gate to verify in the PR Checks tab.
+
+3. Implementation reviewed before merging: **IN PROGRESS**
+	- A focused merge-readiness checklist was prepared and posted.
+	- Final human approval and merge decision remain required.
+
+P1-25 completion status:
+
+- **READY TO MERGE PENDING GITHUB CHECKS/REVIEW** — branch is pushed, PR is open, local validation passed, and merge is gated only by final GitHub checks and reviewer approval.
+
 
 

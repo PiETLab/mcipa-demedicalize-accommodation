@@ -3,7 +3,7 @@
 const fs = require("node:fs")
 const path = require("node:path")
 
-const targetPath = path.join(
+const renderPagePath = path.join(
   __dirname,
   "..",
   "node_modules",
@@ -14,60 +14,112 @@ const targetPath = path.join(
   "renderPage.tsx",
 )
 
+const explorerPath = path.join(
+  __dirname,
+  "..",
+  "node_modules",
+  "@jackyzha0",
+  "quartz",
+  "quartz",
+  "components",
+  "Explorer.tsx",
+)
+
 function fail(message) {
   throw new Error(`[patch-quartz-render-page-cache-bust] ${message}`)
 }
 
-if (!fs.existsSync(targetPath)) {
-  fail(`Target file not found: ${targetPath}`)
+function patchRenderPage() {
+  if (!fs.existsSync(renderPagePath)) {
+    fail(`Target file not found: ${renderPagePath}`)
+  }
+
+  let source = fs.readFileSync(renderPagePath, "utf8")
+
+  if (source.includes("withRuntimeVersion(joinSegments(baseDir, \"postscript.js\"))")) {
+    console.log("Quartz renderPage.tsx already cache-busted.")
+    return
+  }
+
+  const functionAnchor = "export function pageResources(\n  baseDir: FullSlug | RelativeURL,\n  staticResources: StaticResources,\n): StaticResources {\n"
+
+  if (!source.includes(functionAnchor)) {
+    fail("Could not find pageResources function anchor")
+  }
+
+  const runtimeVersionBlock = [
+    "export function pageResources(",
+    "  baseDir: FullSlug | RelativeURL,",
+    "  staticResources: StaticResources,",
+    "): StaticResources {",
+    "  const runtimeAssetVersion =",
+    "    process.env.QUARTZ_RUNTIME_VERSION ??",
+    "    process.env.GITHUB_SHA?.slice(0, 12) ??",
+    "    Date.now().toString(36)",
+    "  const withRuntimeVersion = (assetPath: string) =>",
+    "    `${assetPath}?v=${encodeURIComponent(runtimeAssetVersion)}`",
+    "",
+  ].join("\n")
+
+  source = source.replace(functionAnchor, runtimeVersionBlock)
+
+  const beforeScriptNeedle = '        src: joinSegments(baseDir, "prescript.js"),'
+  if (!source.includes(beforeScriptNeedle)) {
+    fail("Could not find prescript.js source line")
+  }
+  source = source.replace(
+    beforeScriptNeedle,
+    '        src: withRuntimeVersion(joinSegments(baseDir, "prescript.js")),'
+  )
+
+  const afterScriptNeedle = '    src: joinSegments(baseDir, "postscript.js"),'
+  if (!source.includes(afterScriptNeedle)) {
+    fail("Could not find postscript.js source line")
+  }
+  source = source.replace(
+    afterScriptNeedle,
+    '    src: withRuntimeVersion(joinSegments(baseDir, "postscript.js")),'
+  )
+
+  fs.writeFileSync(renderPagePath, source)
+  console.log("Applied Quartz renderPage.tsx cache-busting patch.")
 }
 
-let source = fs.readFileSync(targetPath, "utf8")
+function patchExplorerAccessibility() {
+  if (!fs.existsSync(explorerPath)) {
+    fail(`Target file not found: ${explorerPath}`)
+  }
 
-if (source.includes("withRuntimeVersion(joinSegments(baseDir, \"postscript.js\"))")) {
-  console.log("Quartz renderPage.tsx already cache-busted.")
-  process.exit(0)
+  let source = fs.readFileSync(explorerPath, "utf8")
+
+  if (source.includes('aria-label="Toggle explorer navigation"')) {
+    console.log("Quartz Explorer.tsx mobile toggle already has aria-label.")
+    return
+  }
+
+  const mobileToggleNeedle = [
+    "          data-mobile={true}",
+    "          aria-controls={id}",
+    "        >",
+  ].join("\n")
+
+  if (!source.includes(mobileToggleNeedle)) {
+    fail("Could not find Explorer mobile toggle button anchor")
+  }
+
+  source = source.replace(
+    mobileToggleNeedle,
+    [
+      "          data-mobile={true}",
+      "          aria-controls={id}",
+      '          aria-label="Toggle explorer navigation"',
+      "        >",
+    ].join("\n"),
+  )
+
+  fs.writeFileSync(explorerPath, source)
+  console.log("Applied Quartz Explorer.tsx accessibility patch.")
 }
 
-const functionAnchor = "export function pageResources(\n  baseDir: FullSlug | RelativeURL,\n  staticResources: StaticResources,\n): StaticResources {\n"
-
-if (!source.includes(functionAnchor)) {
-  fail("Could not find pageResources function anchor")
-}
-
-const runtimeVersionBlock = [
-  "export function pageResources(",
-  "  baseDir: FullSlug | RelativeURL,",
-  "  staticResources: StaticResources,",
-  "): StaticResources {",
-  "  const runtimeAssetVersion =",
-  "    process.env.QUARTZ_RUNTIME_VERSION ??",
-  "    process.env.GITHUB_SHA?.slice(0, 12) ??",
-  "    Date.now().toString(36)",
-  "  const withRuntimeVersion = (assetPath: string) =>",
-  "    `${assetPath}?v=${encodeURIComponent(runtimeAssetVersion)}`",
-  "",
-].join("\n")
-
-source = source.replace(functionAnchor, runtimeVersionBlock)
-
-const beforeScriptNeedle = '        src: joinSegments(baseDir, "prescript.js"),'
-if (!source.includes(beforeScriptNeedle)) {
-  fail("Could not find prescript.js source line")
-}
-source = source.replace(
-  beforeScriptNeedle,
-  '        src: withRuntimeVersion(joinSegments(baseDir, "prescript.js")),'
-)
-
-const afterScriptNeedle = '    src: joinSegments(baseDir, "postscript.js"),'
-if (!source.includes(afterScriptNeedle)) {
-  fail("Could not find postscript.js source line")
-}
-source = source.replace(
-  afterScriptNeedle,
-  '    src: withRuntimeVersion(joinSegments(baseDir, "postscript.js")),'
-)
-
-fs.writeFileSync(targetPath, source)
-console.log("Applied Quartz renderPage.tsx cache-busting patch.")
+patchRenderPage()
+patchExplorerAccessibility()
