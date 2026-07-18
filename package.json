@@ -4,7 +4,7 @@
   "description": "MCIPA ActionForge pilot — demedicalizing accommodation: public prototype",
   "private": true,
   "scripts": {
-    "sync-quartz-config": "ln -sf node_modules/@jackyzha0/quartz/quartz quartz && cp quartz.config.ts node_modules/@jackyzha0/quartz/quartz.config.ts && cp quartz.layout.ts node_modules/@jackyzha0/quartz/quartz.layout.ts && cp explorer-order.ts node_modules/@jackyzha0/quartz/explorer-order.ts",
+    "sync-quartz-config": "ln -sf node_modules/@jackyzha0/quartz/quartz quartz && cp quartz.config.ts node_modules/@jackyzha0/quartz/quartz.config.ts && cp quartz.layout.ts node_modules/@jackyzha0/quartz/quartz.layout.ts && cp explorer-order.ts node_modules/@jackyzha0/quartz/explorer-order.ts && node scripts/patch-quartz-render-page-cache-bust.cjs",
     "postinstall": "npm run sync-quartz-config",
     "prebuild": "npm run sync-quartz-config",
     "build": "quartz build",
