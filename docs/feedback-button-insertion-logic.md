@@ -57,7 +57,6 @@ PassageIdentifierTransformer does not parse raw markdown text directly. It reads
 
 Only these tags are marked as feedback blocks:
 - p
-- li
 - blockquote
 - table
 - pre
@@ -109,7 +108,7 @@ Button insertion is governed by the intersection of these rules:
 - The page must be identified as Advocacy Paper by isTargetPage().
 
 2. Tag eligibility gate (build time):
-- The element must be one of p, li, blockquote, table, pre.
+- The element must be one of p, blockquote, table, pre.
 
 3. Marker gate (build time to runtime bridge):
 - The element must have data-feedback-block="true".

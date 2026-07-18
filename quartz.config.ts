@@ -9,7 +9,7 @@ const TARGET_PAGE_KEYS = new Set([
   "advocacy paper.md",
 ])
 
-const ELIGIBLE_TAGS = new Set(["p", "li", "blockquote", "table", "pre"])
+const ELIGIBLE_TAGS = new Set(["p", "blockquote", "table", "pre"])
 
 function normalizeCandidate(value: unknown): string | null {
   if (typeof value !== "string") {
