@@ -73,7 +73,7 @@ const PassageFeedbackControls = () => {
   }
   window.__mcipaFeedbackControlsInitialized = true
 
-  const FORM_SLUG = "submit-feedback"
+  const FORM_SLUG = "/Provide-Feedback-on-the-Advocacy-Paper"
   const FEEDBACK_WORKER_ENDPOINT = "${PUBLIC_FEEDBACK_WORKER_ENDPOINT}"
   const STORAGE_KEY = "mcipa.feedbackContext"
   const CONTROL_SELECTOR = ".passage-feedback-control"

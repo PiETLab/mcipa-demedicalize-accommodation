@@ -540,6 +540,99 @@ Run date: 2026-07-17 (local environment)
 	- The form keeps entered values on a non-OK response, and only resets after a confirmed success.
 	- The status text reports the submission outcome without clearing the user’s text first.
 
+## P1-20 — Add navigation and contextual entry points
+
+Implementation summary:
+
+1. Contextual entry points are implemented on eligible passages in `Advocacy-Paper` through:
+	- block-level controls (`Give feedback on this passage`), and
+	- selection-based controls (`Give feedback on selected text`).
+2. Both contextual paths route to the consolidated feedback page:
+	- `/Provide-Feedback-on-the-Advocacy-Paper`.
+3. Passage-triggered entry points carry context in `sessionStorage` and prefill hidden form metadata on arrival.
+4. Direct-open behavior on the feedback page remains page-level by default so feedback can be submitted without using passage controls.
+5. A globally discoverable sitewide `Give feedback` link (for example in footer or top navigation) is not yet recorded as shipped in this phase log and remains a follow-up item.
+
+### P1-20 Completion Check Results
+
+Run date: 2026-07-17 to 2026-07-18 (local environment)
+
+1. Visitors can find general feedback without selecting text: **PARTIAL**
+	- The dedicated feedback route exists and works when opened directly.
+	- A global discoverable entry point (footer/nav/page-meta link) is still pending.
+2. Visitors can submit feedback about a particular block: **PASS**
+	- Block controls render on eligible passages and navigate to the feedback form with context.
+3. Visitors can submit feedback about selected text: **PASS**
+	- Selection controls appear for valid in-block selections and submit through the same form flow.
+
+## P1-21 — Run local accessibility and usability testing
+
+Implementation scope for this pass:
+
+- Run all feasible automated local checks (build, tests, generated HTML inspection, scripted interaction checks).
+- Record manual-only checks that still require human assistive-technology and visual verification.
+
+### P1-21 Local Check Results
+
+Run date: 2026-07-17 to 2026-07-18 (local environment)
+
+Automated checks completed:
+
+1. Build and test pipeline: **PASS**
+	- `npm run build` completed successfully.
+	- `npm test` completed successfully (`passage-identifiers`, `public-issue-format`, and `public-feedback-worker` tests passed).
+
+2. Duplicate IDs on generated target page: **PASS**
+	- Duplicate `id` count on `public/Advocacy-Paper.html`: `0`.
+
+3. Feedback-form status and label hooks in generated HTML: **PASS**
+	- `public/Provide-Feedback-on-the-Advocacy-Paper.html` contains:
+	  - labeled name field,
+	  - labeled feedback textarea,
+	  - status region `#feedback-submit-status` with `aria-live="polite"`,
+	  - created-issue link element with safe new-tab attributes.
+
+4. Touch/narrow viewport control availability: **PASS**
+	- At mobile viewport width (`390px`), passage controls remain visible and sized for touch interaction.
+
+5. Selection/copy behavior smoke test: **PASS (automated smoke check)**
+	- Programmatic selection inside a feedback block did not trigger navigation by itself.
+	- Synthetic copy event was not prevented (`defaultPrevented=false`).
+
+6. Failed-submission recovery on feedback form: **PASS**
+	- Forced endpoint failure (`ERR_CONNECTION_REFUSED`) preserved entered form values.
+	- Error status was shown and fields remained editable for retry.
+
+Issues found during this P1-21 run:
+
+1. Public/private messaging clarity on active feedback page: **PARTIAL**
+	- The page links to `Public Feedback Policy`, but the inline notice is minimal.
+	- A direct, pre-submit plain-language warning that all submitted fields may become public should be made more explicit on-page.
+
+Rerun update (same local test window):
+
+1. Keyboard and selection contextual route mismatch: **RESOLVED**
+	- Updated `FORM_SLUG` in `quartz.layout.ts` to `/Provide-Feedback-on-the-Advocacy-Paper`.
+	- Re-validated both keyboard activation (Enter on passage control) and selection-action activation now route to the consolidated feedback page (no local `404`).
+
+Manual checks still required (human-run):
+
+1. Keyboard-only full flow with human navigation and focus visibility review.
+2. Screen-reader checks (labels, announcement timing, and distinction between context vs editable feedback).
+3. Touch interaction on physical device(s) to confirm no hover dependency in real use.
+4. Reduced-motion and 200% zoom visual review (including floating control overlap on long text).
+
+### P1-21 Completion Criteria Status (current)
+
+1. There are no keyboard blockers: **PASS (automated/local flow check)**
+	- Keyboard activation of passage controls now reaches `/Provide-Feedback-on-the-Advocacy-Paper` as expected.
+2. Public/private messaging is unambiguous: **PARTIAL**
+	- Policy is linked, but inline pre-submit public-data warning can be clearer.
+3. Passage context is accurately captured: **PASS (automated/local flow check)**
+	- Passage and selection controls route correctly to the feedback page and carry contextual entry behavior.
+4. The form remains usable on narrow screens: **PASS (automated/local smoke)**
+	- Feedback controls and form controls remained visible and interactive under mobile viewport dimensions.
+
 ## P1-21B Non-Local Accessibility Note
 
 Use the deployed GitHub Pages site for WAVE-style non-local checks, and keep `main` as the source of truth until the feature branch is ready to merge.
