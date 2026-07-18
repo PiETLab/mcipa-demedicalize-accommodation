@@ -1,6 +1,7 @@
 import { PageLayout, SharedLayout } from "./quartz/cfg"
 import * as Component from "./quartz/components"
 import { execSync } from "node:child_process"
+import { explorerFilterFn, explorerMapFn, explorerOrder, explorerSortFn } from "./explorer-order"
 
 function readGitMetadata(command: string) {
   try {
@@ -1022,7 +1023,14 @@ export const defaultContentPageLayout: PageLayout = {
     Component.MobileOnly(Component.Spacer()),
     Component.Search(),
     Component.Darkmode(),
-    Component.DesktopOnly(Component.Explorer()),
+    Component.DesktopOnly(
+      Component.Explorer({
+        order: [...explorerOrder],
+        filterFn: explorerFilterFn,
+        mapFn: explorerMapFn,
+        sortFn: explorerSortFn,
+      }),
+    ),
   ],
   right: [
     //Component.Graph(),
@@ -1039,7 +1047,14 @@ export const defaultListPageLayout: PageLayout = {
     Component.MobileOnly(Component.Spacer()),
     Component.Search(),
     Component.Darkmode(),
-    Component.DesktopOnly(Component.Explorer()),
+    Component.DesktopOnly(
+      Component.Explorer({
+        order: [...explorerOrder],
+        filterFn: explorerFilterFn,
+        mapFn: explorerMapFn,
+        sortFn: explorerSortFn,
+      }),
+    ),
   ],
   right: [],
 }
