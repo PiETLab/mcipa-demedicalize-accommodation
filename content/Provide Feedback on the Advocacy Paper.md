@@ -1,6 +1,6 @@
 # Provide Feedback on the Advocacy Paper
 
-Use this page to submit feedback about the Advocacy Paper.  For information about how your feedback will be used, see the [[content/Public Feedback Policy|Public Feedback Policy]].
+Use this page to submit feedback about the Advocacy Paper.  For information about how your feedback will be used, see the [[Public Feedback Policy|Public Feedback Policy]].
 
 <div class="feedback-notice" role="note">
   Fill out the form below to send feedback.
@@ -22,8 +22,8 @@ Use this page to submit feedback about the Advocacy Paper.  For information abou
 <input id="field-page-title" type="hidden" name="pageTitle" value="" />
 <input id="field-page-url" type="hidden" name="pageUrl" value="" />
 
-<button id="feedback-submit-button" type="submit">Submit feedback</button>
 <p id="feedback-submit-status" class="feedback-submit-status" aria-live="polite"></p>
+<button id="feedback-submit-button" type="submit">Submit feedback</button>
 <a id="feedback-created-issue-link" hidden rel="noopener noreferrer" target="_blank"></a>
 </form>
 

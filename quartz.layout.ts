@@ -711,11 +711,11 @@ const FeedbackFormHydration = () => {
         }
 
         const issueUrl = safeIssueUrl(result.issueUrl || result.html_url || result.url || "");
-        setStatus("Feedback submitted successfully.", "success");
+        setStatus("Thanks, your feedback was received.", "success");
         if (issueUrl && issueLink) {
           issueLink.hidden = false;
           issueLink.href = issueUrl;
-          issueLink.textContent = "View created issue";
+          issueLink.textContent = "View submitted feedback on github";
         }
 
         form.reset();
