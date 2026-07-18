@@ -37,8 +37,9 @@ to disclose a diagnosis.
 
 Conventions for explicit IDs:
 
-- Pattern: `^[a-z0-9]+(?:-[a-z0-9]+)*$`
-- Allowed characters: lowercase letters, digits, hyphens.
+- Pattern: `^[a-z0-9][a-z0-9_-]*$`
+- Allowed characters: lowercase letters, digits, hyphens, underscores.
+- Hyphens remain preferred for readability.
 - The value should describe the idea, not paragraph order.
 - The value must not include personal information.
 - The value is intended to remain stable even if surrounding content moves.
@@ -100,3 +101,174 @@ Collision policy is split by ID type:
 - Explicit-ID convention documented.
 - Fallback algorithm documented.
 - Collision handling documented.
+
+## P1-05 Build-Time Passage Identifier Scope and Rules
+
+Approved implementation choices for Phase 1:
+
+1. Implementation style:
+	- Use an inline Quartz transformer in `quartz.config.ts`.
+2. Scope boundary:
+	- Assign passage identifiers only on `content/Advocacy Paper.md`.
+	- Do not assign passage identifiers on any other page.
+3. Collision behavior for fallback IDs:
+	- Warn when a generated fallback collides.
+	- Keep first as `feedback-block-<hash>`.
+	- Suffix later collisions deterministically (`-2`, `-3`, ...).
+4. Heading handling (clarified):
+	- In this context, "heading handling" means whether heading elements (`h1`-`h6`) should receive passage identifiers.
+	- For Phase 1, headings do not receive passage identifiers.
+	- Headings may still be used only as context metadata (for example, "nearest heading").
+
+## P1-05 Completion Check Results
+
+Run date: 2026-07-17 (local environment)
+
+Completion criteria status:
+
+1. Eligible content blocks have usable IDs: **PASS**
+	- Local output check on `public/Advocacy-Paper.html` returned:
+	  - `TOTAL=165`
+	  - `MISSING_ID=0`
+	- Interpretation: all feedback-marked blocks in the target page had usable IDs.
+
+2. Existing anchors remain intact: **PASS**
+	- Verified explicit anchor present in generated HTML:
+	  - `<p id="test-1" data-feedback-block="true">...`
+
+3. The Quartz site builds successfully: **PASS**
+	- `npm run build` completed successfully.
+
+4. Tests pass: **PASS**
+	- Added `npm test` script in `package.json`.
+	- Added integration harness at `tests/passage-identifiers.test.cjs`.
+	- Verified local run: `npm test` -> `Passage identifier tests passed.`
+
+Overall result:
+
+- 4 of 4 completion criteria currently pass.
+
+## P1-06 Accessible Block-Level Feedback Controls
+
+Implementation summary:
+
+1. Added a custom Quartz layout component that injects passage feedback controls.
+2. Controls are attached to eligible blocks marked with `data-feedback-block="true"`.
+3. Each control is a keyboard-focusable button with visible text:
+	- `Give feedback on this passage`
+4. Each button also includes contextual accessible naming:
+	- `Give feedback on the passage beginning "..."`
+5. Activation stores passage context in `sessionStorage` under `mcipa.feedbackContext` and navigates to:
+	- `/Provide-Feedback-on-the-Advocacy-Paper`
+6. Payload fields written to `sessionStorage`:
+	- `feedbackType`
+	- `pageTitle`
+	- `pageUrl`
+	- `sectionHeading`
+	- `blockId`
+	- `blockUrl`
+	- `quotedText`
+7. Controls are reattached after Quartz SPA navigation by listening to the `nav` event.
+
+Operational notes:
+
+- To ensure local `quartz.config.ts` and `quartz.layout.ts` changes are always active, project scripts now run `sync-quartz-config` before build/preview/sync/test.
+
+### P1-06 Completion Check Results
+
+Run date: 2026-07-17 (local environment)
+
+1. Each eligible block has an accessible feedback control: **PASS**
+	- Browser validation found `165` controls on `Advocacy-Paper`.
+	- Controls are visible and focusable buttons.
+
+2. Controls work after initial page load and Quartz client navigation: **PASS**
+	- Browser validation confirmed `165` controls after SPA route change round-trip.
+
+3. Activating a control opens the form with the correct block data: **PASS**
+	- Navigation reached `/Provide-Feedback-on-the-Advocacy-Paper`.
+	- `sessionStorage` payload includes all required fields (`feedbackType`, `pageTitle`, `pageUrl`, `sectionHeading`, `blockId`, `blockUrl`, `quotedText`).
+
+### P1-06 Form Hydration Bridge (Prerequisite for P1-07)
+
+Run date: 2026-07-17 (local environment)
+
+1. Added a feedback form scaffold to `content/Provide Feedback on the Advocacy Paper.md` with:
+	- context status messaging,
+	- context display fields,
+	- hidden fields for `feedbackType`, `pageTitle`, `pageUrl`, `sectionHeading`, `blockId`, `blockUrl`, and `quotedText`.
+2. Added client-side hydration logic in `quartz.layout.ts` that:
+	- detects the feedback page,
+	- reads `mcipa.feedbackContext` from `sessionStorage`,
+	- populates visible context and hidden fields,
+	- preserves direct-open behavior when context is absent.
+3. End-to-end validation: **PASS**
+	- Clicking a passage feedback button on `Advocacy-Paper` navigates to the feedback page and hydrates expected fields.
+
+## P1-07 Selection-Based Passage Feedback
+
+Implementation summary:
+
+1. Added progressive selection feedback behavior in `quartz.layout.ts` as part of the same client-side component that handles block-level controls.
+2. When text is selected inside a valid feedback block, a small action button appears near the selection:
+	- `Give feedback on selected text`
+3. Selection validation rules implemented:
+	- reject empty, collapsed, or whitespace-only selections,
+	- reject selections longer than 600 characters,
+	- reject selections spanning different feedback blocks,
+	- reject selections outside eligible feedback blocks,
+	- reject selections from navigation/footer/page chrome regions.
+4. On selection action activation, payload stored in `sessionStorage` now includes:
+	- `feedbackType=selection`
+	- `selectedText` (exact selected text, normalized)
+	- `fullBlockText`
+	- `startContext`
+	- `endContext`
+	- plus existing context fields (`pageTitle`, `pageUrl`, `sectionHeading`, `blockId`, `blockUrl`, `quotedText`).
+5. Feedback form page was extended to display and carry hidden fields for selection-specific data.
+
+### P1-07 Completion Check Results
+
+Run date: 2026-07-17 (local environment)
+
+1. Users can comment on a sentence or phrase: **PASS**
+	- Selecting text inside an eligible block shows the selection action.
+	- Activating it navigates to `/Provide-Feedback-on-the-Advocacy-Paper` with `feedbackType=selection` and populated selection/context fields.
+
+2. The feature does not interfere with ordinary copying: **PASS (smoke check)**
+	- `copy` event is not canceled by the selection feature.
+
+3. Block-level feedback still works without JavaScript selection support: **PASS**
+	- Block-level `Give feedback on this passage` controls remain present and functional independent of selection state.
+
+## P1-08 Durable Passage Links
+
+Implementation summary:
+
+1. Added canonical URL generation in `quartz.layout.ts` for passage submissions using:
+	- `https://pietlab.github.io/mcipa-demedicalize-accommodation` + current page path.
+2. Added anchored block link generation for passage and selection flows:
+	- `blockUrl = canonicalPageUrl#blockId`
+3. Added text-fragment link generation as enhancement when reliable:
+	- generated only when normalized quoted/selected text length is between 4 and 180 characters,
+	- omitted otherwise.
+4. Added safe encoding for text-fragment payloads using `encodeURIComponent`.
+5. Kept navigation target fixed to the known feedback page path (no user-controlled redirect).
+6. Updated feedback page UI/fields to display captured destinations for verification:
+	- block URL
+	- text-fragment URL (or `Not generated`)
+	- hidden field `textFragmentUrl` for form submission pipeline.
+
+### P1-08 Completion Check Results
+
+Run date: 2026-07-17 (local environment)
+
+1. Block links scroll to the relevant block: **PASS**
+	- Captured block URL format validated as canonical + block anchor.
+
+2. Text-fragment links are included when valid: **PASS**
+	- Block-level feedback with long passage text correctly omitted text-fragment URL (`Not generated`).
+	- Selection feedback with short in-block text generated valid text-fragment URL containing `#:~:text=`.
+
+3. Malformed or excessive selections are handled safely: **PASS**
+	- Oversized selection (`851` chars) hid the selection action and did not produce a text-fragment submission path.
