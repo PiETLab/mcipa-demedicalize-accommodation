@@ -25,6 +25,18 @@ const explorerPath = path.join(
   "Explorer.tsx",
 )
 
+const searchStylePath = path.join(
+  __dirname,
+  "..",
+  "node_modules",
+  "@jackyzha0",
+  "quartz",
+  "quartz",
+  "components",
+  "styles",
+  "Search.scss",
+)
+
 function fail(message) {
   throw new Error(`[patch-quartz-render-page-cache-bust] ${message}`)
 }
@@ -121,5 +133,28 @@ function patchExplorerAccessibility() {
   console.log("Applied Quartz Explorer.tsx accessibility patch.")
 }
 
+function patchSearchContrast() {
+  if (!fs.existsSync(searchStylePath)) {
+    fail(`Target file not found: ${searchStylePath}`)
+  }
+
+  let source = fs.readFileSync(searchStylePath, "utf8")
+
+  if (source.includes("color: var(--darkgray);")) {
+    console.log("Quartz Search.scss contrast patch already applied.")
+    return
+  }
+
+  const needle = "      color: var(--gray);"
+  if (!source.includes(needle)) {
+    fail("Could not find Search button text color rule")
+  }
+
+  source = source.replace(needle, "      color: var(--darkgray);")
+  fs.writeFileSync(searchStylePath, source)
+  console.log("Applied Quartz Search.scss contrast patch.")
+}
+
 patchRenderPage()
 patchExplorerAccessibility()
+patchSearchContrast()
