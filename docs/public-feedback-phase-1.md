@@ -339,3 +339,61 @@ Run date: 2026-07-17 to 2026-07-18 (local environment)
 	}
 	```
 - The page accepts the first available URL field and uses it to show the created-issue link.
+
+## P1-10 Public Issue Format
+
+Implementation summary:
+
+1. Added a reusable issue-format module at `services/mcipa-feedback-worker/src/issue-format.js`.
+2. The formatter now returns a single issue object with:
+	- `title`
+	- `body`
+	- `labels`
+3. Passage-level bodies render the requested sections:
+	- selected passage,
+	- feedback,
+	- passage location,
+	- submission information.
+4. Page-level bodies render the requested sections:
+	- feedback,
+	- page information,
+	- submission information.
+5. All dynamic values are treated as untrusted and rendered through length-limited, structure-preserving helpers so they cannot create headings or break the issue layout.
+6. Optional fields fall back to readable placeholders such as `Not provided`, `Anonymous`, and `Site generally`.
+
+### P1-10 Completion Check Results
+
+Run date: 2026-07-17 (local environment)
+
+1. Examples for both issue types are approved: **PASS**
+	- The formatter produces legible page-level and passage-level issue bodies matching the agreed structure.
+
+2. Issue bodies remain legible when fields are omitted: **PASS**
+	- Missing page metadata renders readable placeholders without collapsing the structure.
+
+3. User-supplied Markdown cannot break the administrative structure: **PASS**
+	- Dynamic values are rendered as quoted or code-formatted literals, and injected headings remain inside quoted content.
+
+4. Tests pass: **PASS**
+	- Added `tests/public-issue-format.test.cjs`.
+	- Verified local run: `npm test` -> `Passage identifier tests passed.` and `Public issue format tests passed.`
+
+## P1-14 Cloudflare Account and Wrangler Authentication
+
+Implementation summary:
+
+1. The Cloudflare account for the MCIPA feedback Worker is the PiETLab-controlled account registered under `mbaljko@icloud.com`.
+2. The account owner and maintenance responsibility are documented in:
+	- `docs/Cloudflare account administration.md`
+3. Wrangler authentication was completed successfully with `npx wrangler login`.
+4. The OAuth flow was approved against the intended Cloudflare account, and the login finished without storing any secret in the repository.
+
+### P1-14 Completion Check Results
+
+Run date: 2026-07-17 (local environment)
+
+1. Wrangler is authenticated to the intended account: **PASS**
+	- `wrangler login` completed successfully.
+
+2. The account owner and maintenance responsibility are documented: **PASS**
+	- The Cloudflare account administration note records ownership, recovery, and administrative responsibility.

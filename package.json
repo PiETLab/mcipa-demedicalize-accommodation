@@ -13,7 +13,7 @@
     "presync": "npm run sync-quartz-config",
     "sync": "quartz sync",
     "pretest": "npm run sync-quartz-config",
-    "test": "node tests/passage-identifiers.test.cjs"
+    "test": "node tests/passage-identifiers.test.cjs && node tests/public-issue-format.test.cjs"
   },
   "engines": {
     "node": ">=22",
