@@ -9,7 +9,7 @@ const TARGET_PAGE_KEYS = new Set([
   "advocacy paper.md",
 ])
 
-const ELIGIBLE_TAGS = new Set(["p", "blockquote", "table", "pre"])
+const ELIGIBLE_TAGS = new Set(["p"])
 
 function normalizeCandidate(value: unknown): string | null {
   if (typeof value !== "string") {
@@ -120,6 +120,8 @@ const PassageIdentifierTransformer = () => ({
               return
             }
 
+            const elementText = nodeText(element)
+
             const properties = (element.properties ??= {})
             const explicitId = typeof properties.id === "string" ? properties.id.trim() : ""
 
@@ -136,7 +138,7 @@ const PassageIdentifierTransformer = () => ({
               return
             }
 
-            const normalizedText = normalizeBlockText(nodeText(element))
+            const normalizedText = normalizeBlockText(elementText)
             const basis = normalizedText.length > 0 ? normalizedText : tagName
             const fallbackBaseId = `feedback-block-${stableHash(`${pageKey}::${basis}`)}`
 

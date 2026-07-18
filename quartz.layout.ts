@@ -120,6 +120,54 @@ const PassageFeedbackControls = () => {
     return (text || "").replace(/\\s+/g, " ").trim()
   }
 
+  const isListContainer = (element) => {
+    if (!element || !element.tagName) {
+      return false
+    }
+
+    const tag = element.tagName.toUpperCase()
+    return tag === "UL" || tag === "OL" || tag === "DL"
+  }
+
+  const isListLikeParagraph = (element) => {
+    if (!element || !element.tagName || element.tagName.toUpperCase() !== "P") {
+      return false
+    }
+
+    const normalized = normalizeText(element.textContent || "")
+    return /^(?:\d+[.)]|[\-*•·])\s+/.test(normalized)
+  }
+
+  const getInsertionTarget = (block) => {
+    if (!block || !block.tagName || block.tagName.toUpperCase() !== "P") {
+      return block
+    }
+
+    let lastNodeInLeaf = block
+    let cursor = block.nextElementSibling
+
+    // A p-like leaf may include immediately trailing list-like entities.
+    while (cursor && (isListContainer(cursor) || isListLikeParagraph(cursor))) {
+      lastNodeInLeaf = cursor
+      cursor = cursor.nextElementSibling
+    }
+
+    return lastNodeInLeaf
+  }
+
+  const shouldAttachForParagraphLeaf = (block) => {
+    if (!block || !block.tagName || block.tagName.toUpperCase() !== "P") {
+      return true
+    }
+
+    if (!isListLikeParagraph(block)) {
+      return true
+    }
+
+    const prev = block.previousElementSibling
+    return !isListLikeParagraph(prev)
+  }
+
   const safeIssueUrl = (value) => {
     const candidate = (value || "").toString().trim()
     if (!candidate) {
@@ -184,7 +232,7 @@ const PassageFeedbackControls = () => {
     const article = el.closest("article")
     if (!article) return ""
 
-    const headings = article.querySelectorAll("h1, h2, h3, h4, h5, h6")
+    const headings = article.querySelectorAll("h2, h3, h4, h5, h6")
     let nearest = ""
 
     headings.forEach((heading) => {
@@ -361,6 +409,10 @@ const PassageFeedbackControls = () => {
       const blockId = block.getAttribute("id")
       if (!blockId) return
 
+      if (!shouldAttachForParagraphLeaf(block)) {
+        return
+      }
+
       if (block.closest("nav, footer, .page-footer")) {
         return
       }
@@ -368,6 +420,9 @@ const PassageFeedbackControls = () => {
       const rawText = block.textContent?.trim() ?? ""
       const quotedText = rawText.replace(/\\s+/g, " ").trim().slice(0, 1800)
       const sectionHeading = getNearestHeadingText(block)
+      if (!sectionHeading) {
+        return
+      }
       const pageUrl = canonicalPageUrlFromLocation()
       const blockUrl = buildBlockLink(pageUrl, blockId)
       const textFragmentUrl = buildTextFragmentLink(pageUrl, quotedText)
@@ -409,7 +464,8 @@ const PassageFeedbackControls = () => {
       })
 
       wrapper.appendChild(button)
-      block.insertAdjacentElement("afterend", wrapper)
+      const insertionTarget = getInsertionTarget(block)
+      insertionTarget.insertAdjacentElement("afterend", wrapper)
     })
   }
 

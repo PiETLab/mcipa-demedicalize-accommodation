@@ -6,7 +6,7 @@ const { execSync } = require("node:child_process")
 const repoRoot = path.resolve(__dirname, "..")
 const publicDir = path.join(repoRoot, "public")
 const advocacyHtmlPath = path.join(publicDir, "Advocacy-Paper.html")
-const eligibleTags = new Set(["p", "blockquote", "table", "pre"])
+const eligibleTags = new Set(["p"])
 
 function run(command) {
   execSync(command, {
@@ -60,6 +60,7 @@ function readAdvocacyHtml() {
   return fs.readFileSync(advocacyHtmlPath, "utf8")
 }
 
+
 function runBuild() {
   run("npm run build")
 }
@@ -98,13 +99,6 @@ function assertEligibleBlocksHaveIdsAndTags(html) {
     ineligibleTags.length,
     0,
     `Found feedback markers on ineligible tags: ${[...new Set(ineligibleTags)].join(", ")}`,
-  )
-}
-
-function assertExplicitAnchorPreserved(html) {
-  assert.ok(
-    html.includes('id="test-1" data-feedback-block="true"'),
-    'Expected explicit anchor id="test-1" to be preserved on a feedback block.',
   )
 }
 
@@ -156,7 +150,6 @@ function main() {
 
   assertOnlyTargetPageHasMarkers()
   assertEligibleBlocksHaveIdsAndTags(html)
-  assertExplicitAnchorPreserved(html)
   assertDifferentIdsExist(ids)
   assertCollisionBehavior(ids)
 

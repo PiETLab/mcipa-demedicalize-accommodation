@@ -55,13 +55,16 @@ PassageIdentifierTransformer does not parse raw markdown text directly. It reads
 
 ### Eligible HTML Tags
 
-Only these tags are marked as feedback blocks:
+Only this tag is marked as a feedback leaf block:
 - p
-- blockquote
-- table
-- pre
 
-Headings are intentionally excluded from passage-button insertion eligibility.
+Headings are not feedback leaves.
+
+List-like paragraph lines can participate in paragraph-like leaves, for example:
+- numbered lines such as `1. ...`
+- bullet-like lines such as `- ...`, `* ...`, `• ...`, or `· ...`
+
+Runtime insertion collapses contiguous list-like paragraph runs into one paragraph-like leaf so one button is placed after the combined run.
 
 ### ID Assignment and Stability
 
@@ -90,7 +93,9 @@ What it does on each run:
 5. Creates a wrapper div with class passage-feedback-control.
 6. Creates a button with class passage-feedback-button and text "Give feedback on this passage".
 7. Adds an aria-label based on a quote preview from the block text.
-8. Inserts the wrapper immediately after the block using insertAdjacentElement("afterend", wrapper).
+8. Inserts the wrapper:
+- after the paragraph itself for plain paragraph leaves
+- after the trailing list-like entity for paragraph-like leaves (contiguous list-like paragraph run)
 
 ### Reattachment Behavior
 
@@ -108,7 +113,10 @@ Button insertion is governed by the intersection of these rules:
 - The page must be identified as Advocacy Paper by isTargetPage().
 
 2. Tag eligibility gate (build time):
-- The element must be one of p, blockquote, table, pre.
+- The element must be p.
+
+2.5. Heading-parent gate (runtime):
+- The paragraph leaf must resolve to a nearest levelled heading (h2-h6) inside the article.
 
 3. Marker gate (build time to runtime bridge):
 - The element must have data-feedback-block="true".
@@ -122,12 +130,16 @@ Button insertion is governed by the intersection of these rules:
 6. Exclusion gate (runtime):
 - The element must not be inside nav, footer, or .page-footer.
 
+7. Placement rule (runtime):
+- For paragraph leaves, insertion target is immediately after the paragraph.
+- For list-like paragraph runs, only the first paragraph in the run emits a control and insertion target is the end of that run.
+
 Only when all of the above pass will the button be injected.
 
 ## Why This Design Exists
 
 - Predictable placement: only explicitly eligible content blocks get controls.
-- Accessibility and clarity: buttons are tied to meaningful prose/list/quote/code/table blocks.
+- Accessibility and clarity: buttons are tied to paragraph leaves and paragraph-like content units.
 - Stability: deterministic ids support durable references and feedback metadata.
 - SPA resilience: controls reattach after client-side navigation.
 
