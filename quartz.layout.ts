@@ -71,7 +71,7 @@ const PassageFeedbackControls = () => {
   }
   window.__mcipaFeedbackControlsInitialized = true
 
-  const FORM_SLUG = "Provide-Feedback-on-the-Advocacy-Paper"
+  const FORM_SLUG = "submit-feedback"
   const STORAGE_KEY = "mcipa.feedbackContext"
   const CONTROL_SELECTOR = ".passage-feedback-control"
   const SELECTION_MAX_CHARS = 600
@@ -448,6 +448,72 @@ const FeedbackFormHydration = () => {
   font: inherit;
   cursor: pointer;
 }
+
+.feedback-mode-group {
+  border: 1px solid var(--lightgray);
+  border-radius: 0.75rem;
+  padding: 0.75rem;
+}
+
+.feedback-mode-group legend {
+  font-weight: 700;
+  padding: 0 0.25rem;
+}
+
+.feedback-mode-option {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0.35rem 0;
+}
+
+.feedback-notice {
+  border-left: 4px solid var(--secondary);
+  padding: 0.65rem 0.75rem;
+  background: color-mix(in srgb, var(--light) 90%, var(--secondary) 10%);
+}
+
+.feedback-context-preview {
+  border: 1px solid var(--lightgray);
+  border-radius: 0.65rem;
+  padding: 0.7rem;
+  background: var(--light);
+}
+
+.feedback-context-preview blockquote {
+  margin: 0;
+  border-left: 3px solid var(--gray);
+  padding-left: 0.7rem;
+}
+
+.feedback-inline-actions {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.feedback-inline-actions button {
+  border: 1px solid var(--gray);
+  background: var(--light);
+  color: var(--dark);
+}
+
+.feedback-submit-status {
+  font-size: 0.92rem;
+}
+
+.feedback-submit-status.error {
+  color: #b3261e;
+}
+
+.feedback-submit-status.success {
+  color: #1e7d32;
+}
+
+.feedback-form button:disabled {
+  opacity: 0.7;
+  cursor: wait;
+}
 `
 
   FeedbackHydration.afterDOMLoaded = `
@@ -458,7 +524,9 @@ const FeedbackFormHydration = () => {
   window.__mcipaFeedbackFormHydrationInitialized = true
 
   const STORAGE_KEY = "mcipa.feedbackContext";
-  const FORM_PATH = "/Provide-Feedback-on-the-Advocacy-Paper";
+  const FORM_PATHS = ["/submit-feedback", "/provide-feedback-on-the-advocacy-paper"];
+  let initializedForm = false;
+  let isSubmitting = false;
 
   const normalizePath = (path) => {
     let normalized = path || "/";
@@ -469,7 +537,178 @@ const FeedbackFormHydration = () => {
   };
 
   const isFeedbackPage = () => {
-    return normalizePath(window.location.pathname).toLowerCase() === FORM_PATH.toLowerCase();
+    const current = normalizePath(window.location.pathname).toLowerCase();
+    return FORM_PATHS.some((path) => path.toLowerCase() === current);
+  };
+
+  const setStatus = (message, type) => {
+    const status = document.querySelector("#feedback-submit-status");
+    if (!status) return;
+    status.textContent = message || "";
+    status.classList.remove("error", "success");
+    if (type) {
+      status.classList.add(type);
+    }
+  };
+
+  const toggleContextPreview = (mode) => {
+    const contextSection = document.querySelector("#feedback-context-section");
+    if (contextSection) {
+      contextSection.hidden = mode !== "passage";
+    }
+  };
+
+  const setMode = (mode) => {
+    const modePage = document.querySelector("#mode-page");
+    const modePassage = document.querySelector("#mode-passage");
+    const fieldType = document.querySelector("#field-feedback-type");
+    const fieldSection = document.querySelector("#field-section-heading-display");
+    const fieldSelection = document.querySelector("#field-selected-passage-display");
+
+    if (modePage && modePassage) {
+      modePage.checked = mode === "page";
+      modePassage.checked = mode === "passage";
+    }
+
+    if (fieldType) fieldType.value = mode;
+    if (fieldSection) fieldSection.readOnly = true;
+    if (fieldSelection) fieldSelection.readOnly = true;
+    toggleContextPreview(mode);
+  };
+
+  const clearPassageContext = () => {
+    [
+      "#field-section-heading",
+      "#field-block-id",
+      "#field-block-url",
+      "#field-text-fragment-url",
+      "#field-quoted-text",
+      "#field-selected-text",
+      "#field-full-block-text",
+      "#field-start-context",
+      "#field-end-context",
+    ].forEach((selector) => setValue(selector, ""));
+
+    setText("#feedback-section-heading", "Not provided");
+    setText("#feedback-block-id", "Not provided");
+    setText("#feedback-block-url", "Not provided");
+    setText("#feedback-text-fragment-url", "Not generated");
+    setText("#feedback-quoted-text", "Not provided");
+    setText("#feedback-selected-text", "Not provided");
+    setText("#feedback-full-block-text", "Not provided");
+    setText("#feedback-start-context", "Not provided");
+    setText("#feedback-end-context", "Not provided");
+
+    setValue("#field-section-heading-display", "");
+    setValue("#field-selected-passage-display", "");
+    setMode("page");
+  };
+
+  const bindFormInteractions = () => {
+    if (initializedForm || !isFeedbackPage()) {
+      return;
+    }
+
+    const form = document.querySelector("#public-feedback-form");
+    if (!form) {
+      return;
+    }
+
+    initializedForm = true;
+
+    const modePage = document.querySelector("#mode-page");
+    const modePassage = document.querySelector("#mode-passage");
+    const clearBtn = document.querySelector("#clear-passage-context");
+    const submitBtn = document.querySelector("#feedback-submit-button");
+    const issueLink = document.querySelector("#feedback-created-issue-link");
+
+    modePage?.addEventListener("change", () => {
+      if (modePage.checked) {
+        setMode("page");
+      }
+    });
+
+    modePassage?.addEventListener("change", () => {
+      if (modePassage.checked) {
+        setMode("passage");
+      }
+    });
+
+    clearBtn?.addEventListener("click", () => {
+      clearPassageContext();
+      setStatus("Passage context cleared. Submission is now page-level.", null);
+    });
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      if (isSubmitting) {
+        return;
+      }
+
+      isSubmitting = true;
+      setStatus("Submitting feedback...", null);
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Submitting...";
+      }
+      if (issueLink) {
+        issueLink.hidden = true;
+        issueLink.removeAttribute("href");
+      }
+
+      const formData = new FormData(form);
+      const endpoint = (form.getAttribute("data-endpoint") || "").trim();
+
+      try {
+        if ((formData.get("website") || "").toString().trim().length > 0) {
+          setStatus("Submission received.", "success");
+          form.reset();
+          clearPassageContext();
+          return;
+        }
+
+        if (!endpoint) {
+          throw new Error("Submission endpoint is not configured yet.");
+        }
+
+        const payload = Object.fromEntries(formData.entries());
+        const response = await fetch(endpoint, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(payload),
+        });
+
+        let result = {};
+        try {
+          result = await response.json();
+        } catch (error) {
+          result = {};
+        }
+
+        if (!response.ok) {
+          throw new Error(result.error || "Feedback submission failed.");
+        }
+
+        const issueUrl = result.issueUrl || result.html_url || result.url || "";
+        setStatus("Feedback submitted successfully.", "success");
+        if (issueUrl && issueLink) {
+          issueLink.hidden = false;
+          issueLink.href = issueUrl;
+          issueLink.textContent = "View created issue";
+        }
+      } catch (error) {
+        const message = error instanceof Error ? error.message : "Unable to submit feedback right now.";
+        setStatus(message, "error");
+      } finally {
+        isSubmitting = false;
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = "Submit feedback";
+        }
+      }
+    });
   };
 
   const setText = (selector, value) => {
@@ -506,6 +745,8 @@ const FeedbackFormHydration = () => {
       if (statusEl) statusEl.textContent = "Context not found in this browser session.";
       if (missingEl) missingEl.hidden = false;
       if (fromPassageEl) fromPassageEl.hidden = true;
+      setMode("page");
+      bindFormInteractions();
       return;
     }
 
@@ -537,6 +778,13 @@ const FeedbackFormHydration = () => {
     setValue("#field-full-block-text", payload.fullBlockText || "");
     setValue("#field-start-context", payload.startContext || "");
     setValue("#field-end-context", payload.endContext || "");
+
+    setValue("#field-page-url-editable", payload.pageUrl || "");
+    setValue("#field-section-heading-display", payload.sectionHeading || "");
+    setValue("#field-selected-passage-display", payload.selectedText || payload.quotedText || "");
+
+    setMode((payload.feedbackType === "selection" || payload.feedbackType === "passage") ? "passage" : "page");
+    bindFormInteractions();
   };
 
   hydrateFeedbackForm();

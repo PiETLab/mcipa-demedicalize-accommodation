@@ -272,3 +272,70 @@ Run date: 2026-07-17 (local environment)
 
 3. Malformed or excessive selections are handled safely: **PASS**
 	- Oversized selection (`851` chars) hid the selection action and did not produce a text-fragment submission path.
+
+## P1-09 Public Feedback Form Page
+
+Implementation summary:
+
+1. Created a dedicated public route page at `/submit-feedback` using `content/submit-feedback.md`.
+2. Added required public-safety notices near the top of the page:
+	- no GitHub account required,
+	- submission becomes a public issue,
+	- no medical/confidential/personal identifiers,
+	- any provided name is public.
+3. Added explicit feedback scope question with two options:
+	- site/page-level feedback,
+	- passage-level feedback.
+4. Added required fields and controls:
+	- optional name/pseudonym,
+	- brief title,
+	- optional/editable relevant page URL,
+	- read-only section field when prefilled,
+	- read-only selected passage field when prefilled,
+	- required feedback description,
+	- hidden honeypot field.
+5. Added a visible passage-context review card with a clear action:
+	- `Clear passage context` resets hidden passage fields,
+	- mode switches back to page-level,
+	- user gets confirmation status text.
+6. Extended form hydration behavior in `quartz.layout.ts` to support P1-09 UX:
+	- route detection includes `/submit-feedback` (with backward compatibility for older form slug),
+	- mode toggling updates visible context region and hidden `feedbackType`,
+	- direct-open fallback defaults to page-level mode,
+	- passage-triggered navigation pre-fills page/section/passage display fields,
+	- submit lifecycle includes disabled button while pending, status messaging, error handling, and optional created-issue link rendering.
+
+### P1-09 Completion Check Results
+
+Run date: 2026-07-17 to 2026-07-18 (local environment)
+
+1. Direct form route is available and keyboard-usable: **PASS**
+	- `/submit-feedback` returns 200 in preview and renders the full form.
+	- Core controls (`mode-page`, `mode-passage`, title, comment, submit) are present.
+
+2. Both page-level and passage-level modes work: **PASS**
+	- Passage-triggered navigation hydrates section and selected passage context.
+	- Clearing context switches mode back to page-level and updates status text.
+
+3. Context review and clear interaction works: **PASS**
+	- Context card now renders as live DOM (not escaped code),
+	- `Clear passage context` button remains interactive,
+	- mode radio state transitions to page-level after clear.
+
+4. Submit lifecycle behavior is implemented: **PASS (endpoint-pending)**
+	- Submit button enters pending state then recovers on failure.
+	- Missing endpoint currently yields explicit error message (`Submission endpoint is not configured yet.`).
+	- Success path supports optional issue link display when backend returns a URL.
+
+### Operator Note
+
+- Configure the form by setting `data-endpoint` on `/submit-feedback` to the Worker URL.
+- Expected success response JSON shape:
+	```json
+	{
+	  "issueUrl": "https://github.com/.../issues/123",
+	  "html_url": "https://github.com/.../issues/123",
+	  "url": "https://github.com/.../issues/123"
+	}
+	```
+- The page accepts the first available URL field and uses it to show the created-issue link.
