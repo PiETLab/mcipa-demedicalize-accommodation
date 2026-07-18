@@ -7,7 +7,7 @@ const { renderPublicIssue, LIMITS } = require(path.join(
   "services",
   "mcipa-feedback-worker",
   "src",
-  "issue-format.js",
+  "issue-format.cjs",
 ))
 
 function countTopLevelHeadings(body) {

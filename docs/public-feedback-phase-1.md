@@ -344,7 +344,7 @@ Run date: 2026-07-17 to 2026-07-18 (local environment)
 
 Implementation summary:
 
-1. Added a reusable issue-format module at `services/mcipa-feedback-worker/src/issue-format.js`.
+1. Added a reusable issue-format module at `services/mcipa-feedback-worker/src/issue-format.cjs`.
 2. The formatter now returns a single issue object with:
 	- `title`
 	- `body`
@@ -397,3 +397,161 @@ Run date: 2026-07-17 (local environment)
 
 2. The account owner and maintenance responsibility are documented: **PASS**
 	- The Cloudflare account administration note records ownership, recovery, and administrative responsibility.
+
+## P1-15 Cloudflare Worker Implementation
+
+Implementation summary:
+
+1. Added a separate worker directory at `services/mcipa-feedback-worker/` with a dedicated `wrangler.toml` and TypeScript entrypoint.
+2. The worker implements:
+	- `POST` submission handling,
+	- `OPTIONS` CORS preflight,
+	- rejection of other methods,
+	- exact origin checks for the production site and an explicit dev origin,
+	- JSON content-type checking,
+	- request-body size limits,
+	- schema validation and field normalization,
+	- honeypot handling,
+	- server-side issue Markdown construction through the shared issue formatter,
+	- fixed GitHub issue creation against `PiETLab/mcipa-demedicalize-accommodation`.
+3. The worker refuses unsupported fields and validates that submitted page and fragment URLs use the expected MCIPA origin/path prefix.
+4. The worker returns generic client errors, keeps logs free of secrets and personal text, and cannot act as a general-purpose GitHub issue proxy.
+5. Added unit tests for valid page and passage submissions plus invalid origin, method, content-type, JSON, honeypot, page URL, body-size, and GitHub failure cases.
+
+
+## P1-15 Completion Check Results
+
+Run date: 2026-07-17 (local environment)
+
+1. The worker compiles: **PASS**
+	- `node --experimental-strip-types tests/public-feedback-worker.test.mjs` imported the TypeScript worker successfully.
+
+2. Unit tests cover valid and invalid submissions: **PASS**
+	- Added `tests/public-feedback-worker.test.mjs`.
+	- Verified local run: `npm test` -> `Passage identifier tests passed.`, `Public issue format tests passed.`, and `Public feedback worker tests passed.`
+
+3. No token or secret appears in source: **PASS**
+	- The worker reads `env.GITHUB_TOKEN` only; no secret value is hard-coded.
+
+4. The worker cannot be used as a general-purpose GitHub issue proxy: **PASS**
+	- The target repository is fixed in code and unsupported form fields are rejected.
+
+## P1-16 Cloudflare Secret Upload
+
+Implementation summary:
+
+1. The GitHub token was added to Cloudflare as the `GITHUB_TOKEN` secret using `npx wrangler secret put GITHUB_TOKEN`.
+2. Wrangler created the `mcipa-feedback` Worker as part of the secret upload flow and stored the secret there successfully.
+3. The token value itself was not written to source, documentation, or chat.
+
+### P1-16 Completion Check Results
+
+Run date: 2026-07-17 (local environment)
+
+1. The Worker has a `GITHUB_TOKEN` secret: **PASS**
+	- Wrangler reported `Success! Uploaded secret GITHUB_TOKEN`.
+
+2. The secret is not present in source or chat: **PASS**
+	- Only the secret name is documented; the token value is not recorded anywhere in the repository.
+
+## P1-17 Local Worker Testing
+
+Completion criteria status:
+
+1. Automated validation and formatting tests pass: **PASS**
+	- `npm test` passes in the local environment.
+	- `wrangler dev --port 8787` starts successfully after the entrypoint was reduced to a default export only.
+2. Failure responses do not expose internal details: **PASS**
+	- Worker failures return generic bodies such as `Invalid submission.` and `Unable to process submission.`
+	- Tests now assert those bodies for invalid input, GitHub failure, and unexpected runtime failure.
+3. No live GitHub issues are created unintentionally: **PASS**
+	- The local smoke check used `OPTIONS` only and did not create an issue.
+	- Invalid submissions are rejected before the GitHub call is reached.
+
+P1-17 completion result:
+
+- Local worker testing is complete under the agreed criteria.
+
+Operational note:
+
+- The local Worker smoke test is intentionally non-destructive. The only live request issued during P1-17 validation was a CORS preflight, which cannot create a GitHub issue.
+
+## P1-18 Pre-Deployment Note
+
+Before deployment, the working tree should be checked with `git status` and `git diff`, and the worker code should still satisfy the safety checks for secret handling, repository ownership, production origin, endpoint URLs, labels, and generic error logging.
+
+It was checked, ok.
+
+## P1-18 Deployment Result
+
+Completion criteria status:
+
+1. The Worker is deployed: **PASS**
+	- Wrangler deployed the worker successfully.
+2. Its URL is recorded: **PASS**
+	- Live Worker URL: `https://mcipa-feedback.mcipa-feedback.workers.dev`
+3. Unsupported requests return an appropriate error: **PENDING CHECK**
+	- Deployment succeeded; the live workers.dev hostname is still failing TLS handshake, so the smoke test is blocked on propagation.
+4. No issue has yet been created unless intentionally tested: **PASS**
+	- Deployment does not create issues by itself.
+
+Retry reminder:
+
+- Wait until 11:15pm or later before trying the live workers.dev smoke test again.
+- If you forget, use this prompt: `Try the deployed worker again after 11:15pm or later, then recheck the unsupported-request smoke test.`
+
+## P1-19 Endpoint Wiring Decision
+
+Decision: use one shared public constant in `quartz.layout.ts` for the production Worker endpoint.
+
+Rationale:
+
+- The endpoint is public, so it does not need secret handling.
+- Centralizing the value avoids scattering the URL across the form submit handler, success UI, and failure UI.
+- A single constant makes later endpoint changes easier to audit and update.
+
+If a different production Worker endpoint approach is needed later, document all of the following in this section before changing it:
+
+- what the new approach is;
+- why it is preferred over the shared constant;
+- which files will change;
+- how the old endpoint wiring will be retired.
+
+Accepted recommendation:
+
+- Define the production Worker endpoint once in `quartz.layout.ts` as a single shared constant for the submission flow.
+- Read that value from the form submit handler, success UI, and failure UI instead of duplicating the URL in multiple places.
+- Keep the endpoint public but centralized so there is one obvious place to update it if the Worker URL ever changes.
+
+## P1-21B Non-Local Accessibility Note
+
+Use the deployed GitHub Pages site for WAVE-style non-local checks, and keep `main` as the source of truth until the feature branch is ready to merge.
+
+What has been learned so far:
+
+- The empty-button issue points to the Quartz header controls in `quartz.layout.ts`, especially the desktop/mobile explorer wiring and the icon-only control area.
+- The low-contrast issue points to the Quartz theme tokens in `quartz.config.ts`, especially the light-mode gray and light color values used in the header/search area.
+
+Why not switch GitHub Pages to the feature branch temporarily:
+
+- It creates a second deployment target that can drift from `main`.
+- It makes merge verification harder because the live site would no longer match the branch you actually intend to land.
+- It risks mixing accessibility fixes with the production deployment path before the feature branch is reviewed.
+
+Recommended workflow:
+
+- Keep GitHub Pages rendering from `main`.
+- Make the Quartz accessibility edits in the feature branch.
+- Validate locally and, when needed, against the deployed `main` site.
+- Merge the feature branch, then let GitHub Pages update naturally from `main`.
+
+Checklist for the later Quartz pass:
+
+1. Recheck the WAVE issues on the deployed `main` site.
+2. Locate the exact layout and theme lines in `quartz.layout.ts` and `quartz.config.ts`.
+3. Adjust the icon-only or unlabeled control that WAVE marks as the empty button.
+4. Improve the header/search contrast if the theme tokens still produce low contrast.
+5. Validate locally first, then confirm the deployed site again before merging.
+
+
+
