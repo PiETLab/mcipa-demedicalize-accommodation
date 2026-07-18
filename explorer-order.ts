@@ -17,21 +17,18 @@ export function explorerSortFn(a: FileTrieNode, b: FileTrieNode): number {
   const explorerRank: Record<string, number> = {
     "index": 0,
     "advocacy-paper": 10,
-    "policy-and-admin": 20,
-    "policy-and-admin/prototype-status": 21,
-    "policy-and-admin/public-feedback-policy": 22,
-    "policy-and-admin/the-actionforge-project-concept": 23,
-    "provide-feedback-on-the-advocacy-paper": 30,
-    "provide-segment-feedback": 31,
-    "july-22-virtual-gathering---how-to-guide": 40,
+    "policy-and-admin": 40,
+    "policy-and-admin/prototype-status": 41,
+    "policy-and-admin/public-feedback-policy": 42,
+    "policy-and-admin/the-actionforge-project-concept": 43,
+    "provide-feedback": 30,
+    "provide-feedback/provide-paper-feedback": 31,
+    "provide-feedback/provide-segment-feedback": 32,
+    "july-22-virtual-gathering---how-to-guide": 20,
   }
 
-  if (a.isFolder !== b.isFolder) {
-    return a.isFolder ? -1 : 1
-  }
-
-  const aSlug = a.slug.replace(/\/index$/, "")
-  const bSlug = b.slug.replace(/\/index$/, "")
+  const aSlug = a.slug.replace(/\/index$/, "").toLowerCase()
+  const bSlug = b.slug.replace(/\/index$/, "").toLowerCase()
   const aRank = Object.prototype.hasOwnProperty.call(explorerRank, aSlug)
     ? explorerRank[aSlug]
     : Number.MAX_SAFE_INTEGER
@@ -42,6 +39,10 @@ export function explorerSortFn(a: FileTrieNode, b: FileTrieNode): number {
   const rankDelta = aRank - bRank
   if (rankDelta !== 0) {
     return rankDelta
+  }
+
+  if (a.isFolder !== b.isFolder) {
+    return a.isFolder ? -1 : 1
   }
 
   return a.displayName.localeCompare(b.displayName, undefined, {

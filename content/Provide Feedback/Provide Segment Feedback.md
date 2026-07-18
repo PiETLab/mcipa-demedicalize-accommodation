@@ -10,7 +10,7 @@ Use this page to submit feedback about the Advocacy Paper.  For information abou
 <div class="feedback-context-card" aria-live="polite">
   <p id="feedback-context-status">Waiting for passage context...</p>
   <p id="feedback-context-missing" hidden>
-    Open this page from a "Give feedback on this passage" or "Give feedback on selected text" control.
+    Select a segment from the [[Advocacy Paper|Adocacy Paper]] for feedback.
   </p>
   <div id="feedback-context-from-passage" hidden>
     <!--Passage context is captured automatically from the button you used.-->

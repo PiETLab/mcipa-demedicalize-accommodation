@@ -90,9 +90,10 @@ const PassageFeedbackControls = () => {
   }
   window.__mcipaFeedbackControlsInitialized = true
 
-  const FORM_SLUG = "/Provide-Segment-Feedback"
+  const FORM_SLUG = "/Provide-Feedback/Provide-Segment-Feedback"
   const FEEDBACK_WORKER_ENDPOINT = "${PUBLIC_FEEDBACK_WORKER_ENDPOINT}"
   const STORAGE_KEY = "mcipa.feedbackContext"
+  const STORAGE_SOURCE_KEY = "mcipa.feedbackContextSource"
   const CONTROL_SELECTOR = ".passage-feedback-control"
   const SELECTION_MAX_CHARS = 600
   const TEXT_FRAGMENT_MIN_CHARS = 4
@@ -358,6 +359,7 @@ const PassageFeedbackControls = () => {
 
       try {
         sessionStorage.setItem(STORAGE_KEY, JSON.stringify(payload))
+        sessionStorage.setItem(STORAGE_SOURCE_KEY, "interactive")
       } catch (error) {
         // If sessionStorage is unavailable, navigation still proceeds and the form can load without context.
       }
@@ -452,6 +454,7 @@ const PassageFeedbackControls = () => {
 
         try {
           sessionStorage.setItem(STORAGE_KEY, JSON.stringify(payload))
+          sessionStorage.setItem(STORAGE_SOURCE_KEY, "interactive")
         } catch (error) {
           // If sessionStorage is unavailable, navigation still proceeds and the form can load without context.
         }
@@ -645,8 +648,12 @@ const FeedbackFormHydration = () => {
   window.__mcipaFeedbackFormHydrationInitialized = true
 
   const STORAGE_KEY = "mcipa.feedbackContext";
-  const FORM_PATHS = ["/provide-feedback-on-the-advocacy-paper", "/provide-segment-feedback"];
-  const SEGMENT_FEEDBACK_PATH = "/provide-segment-feedback";
+  const STORAGE_SOURCE_KEY = "mcipa.feedbackContextSource";
+  const FORM_PATHS = [
+    "/provide-feedback/provide-feedback-on-the-advocacy-paper",
+    "/provide-feedback/provide-segment-feedback",
+  ];
+  const SEGMENT_FEEDBACK_PATH = "/provide-feedback/provide-segment-feedback";
   const FEEDBACK_WORKER_ENDPOINT = "${PUBLIC_FEEDBACK_WORKER_ENDPOINT}";
   let initializedForm = null;
   let isSubmitting = false;
@@ -723,6 +730,23 @@ const FeedbackFormHydration = () => {
   };
 
   const clearPassageContext = () => {
+    setValue("#field-section-heading", "");
+    setValue("#field-block-id", "");
+    setValue("#field-block-url", "");
+    setValue("#field-text-fragment-url", "");
+    setValue("#field-quoted-text", "");
+    setValue("#field-selected-text", "");
+    setValue("#field-full-block-text", "");
+    setValue("#field-start-context", "");
+    setValue("#field-end-context", "");
+    setValue("#field-section-heading-display", "");
+    setValue("#field-selected-passage-display", "");
+    setText("#feedback-section-heading", "");
+    setText("#feedback-block-id", "");
+    setText("#feedback-selected-text", "");
+    setText("#feedback-feedback-type", "page");
+    setMode("page");
+    syncCopySegmentButton("");
     ensurePageLevelTitle();
   };
 
@@ -926,17 +950,30 @@ const FeedbackFormHydration = () => {
     const fromPassageEl = document.querySelector("#feedback-context-from-passage");
 
     let payload = null;
+    let payloadSource = "";
     try {
       payload = JSON.parse(sessionStorage.getItem(STORAGE_KEY) || "null");
+      payloadSource = (sessionStorage.getItem(STORAGE_SOURCE_KEY) || "").toString();
     } catch (error) {
       payload = null;
+      payloadSource = "";
     }
 
-    if (!payload || typeof payload !== "object") {
+    if (!payload || typeof payload !== "object" || payloadSource !== "interactive") {
+      try {
+        sessionStorage.removeItem(STORAGE_KEY);
+        sessionStorage.removeItem(STORAGE_SOURCE_KEY);
+      } catch (error) {
+        // Ignore storage unavailability.
+      }
+
+      clearPassageContext();
       syncCopySegmentButton("");
       if (isSegmentFeedbackPage()) {
-        if (statusEl) statusEl.textContent = "Open this page from a passage feedback button to include context.";
-        if (missingEl) missingEl.hidden = false;
+        if (statusEl) {
+          statusEl.innerHTML = 'Select a segment from the <a href="../Advocacy-Paper">Adocacy Paper</a> for feedback.';
+        }
+        if (missingEl) missingEl.hidden = true;
       } else {
         if (statusEl) statusEl.textContent = "Ready to submit page-level feedback.";
         if (missingEl) missingEl.hidden = true;
@@ -945,6 +982,14 @@ const FeedbackFormHydration = () => {
       ensurePageLevelTitle();
       bindFormInteractions();
       return;
+    }
+
+    // Treat passage context as one-time navigation state.
+    try {
+      sessionStorage.removeItem(STORAGE_KEY);
+      sessionStorage.removeItem(STORAGE_SOURCE_KEY);
+    } catch (error) {
+      // Ignore storage unavailability.
     }
 
     if (statusEl) statusEl.textContent = "";
@@ -993,6 +1038,89 @@ const FeedbackFormHydration = () => {
   return FeedbackHydration
 }
 
+const ExplorerHomeLink = () => {
+  const ExplorerHome = () => null
+
+  ExplorerHome.afterDOMLoaded = `
+(() => {
+  if (window.__mcipaExplorerHomeInitialized) {
+    return
+  }
+  window.__mcipaExplorerHomeInitialized = true
+
+  const HOME_LABEL = "Home"
+  const HOME_HREF = "."
+
+  const buildHomeItem = () => {
+    const li = document.createElement("li")
+    li.setAttribute("data-synthetic-home", "true")
+
+    const link = document.createElement("a")
+    link.href = HOME_HREF
+    link.textContent = HOME_LABEL
+
+    li.appendChild(link)
+    return li
+  }
+
+  const upsertHomeItem = (rootList) => {
+    const topLevelItems = Array.from(rootList.querySelectorAll(":scope > li"))
+    const homeItems = topLevelItems.filter((item) => {
+      if (item.getAttribute("data-synthetic-home") === "true") {
+        return true
+      }
+
+      const directLink = item.querySelector(":scope > a")
+      const label = (directLink?.textContent || "").trim().toLowerCase()
+      return label === "home"
+    })
+
+    let homeItem = homeItems[0] || null
+    if (!homeItem) {
+      homeItem = buildHomeItem()
+    }
+
+    const homeLink = homeItem.querySelector(":scope > a")
+    if (homeLink) {
+      homeLink.textContent = HOME_LABEL
+      homeLink.setAttribute("href", HOME_HREF)
+    }
+
+    // Remove duplicate Home items created by prior renders.
+    homeItems.slice(1).forEach((item) => item.remove())
+
+    if (rootList.firstElementChild !== homeItem) {
+      rootList.insertBefore(homeItem, rootList.firstElementChild)
+    }
+  }
+
+  const ensureHomeLink = () => {
+    document.querySelectorAll(".explorer").forEach((explorer) => {
+      const rootList = explorer.querySelector("ul")
+      if (!rootList) {
+        return
+      }
+
+      upsertHomeItem(rootList)
+
+      if (!rootList.__mcipaHomeObserver) {
+        const observer = new MutationObserver(() => upsertHomeItem(rootList))
+        observer.observe(rootList, { childList: true })
+        rootList.__mcipaHomeObserver = observer
+      }
+    })
+  }
+
+  ensureHomeLink()
+  requestAnimationFrame(ensureHomeLink)
+  setTimeout(ensureHomeLink, 50)
+  document.addEventListener("nav", ensureHomeLink)
+})()
+`
+
+  return ExplorerHome
+}
+
 /**
  * Quartz 4 layout for mcipa-demedicalize-accommodation.
  * Default layout — adjust as content structure grows.
@@ -1002,7 +1130,7 @@ const FeedbackFormHydration = () => {
 export const sharedPageComponents: SharedLayout = {
   head: Component.Head(),
   header: [],
-  afterBody: [PassageFeedbackControls(), FeedbackFormHydration()],
+  afterBody: [PassageFeedbackControls(), FeedbackFormHydration(), ExplorerHomeLink()],
   footer: Component.Footer({
     links: {
       GitHub: "https://github.com/PiETLab/mcipa-demedicalize-accommodation",
@@ -1025,6 +1153,7 @@ export const defaultContentPageLayout: PageLayout = {
     Component.Darkmode(),
     Component.DesktopOnly(
       Component.Explorer({
+        folderDefaultState: "open",
         order: [...explorerOrder],
         filterFn: explorerFilterFn,
         mapFn: explorerMapFn,
@@ -1049,6 +1178,7 @@ export const defaultListPageLayout: PageLayout = {
     Component.Darkmode(),
     Component.DesktopOnly(
       Component.Explorer({
+        folderDefaultState: "open",
         order: [...explorerOrder],
         filterFn: explorerFilterFn,
         mapFn: explorerMapFn,

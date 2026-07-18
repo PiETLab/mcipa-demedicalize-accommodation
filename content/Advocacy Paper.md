@@ -14,11 +14,9 @@ This Advocacy Paper argues that postsecondary institutions should move from a na
 ## Core Findings
 
 1.     **Medical documentation requirements function as structural barriers.**  
-They impose financial, administrative, and emotional costs on students, particularly those already marginalized.
-
+They impose financial, administrative, and emotional costs on students, particularly those already marginalized.  
 2.     **Current systems often privilege students with economic and cultural capital.**  
-Students who can afford assessments, understand bureaucratic processes, or advocate confidently are more likely to succeed.
-
+Students who can afford assessments, understand bureaucratic processes, or advocate confidently are more likely to succeed.  
 3.     **Disclosure-based systems create avoidable harm.**  
 Many students avoid accommodations because of stigma, fear of retaliation, or concern that they will be perceived as less capable.
 

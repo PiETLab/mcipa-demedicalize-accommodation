@@ -17,7 +17,7 @@ This website is a public prototype for publishing, coordination, and issue-based
 ## Locations 
 - Location of public website: https://pietlab.github.io/mcipa-demedicalize-accommodation/  
 - Location of github repo: https://github.com/PiETLab/mcipa-demedicalize-accommodation
-- [[content/Policy and Admin/Prototype Status|Prototype Status]] — current development stage and known limitations
+- [[Policy and Admin/Prototype Status|Prototype Status]] — current development stage and known limitations
 - This is an  **ActionForge pilot project**, see [[Policy and Admin/The ActionForge Project Concept|The ActionForge Project Concept]] for further information.
 
 ## How to contribute
