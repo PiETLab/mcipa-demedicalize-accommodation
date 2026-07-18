@@ -22,7 +22,7 @@ This website is a public prototype for publishing, coordination, and issue-based
 
 ## How to contribute
 
-See [CONTRIBUTING.md](https://github.com/PiETLab/mcipa-demedicalize-accommodation/blob/main/CONTRIBUTING.md) for the editing workflow.
+See [[Policy and Admin/Public Feedback Policy|Public Feedback Policy]] for how to contribute to this initiative.
 
 ---
 

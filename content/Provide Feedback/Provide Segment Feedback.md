@@ -41,6 +41,8 @@ Use this page to submit feedback about the Advocacy Paper.  For information abou
 <input id="field-section-heading" type="hidden" name="sectionHeading" value="" />
 <input id="field-block-id" type="hidden" name="blockId" value="" />
 <input id="field-block-url" type="hidden" name="blockUrl" value="" />
+<input id="field-reported-block-id" type="hidden" name="reportedBlockId" value="" />
+<input id="field-reported-block-url" type="hidden" name="reportedBlockUrl" value="" />
 <input id="field-text-fragment-url" type="hidden" name="textFragmentUrl" value="" />
 <input id="field-quoted-text" type="hidden" name="quotedText" value="" />
 <input id="field-selected-text" type="hidden" name="selectedText" value="" />

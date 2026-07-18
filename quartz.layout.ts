@@ -3,6 +3,8 @@ import * as Component from "./quartz/components"
 import { execSync } from "node:child_process"
 import { explorerFilterFn, explorerMapFn, explorerOrder, explorerSortFn } from "./explorer-order"
 
+const safeExplorerOrder = Array.isArray(explorerOrder) ? explorerOrder : []
+
 function readGitMetadata(command: string) {
   try {
     return execSync(command, {
@@ -137,12 +139,139 @@ const PassageFeedbackControls = () => {
     }
 
     const normalized = normalizeText(element.textContent || "")
-    return /^(?:\d+[.)]|[\-*•·])\s+/.test(normalized)
+    // Double-escape because this code is emitted as a runtime script string.
+    return /^(?:\\d+[.)]|[\\-*•·])\\s+/.test(normalized)
+  }
+
+  const isHeadingElement = (element) => {
+    if (!element || !element.tagName) {
+      return false
+    }
+
+    return /^H[1-6]$/i.test(element.tagName)
+  }
+
+  const getSectionHeadingElement = (element) => {
+    let cursor = element?.previousElementSibling || null
+
+    while (cursor) {
+      if (isHeadingElement(cursor)) {
+        return cursor
+      }
+      cursor = cursor.previousElementSibling
+    }
+
+    return null
+  }
+
+  const getFirstListLikeSinceSectionHeading = (element) => {
+    let first = null
+    let cursor = element
+
+    while (cursor && !isHeadingElement(cursor)) {
+      if (isListLikeParagraph(cursor)) {
+        first = cursor
+      }
+      cursor = cursor.previousElementSibling
+    }
+
+    return first
+  }
+
+  const hasAdditionalListLikeInSection = (start) => {
+    if (!start) {
+      return false
+    }
+
+    let cursor = start.nextElementSibling
+    while (cursor && !isHeadingElement(cursor)) {
+      if (isListLikeParagraph(cursor)) {
+        return true
+      }
+      cursor = cursor.nextElementSibling
+    }
+
+    return false
+  }
+
+  const hasAdditionalContiguousListLike = (start) => {
+    if (!start || !isListLikeParagraph(start)) {
+      return false
+    }
+
+    let cursor = start.nextElementSibling
+    while (cursor && (isListLikeParagraph(cursor) || isListContainer(cursor))) {
+      if (isListLikeParagraph(cursor)) {
+        return true
+      }
+      cursor = cursor.nextElementSibling
+    }
+
+    return false
+  }
+
+  const getContiguousListLikeRunEnd = (start) => {
+    if (!start) {
+      return start
+    }
+
+    let last = start
+    let cursor = start.nextElementSibling
+    while (cursor && (isListLikeParagraph(cursor) || isListContainer(cursor))) {
+      last = cursor
+      cursor = cursor.nextElementSibling
+    }
+
+    return last
+  }
+
+  const getContiguousListLikeRunStart = (element) => {
+    if (!element || !isListLikeParagraph(element)) {
+      return null
+    }
+
+    let start = element
+    let cursor = element.previousElementSibling
+    while (cursor && isListLikeParagraph(cursor)) {
+      start = cursor
+      cursor = cursor.previousElementSibling
+    }
+
+    return start
+  }
+
+  const isShortCodaParagraph = (element) => {
+    if (!element || !element.tagName || element.tagName.toUpperCase() !== "P") {
+      return false
+    }
+
+    if (isListLikeParagraph(element)) {
+      return false
+    }
+
+    const text = normalizeText(element.textContent || "")
+    if (text.length === 0 || text.length > 240) {
+      return false
+    }
+
+    const sentenceCount = text
+      .split(/[.!?]+/)
+      .map((part) => part.trim())
+      .filter((part) => part.length > 0).length
+
+    return sentenceCount > 0 && sentenceCount <= 2
   }
 
   const getInsertionTarget = (block) => {
     if (!block || !block.tagName || block.tagName.toUpperCase() !== "P") {
       return block
+    }
+
+    const firstListLike = getFirstListLikeSinceSectionHeading(block)
+    if (firstListLike && firstListLike === block && hasAdditionalContiguousListLike(firstListLike)) {
+      const listRunEnd = getContiguousListLikeRunEnd(block)
+      const maybeCoda = listRunEnd?.nextElementSibling
+      return isShortCodaParagraph(maybeCoda) ? maybeCoda : listRunEnd
     }
 
     let lastNodeInLeaf = block
@@ -157,9 +286,93 @@ const PassageFeedbackControls = () => {
     return lastNodeInLeaf
   }
 
+  const getLeafText = (block) => {
+    if (!block) {
+      return ""
+    }
+
+    const start = getLeafAnchorBlock(block)
+
+    const end = getInsertionTarget(block)
+    const chunks = []
+    let cursor = start
+
+    while (cursor) {
+      const text = normalizeText(cursor.textContent || "")
+      if (text.length > 0) {
+        chunks.push(text)
+      }
+
+      if (cursor === end) {
+        break
+      }
+      cursor = cursor.nextElementSibling
+    }
+
+    return chunks.join("\\n")
+  }
+
+  const getLeafAnchorBlock = (block) => {
+    if (!block) {
+      return block
+    }
+
+    if (!isListLikeParagraph(block)) {
+      return block
+    }
+
+    const listStart = getContiguousListLikeRunStart(block)
+    if (!(listStart === block && hasAdditionalContiguousListLike(listStart))) {
+      return block
+    }
+
+    const intro = block.previousElementSibling
+    if (
+      intro &&
+      intro.tagName &&
+      intro.tagName.toUpperCase() === "P" &&
+      !isListLikeParagraph(intro) &&
+      !isHeadingElement(intro)
+    ) {
+      return intro
+    }
+
+    return block
+  }
+
   const shouldAttachForParagraphLeaf = (block) => {
     if (!block || !block.tagName || block.tagName.toUpperCase() !== "P") {
       return true
+    }
+
+    // If this paragraph immediately introduces a multi-item list-set,
+    // fold it into that same leaf and let the list-set anchor emit the control.
+    if (!isListLikeParagraph(block)) {
+      const next = block.nextElementSibling
+      if (isListLikeParagraph(next)) {
+        const listStart = getContiguousListLikeRunStart(next)
+        if (listStart === next && hasAdditionalContiguousListLike(listStart)) {
+          return false
+        }
+      }
+
+      // If this paragraph is a short coda immediately after a multi-item list-set,
+      // fold it into the same leaf and let the list-set anchor emit the control.
+      const previous = block.previousElementSibling
+      if (isListLikeParagraph(previous)) {
+        const listStart = getContiguousListLikeRunStart(previous)
+        if (listStart && hasAdditionalContiguousListLike(listStart)) {
+          const listRunEnd = getContiguousListLikeRunEnd(listStart)
+          if (listRunEnd === previous && isShortCodaParagraph(block)) {
+            return false
+          }
+        }
+      }
+    }
+
+    const firstListLike = getFirstListLikeSinceSectionHeading(block)
+    if (firstListLike && hasAdditionalContiguousListLike(firstListLike)) {
+      return firstListLike === block
     }
 
     if (!isListLikeParagraph(block)) {
@@ -244,6 +457,96 @@ const PassageFeedbackControls = () => {
     })
 
     return nearest
+  }
+
+  const getNearestHeadingAnchorId = (el) => {
+    const article = el.closest("article")
+    if (!article) return ""
+
+    const headings = article.querySelectorAll("h2, h3, h4, h5, h6")
+    let nearestId = ""
+
+    headings.forEach((heading) => {
+      if (heading.offsetTop <= el.offsetTop) {
+        nearestId = heading.getAttribute("id") || ""
+      }
+    })
+
+    return nearestId
+  }
+
+  const getHeadingLevel = (element) => {
+    if (!element || !element.tagName) {
+      return 0
+    }
+
+    const match = element.tagName.toUpperCase().match(/^H([1-6])$/)
+    if (!match) {
+      return 0
+    }
+
+    return Number.parseInt(match[1], 10)
+  }
+
+  const getHeadingChainText = (el) => {
+    const article = el.closest("article")
+    if (!article) {
+      return ""
+    }
+
+    const headingNodes = article.querySelectorAll("h1, h2, h3, h4, h5, h6")
+    const chain = []
+
+    headingNodes.forEach((heading) => {
+      if (heading.offsetTop > el.offsetTop) {
+        return
+      }
+
+      const level = getHeadingLevel(heading)
+      const text = heading.textContent?.trim() ?? ""
+      if (!level || !text) {
+        return
+      }
+
+      while (chain.length > 0 && chain[chain.length - 1].level >= level) {
+        chain.pop()
+      }
+      chain.push({ level, text })
+    })
+
+    const firstDocumentHeading = article.querySelector("h1")?.textContent?.trim() ?? ""
+    if (chain.length > 1 && firstDocumentHeading && chain[0]?.text === firstDocumentHeading) {
+      chain.shift()
+    }
+
+    return chain.map((item) => item.text).join(" > ")
+  }
+
+  const getSegmentContextForBlock = (targetBlock) => {
+    const feedbackBlocks = Array.from(document.querySelectorAll("article [data-feedback-block=\\"true\\"]"))
+    const attachable = feedbackBlocks.filter((block) => {
+      if (!block.getAttribute("id")) return false
+      if (block.closest("nav, footer, .page-footer")) return false
+      return shouldAttachForParagraphLeaf(block)
+    })
+
+    const sectionKeyFor = (block) => {
+      const chain = getHeadingChainText(block)
+      if (chain) {
+        return chain
+      }
+      return getNearestHeadingText(block)
+    }
+
+    const targetKey = sectionKeyFor(targetBlock)
+    const matching = attachable.filter((block) => sectionKeyFor(block) === targetKey)
+    const index = matching.findIndex((block) => block === targetBlock)
+
+    return {
+      headingChain: getHeadingChainText(targetBlock),
+      segmentIndex: index >= 0 ? index + 1 : 0,
+      segmentCount: matching.length,
+    }
   }
 
   const getFeedbackBlockFromNode = (node) => {
@@ -335,11 +638,16 @@ const PassageFeedbackControls = () => {
       }
 
       const block = currentSelectionContext.blockElement
-      const blockId = currentSelectionContext.blockId
+      const anchorBlock = getLeafAnchorBlock(block)
+      const blockId = anchorBlock?.getAttribute("id") || currentSelectionContext.blockId
+      const reportedBlockId = currentSelectionContext.blockId
       const pageUrl = canonicalPageUrlFromLocation()
       const pageTitle = document.querySelector("article h1")?.textContent?.trim() || document.title
-      const blockUrl = buildBlockLink(pageUrl, blockId)
+      const headingAnchorId = getNearestHeadingAnchorId(block)
+      const blockUrl = buildBlockLink(pageUrl, headingAnchorId || blockId)
+      const reportedBlockUrl = reportedBlockId !== blockId ? buildBlockLink(pageUrl, reportedBlockId) : ""
       const sectionHeading = getNearestHeadingText(block)
+      const segmentContext = getSegmentContextForBlock(block)
       const textFragmentUrl = buildTextFragmentLink(pageUrl, currentSelectionContext.selectedText)
 
       const payload = {
@@ -349,6 +657,11 @@ const PassageFeedbackControls = () => {
         sectionHeading,
         blockId,
         blockUrl,
+        reportedBlockId,
+        reportedBlockUrl,
+        headingChain: segmentContext.headingChain,
+        segmentIndex: segmentContext.segmentIndex,
+        segmentCount: segmentContext.segmentCount,
         textFragmentUrl,
         quotedText: currentSelectionContext.selectedText,
         selectedText: currentSelectionContext.selectedText,
@@ -405,29 +718,56 @@ const PassageFeedbackControls = () => {
   }
 
   const attachControls = () => {
-    const feedbackBlocks = document.querySelectorAll("article [data-feedback-block=\\"true\\"]")
+    const feedbackBlocks = Array.from(document.querySelectorAll("article [data-feedback-block=\\"true\\"]"))
     cleanupExistingControls()
 
-    feedbackBlocks.forEach((block) => {
+    const attachableBlocks = feedbackBlocks.filter((block) => {
       const blockId = block.getAttribute("id")
-      if (!blockId) return
+      if (!blockId) return false
 
       if (!shouldAttachForParagraphLeaf(block)) {
-        return
+        return false
       }
 
       if (block.closest("nav, footer, .page-footer")) {
-        return
+        return false
       }
 
-      const rawText = block.textContent?.trim() ?? ""
-      const quotedText = rawText.replace(/\\s+/g, " ").trim().slice(0, 1800)
       const sectionHeading = getNearestHeadingText(block)
       if (!sectionHeading) {
-        return
+        return false
       }
+
+      return true
+    })
+
+    const sectionTotals = new Map()
+    attachableBlocks.forEach((block) => {
+      const sectionKey = getHeadingChainText(block) || getNearestHeadingText(block)
+      sectionTotals.set(sectionKey, (sectionTotals.get(sectionKey) || 0) + 1)
+    })
+
+    const sectionSeen = new Map()
+
+    attachableBlocks.forEach((block) => {
+      const anchorBlock = getLeafAnchorBlock(block)
+      const blockId = anchorBlock?.getAttribute("id") || block.getAttribute("id")
+      const reportedBlockId = block.getAttribute("id")
+      if (!blockId) return
+
+      const leafText = getLeafText(block)
+      const quotedText = leafText.slice(0, 1800)
+      const sectionHeading = getNearestHeadingText(block)
+      const headingChain = getHeadingChainText(block)
+      const sectionKey = headingChain || sectionHeading
+      const segmentIndex = (sectionSeen.get(sectionKey) || 0) + 1
+      sectionSeen.set(sectionKey, segmentIndex)
+      const segmentCount = sectionTotals.get(sectionKey) || 1
+
       const pageUrl = canonicalPageUrlFromLocation()
-      const blockUrl = buildBlockLink(pageUrl, blockId)
+      const headingAnchorId = getNearestHeadingAnchorId(block)
+      const blockUrl = buildBlockLink(pageUrl, headingAnchorId || blockId)
+      const reportedBlockUrl = reportedBlockId && reportedBlockId !== blockId ? buildBlockLink(pageUrl, reportedBlockId) : ""
       const textFragmentUrl = buildTextFragmentLink(pageUrl, quotedText)
       const pageTitle = document.querySelector("article h1")?.textContent?.trim() || document.title
 
@@ -448,6 +788,11 @@ const PassageFeedbackControls = () => {
           sectionHeading,
           blockId,
           blockUrl,
+          reportedBlockId,
+          reportedBlockUrl,
+          headingChain,
+          segmentIndex,
+          segmentCount,
           textFragmentUrl,
           quotedText,
         }
@@ -651,6 +996,7 @@ const FeedbackFormHydration = () => {
   const STORAGE_SOURCE_KEY = "mcipa.feedbackContextSource";
   const FORM_PATHS = [
     "/provide-feedback/provide-feedback-on-the-advocacy-paper",
+    "/provide-feedback/provide-paper-feedback",
     "/provide-feedback/provide-segment-feedback",
   ];
   const SEGMENT_FEEDBACK_PATH = "/provide-feedback/provide-segment-feedback";
@@ -733,6 +1079,8 @@ const FeedbackFormHydration = () => {
     setValue("#field-section-heading", "");
     setValue("#field-block-id", "");
     setValue("#field-block-url", "");
+    setValue("#field-reported-block-id", "");
+    setValue("#field-reported-block-url", "");
     setValue("#field-text-fragment-url", "");
     setValue("#field-quoted-text", "");
     setValue("#field-selected-text", "");
@@ -743,10 +1091,9 @@ const FeedbackFormHydration = () => {
     setValue("#field-selected-passage-display", "");
     setText("#feedback-section-heading", "");
     setText("#feedback-block-id", "");
-    setText("#feedback-selected-text", "");
+    renderSelectedPassagePreview(null);
     setText("#feedback-feedback-type", "page");
     setMode("page");
-    syncCopySegmentButton("");
     ensurePageLevelTitle();
   };
 
@@ -761,6 +1108,64 @@ const FeedbackFormHydration = () => {
     copyBtn.dataset.copyText = normalizedText;
     copyBtn.hidden = !hasText;
     copyBtn.disabled = !hasText;
+  };
+
+  const escapeHtml = (value) => {
+    return String(value || "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/\"/g, "&quot;")
+      .replace(/'/g, "&#39;")
+  };
+
+  const renderSelectedPassagePreview = (payload) => {
+    const previewEl = document.querySelector("#feedback-selected-text");
+    if (!previewEl) {
+      return;
+    }
+
+    const headingChain = (payload?.headingChain || payload?.sectionHeading || "").toString().trim();
+    const headingLine = headingChain.length > 0
+      ? (headingChain.startsWith("§") ? headingChain : "§ " + headingChain)
+      : "";
+    const segmentIndex = Number.parseInt((payload?.segmentIndex || "0").toString(), 10);
+    const segmentCount = Number.parseInt((payload?.segmentCount || "0").toString(), 10);
+    const hasSegment = Number.isFinite(segmentIndex) && Number.isFinite(segmentCount) && segmentIndex > 0 && segmentCount > 0;
+    const segmentLine = hasSegment ? "Segment " + segmentIndex + " of " + segmentCount : "";
+    const chosenText = (payload?.selectedText || payload?.quotedText || "").toString().trim();
+
+    const htmlLines = [];
+    const plainLines = [];
+
+    if (headingLine) {
+      htmlLines.push("<strong>" + escapeHtml(headingLine) + "</strong>");
+      plainLines.push(headingLine);
+    }
+
+    if (segmentLine) {
+      htmlLines.push(escapeHtml(segmentLine));
+      plainLines.push(segmentLine);
+    }
+
+    if (chosenText) {
+      htmlLines.push(escapeHtml(chosenText));
+      plainLines.push(chosenText);
+    }
+
+    if (htmlLines.length === 0) {
+      previewEl.textContent = "Not provided";
+      syncCopySegmentButton("");
+      setValue("#field-selected-passage-display", "");
+      setValue("#field-quoted-text", "");
+      return;
+    }
+
+    const displayText = plainLines.join("\\n");
+    previewEl.innerHTML = htmlLines.join("<br>");
+    syncCopySegmentButton(displayText);
+    setValue("#field-selected-passage-display", displayText);
+    setValue("#field-quoted-text", displayText);
   };
 
   const bindFormInteractions = () => {
@@ -808,7 +1213,12 @@ const FeedbackFormHydration = () => {
     });
 
     copyBtn?.addEventListener("click", () => {
-      const chosenText = (copyBtn.dataset.copyText || document.querySelector("#field-selected-text")?.value || "").trim();
+      const chosenText = (
+        copyBtn.dataset.copyText ||
+        document.querySelector("#field-selected-passage-display")?.value ||
+        document.querySelector("#field-selected-text")?.value ||
+        ""
+      ).trim();
       if (!chosenText || !commentField) {
         return;
       }
@@ -858,6 +1268,10 @@ const FeedbackFormHydration = () => {
         }
 
         const payload = Object.fromEntries(formData.entries());
+        // Backward compatibility: older deployed workers reject unknown fields.
+        // Keep reported-block metadata in the form/runtime, but omit from submit payload.
+        delete payload.reportedBlockId;
+        delete payload.reportedBlockUrl;
         const response = await fetch(endpoint, {
           method: "POST",
           headers: {
@@ -997,7 +1411,6 @@ const FeedbackFormHydration = () => {
     if (fromPassageEl) fromPassageEl.hidden = false;
 
     const chosenText = payload.selectedText || payload.quotedText || "";
-  syncCopySegmentButton(chosenText);
 
     setValue("#field-feedback-type", payload.feedbackType || "passage");
     setValue("#field-title", payload.pageTitle ? "Feedback on passage from " + payload.pageTitle : "");
@@ -1009,6 +1422,8 @@ const FeedbackFormHydration = () => {
     setValue("#field-section-heading", payload.sectionHeading || "");
     setValue("#field-block-id", payload.blockId || "");
     setValue("#field-block-url", payload.blockUrl || "");
+    setValue("#field-reported-block-id", payload.reportedBlockId || "");
+    setValue("#field-reported-block-url", payload.reportedBlockUrl || "");
     setValue("#field-text-fragment-url", payload.textFragmentUrl || "");
     setValue("#field-quoted-text", payload.quotedText || "");
     setValue("#field-selected-text", payload.selectedText || "");
@@ -1024,7 +1439,7 @@ const FeedbackFormHydration = () => {
     setText("#feedback-page-url", payload.pageUrl || "");
     setText("#feedback-section-heading", payload.sectionHeading || "");
     setText("#feedback-block-id", payload.blockId || "");
-    setText("#feedback-selected-text", chosenText);
+    renderSelectedPassagePreview(payload);
 
     ensurePageLevelTitle()
     bindFormInteractions();
@@ -1049,14 +1464,20 @@ const ExplorerHomeLink = () => {
   window.__mcipaExplorerHomeInitialized = true
 
   const HOME_LABEL = "Home"
-  const HOME_HREF = "."
+  const FALLBACK_HOME_HREF = "."
 
-  const buildHomeItem = () => {
+  const resolveHomeHref = () => {
+    const pageTitleLink = document.querySelector(".page-title a")
+    const href = (pageTitleLink?.getAttribute("href") || "").trim()
+    return href || FALLBACK_HOME_HREF
+  }
+
+  const buildHomeItem = (homeHref) => {
     const li = document.createElement("li")
     li.setAttribute("data-synthetic-home", "true")
 
     const link = document.createElement("a")
-    link.href = HOME_HREF
+    link.href = homeHref
     link.textContent = HOME_LABEL
 
     li.appendChild(link)
@@ -1064,6 +1485,7 @@ const ExplorerHomeLink = () => {
   }
 
   const upsertHomeItem = (rootList) => {
+    const homeHref = resolveHomeHref()
     const topLevelItems = Array.from(rootList.querySelectorAll(":scope > li"))
     const homeItems = topLevelItems.filter((item) => {
       if (item.getAttribute("data-synthetic-home") === "true") {
@@ -1077,13 +1499,18 @@ const ExplorerHomeLink = () => {
 
     let homeItem = homeItems[0] || null
     if (!homeItem) {
-      homeItem = buildHomeItem()
+      homeItem = buildHomeItem(homeHref)
     }
 
     const homeLink = homeItem.querySelector(":scope > a")
     if (homeLink) {
       homeLink.textContent = HOME_LABEL
-      homeLink.setAttribute("href", HOME_HREF)
+      if (
+        homeItem.getAttribute("data-synthetic-home") === "true" ||
+        !(homeLink.getAttribute("href") || "").trim()
+      ) {
+        homeLink.setAttribute("href", homeHref)
+      }
     }
 
     // Remove duplicate Home items created by prior renders.
@@ -1154,7 +1581,7 @@ export const defaultContentPageLayout: PageLayout = {
     Component.DesktopOnly(
       Component.Explorer({
         folderDefaultState: "open",
-        order: [...explorerOrder],
+        order: [...safeExplorerOrder],
         filterFn: explorerFilterFn,
         mapFn: explorerMapFn,
         sortFn: explorerSortFn,
@@ -1179,7 +1606,7 @@ export const defaultListPageLayout: PageLayout = {
     Component.DesktopOnly(
       Component.Explorer({
         folderDefaultState: "open",
-        order: [...explorerOrder],
+        order: [...safeExplorerOrder],
         filterFn: explorerFilterFn,
         mapFn: explorerMapFn,
         sortFn: explorerSortFn,
