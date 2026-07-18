@@ -58,6 +58,7 @@ async function testValidPassageSubmission() {
       comment: "Please make this wording clearer.",
       pageTitle: "Executive Summary",
       pageUrl: "https://pietlab.github.io/mcipa-demedicalize-accommodation/Advocacy-Paper",
+      publishedBranch: "main",
       publishedCommit: "abc123def456",
       publishedCommitDate: "2026-07-18",
       sectionHeading: "Executive Summary",
@@ -85,6 +86,7 @@ async function testValidPassageSubmission() {
   assert.deepEqual(issueBody.labels, ["public-submission", "passage-feedback"])
   assert.ok(issueBody.body.includes("## Selected passage"))
   assert.ok(issueBody.body.includes("## Passage location"))
+  assert.ok(issueBody.body.includes("- Published page branch: `main`"))
   assert.ok(issueBody.body.includes("- Passage link: `https://pietlab.github.io/mcipa-demedicalize-accommodation/Advocacy-Paper#feedback-block-a82f19c4`"))
   assert.ok(issueBody.body.includes("- Published page commit: `abc123def456`"))
   assert.ok(issueBody.body.includes("- Published page commit date: `2026-07-18`"))

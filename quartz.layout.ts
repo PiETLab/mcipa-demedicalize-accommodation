@@ -15,6 +15,7 @@ function readGitMetadata(command: string) {
 }
 
 const PUBLIC_FEEDBACK_WORKER_ENDPOINT = "https://mcipa-feedback.mcipa-feedback.workers.dev/submit-feedback"
+const PUBLISHED_BRANCH = readGitMetadata("git rev-parse --abbrev-ref HEAD")
 const PUBLISHED_COMMIT_IDENTIFIER = readGitMetadata("git rev-parse --short=12 HEAD")
 const PUBLISHED_COMMIT_DATE = readGitMetadata("git show -s --format=%cs HEAD")
 
@@ -833,6 +834,7 @@ const FeedbackFormHydration = () => {
   };
 
   const ensurePublishedBuildMetadata = () => {
+    setValue("#field-published-branch", "${PUBLISHED_BRANCH}");
     setValue("#field-published-commit", "${PUBLISHED_COMMIT_IDENTIFIER}");
     setValue("#field-published-commit-date", "${PUBLISHED_COMMIT_DATE}");
   };
@@ -899,6 +901,7 @@ const FeedbackFormHydration = () => {
     setValue("#field-title", payload.pageTitle ? "Feedback on passage from " + payload.pageTitle : "");
     setValue("#field-page-title", payload.pageTitle || "");
     setValue("#field-page-url", payload.pageUrl || "");
+    setValue("#field-published-branch", "${PUBLISHED_BRANCH}");
     setValue("#field-published-commit", "${PUBLISHED_COMMIT_IDENTIFIER}");
     setValue("#field-published-commit-date", "${PUBLISHED_COMMIT_DATE}");
     setValue("#field-section-heading", payload.sectionHeading || "");

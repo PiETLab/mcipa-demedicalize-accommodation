@@ -2,9 +2,9 @@
 
 Use this page to submit feedback about the Advocacy Paper.  For information about how your feedback will be used, see the [[Public Feedback Policy|Public Feedback Policy]].
 
-<div class="feedback-notice" role="note">
+<!--<div class="feedback-notice" role="note">
   Fill out the form below to send feedback.
-</div>
+</div>-->
 
 <form id="public-feedback-form" class="feedback-form" method="post" action="#" data-endpoint="" novalidate>
 
@@ -21,6 +21,7 @@ Use this page to submit feedback about the Advocacy Paper.  For information abou
 <input id="field-feedback-type" type="hidden" name="feedbackType" value="page" />
 <input id="field-page-title" type="hidden" name="pageTitle" value="" />
 <input id="field-page-url" type="hidden" name="pageUrl" value="" />
+<input id="field-published-branch" type="hidden" name="publishedBranch" value="" />
 <input id="field-published-commit" type="hidden" name="publishedCommit" value="" />
 <input id="field-published-commit-date" type="hidden" name="publishedCommitDate" value="" />
 

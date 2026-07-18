@@ -74,15 +74,15 @@ Most postsecondary accommodation systems follow a common sequence:
 
 This model appears neutral and orderly. In practice, each stage creates obstacles.
 
-Documentation Burdens
+## Documentation Burdens
 
 Students may need physician letters, psychoeducational testing, psychiatric records, or specialist reports. These documents can be expensive, delayed, geographically inaccessible, or difficult to obtain for students without family doctors or extended health coverage. Students with chronic or lifelong disabilities may be asked to repeatedly re-confirm conditions that are permanent or well-established (Shanouda & Spagnuolo, 2021).
 
-Disclosure Burdens
+## Disclosure Burdens
 
 Disclosure is often framed as a simple administrative step. Research shows it is frequently a complex social and political decision shaped by stigma, fear of judgment, prior discrimination, and uncertainty about consequences (Lindsay et al., 2018; Venville et al., 2014; Thompson-Ebanks & Jarman, 2018).
 
-Negotiation Burdens
+##  Negotiation Burdens
 
 Even after approval, students may need to explain accommodations repeatedly to instructors, challenge resistance, or monitor whether supports are actually implemented. This turns access into ongoing labor rather than an assured institutional process (Karpicz, 2020).
 

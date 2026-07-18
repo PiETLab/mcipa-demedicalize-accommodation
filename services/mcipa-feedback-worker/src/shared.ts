@@ -18,6 +18,7 @@ const FORM_KEYS = new Set([
   "pageTitle",
   "pageUrl",
   "pageUrlUser",
+  "publishedBranch",
   "publishedCommit",
   "publishedCommitDate",
   "sectionHeading",
@@ -47,6 +48,7 @@ export interface NormalizedSubmission {
   comment: string
   pageTitle?: string
   pageUrl?: string
+  publishedBranch?: string
   publishedCommit?: string
   publishedCommitDate?: string
   sectionHeading?: string
@@ -207,6 +209,7 @@ export function normalizeSubmission(raw: Record<string, unknown>, env: Partial<W
   const comment = requireStringField(raw.comment ?? raw.feedback, "comment", LIMITS.feedback)
 
   const pageTitle = optionalInlineField(raw.pageTitle, "pageTitle", LIMITS.pageTitle)
+  const publishedBranch = optionalInlineField(raw.publishedBranch, "publishedBranch", LIMITS.heading)
   const publishedCommit = optionalInlineField(raw.publishedCommit, "publishedCommit", LIMITS.heading)
   const publishedCommitDate = optionalInlineField(raw.publishedCommitDate, "publishedCommitDate", LIMITS.heading)
   const sectionHeading = optionalInlineField(raw.sectionHeading ?? raw.sectionHeadingDisplay, "sectionHeading", LIMITS.heading)
@@ -242,6 +245,7 @@ export function normalizeSubmission(raw: Record<string, unknown>, env: Partial<W
     comment,
     pageTitle: pageTitle ?? undefined,
     pageUrl: pageUrl ?? undefined,
+    publishedBranch: publishedBranch ?? undefined,
     publishedCommit: publishedCommit ?? undefined,
     publishedCommitDate: publishedCommitDate ?? undefined,
     sectionHeading: sectionHeading ?? undefined,

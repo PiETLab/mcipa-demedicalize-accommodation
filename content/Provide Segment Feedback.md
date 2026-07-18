@@ -35,6 +35,7 @@ Use this page to submit feedback about the Advocacy Paper.  For information abou
 <input id="field-feedback-type" type="hidden" name="feedbackType" value="passage" />
 <input id="field-page-title" type="hidden" name="pageTitle" value="" />
 <input id="field-page-url" type="hidden" name="pageUrl" value="" />
+<input id="field-published-branch" type="hidden" name="publishedBranch" value="" />
 <input id="field-published-commit" type="hidden" name="publishedCommit" value="" />
 <input id="field-published-commit-date" type="hidden" name="publishedCommitDate" value="" />
 <input id="field-section-heading" type="hidden" name="sectionHeading" value="" />
