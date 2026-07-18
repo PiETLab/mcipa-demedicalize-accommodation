@@ -18,6 +18,8 @@ const FORM_KEYS = new Set([
   "pageTitle",
   "pageUrl",
   "pageUrlUser",
+  "publishedCommit",
+  "publishedCommitDate",
   "sectionHeading",
   "sectionHeadingDisplay",
   "blockId",
@@ -45,6 +47,8 @@ export interface NormalizedSubmission {
   comment: string
   pageTitle?: string
   pageUrl?: string
+  publishedCommit?: string
+  publishedCommitDate?: string
   sectionHeading?: string
   blockId?: string
   blockUrl?: string
@@ -203,6 +207,8 @@ export function normalizeSubmission(raw: Record<string, unknown>, env: Partial<W
   const comment = requireStringField(raw.comment ?? raw.feedback, "comment", LIMITS.feedback)
 
   const pageTitle = optionalInlineField(raw.pageTitle, "pageTitle", LIMITS.pageTitle)
+  const publishedCommit = optionalInlineField(raw.publishedCommit, "publishedCommit", LIMITS.heading)
+  const publishedCommitDate = optionalInlineField(raw.publishedCommitDate, "publishedCommitDate", LIMITS.heading)
   const sectionHeading = optionalInlineField(raw.sectionHeading ?? raw.sectionHeadingDisplay, "sectionHeading", LIMITS.heading)
   const blockId = optionalInlineField(raw.blockId, "blockId", LIMITS.heading)
   const quotedText = optionalMultilineField(raw.quotedText ?? raw.selectedText ?? raw.selectedPassageDisplay, "quotedText", LIMITS.quote)
@@ -236,6 +242,8 @@ export function normalizeSubmission(raw: Record<string, unknown>, env: Partial<W
     comment,
     pageTitle: pageTitle ?? undefined,
     pageUrl: pageUrl ?? undefined,
+    publishedCommit: publishedCommit ?? undefined,
+    publishedCommitDate: publishedCommitDate ?? undefined,
     sectionHeading: sectionHeading ?? undefined,
     blockId: blockId ?? undefined,
     blockUrl: blockUrl ?? undefined,

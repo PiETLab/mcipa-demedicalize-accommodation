@@ -21,6 +21,8 @@ Use this page to submit feedback about the Advocacy Paper.  For information abou
 <input id="field-feedback-type" type="hidden" name="feedbackType" value="page" />
 <input id="field-page-title" type="hidden" name="pageTitle" value="" />
 <input id="field-page-url" type="hidden" name="pageUrl" value="" />
+<input id="field-published-commit" type="hidden" name="publishedCommit" value="" />
+<input id="field-published-commit-date" type="hidden" name="publishedCommitDate" value="" />
 
 <p id="feedback-submit-status" class="feedback-submit-status" aria-live="polite"></p>
 <button id="feedback-submit-button" type="submit">Submit feedback</button>

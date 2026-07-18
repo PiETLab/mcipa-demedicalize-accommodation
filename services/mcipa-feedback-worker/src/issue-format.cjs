@@ -8,6 +8,8 @@ const LIMITS = Object.freeze({
   pageTitle: 180,
   url: 500,
   heading: 180,
+  commit: 64,
+  date: 40,
   body: 20000,
 })
 
@@ -95,6 +97,9 @@ function renderPublicIssue(input = {}) {
       renderBullet("Page", input.pageTitle, LIMITS.pageTitle, "Site generally"),
       renderBullet("Section", input.sectionHeading, LIMITS.heading),
       renderBullet("Published page", input.pageUrl || input.blockUrl, LIMITS.url),
+      renderBullet("Published page commit", input.publishedCommit, LIMITS.commit),
+      renderBullet("Published page commit date", input.publishedCommitDate, LIMITS.date),
+      renderBullet("Passage link", input.blockUrl, LIMITS.url),
       renderBullet("Selected-text link", input.textFragmentUrl, LIMITS.url),
       renderBullet("Passage identifier", input.blockId, LIMITS.heading),
       "",
@@ -109,6 +114,8 @@ function renderPublicIssue(input = {}) {
       "",
       renderBullet("Page", input.pageTitle, LIMITS.pageTitle, "Site generally"),
       renderBullet("Published page", input.pageUrl, LIMITS.url),
+      renderBullet("Published page commit", input.publishedCommit, LIMITS.commit),
+      renderBullet("Published page commit date", input.publishedCommitDate, LIMITS.date),
       "",
     )
   }

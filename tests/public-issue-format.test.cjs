@@ -21,8 +21,11 @@ function testPassageIssueFormat() {
     displayName: "Anonymous contributor",
     pageTitle: "Executive Summary",
     pageUrl: "https://pietlab.github.io/mcipa-demedicalize-accommodation/Advocacy-Paper",
+    publishedCommit: "abc123def456",
+    publishedCommitDate: "2026-07-18",
     sectionHeading: "Executive Summary",
     blockId: "feedback-block-a82f19c4",
+    blockUrl: "https://pietlab.github.io/mcipa-demedicalize-accommodation/Advocacy-Paper#feedback-block-a82f19c4",
     textFragmentUrl:
       "https://pietlab.github.io/mcipa-demedicalize-accommodation/Advocacy-Paper#:~:text=Quoted%20passage",
     quotedText: "Quoted passage here",
@@ -47,6 +50,9 @@ function testPassageIssueFormat() {
       "- Page: `Executive Summary`",
       "- Section: `Executive Summary`",
       "- Published page: `https://pietlab.github.io/mcipa-demedicalize-accommodation/Advocacy-Paper`",
+      "- Published page commit: `abc123def456`",
+      "- Published page commit date: `2026-07-18`",
+      "- Passage link: `https://pietlab.github.io/mcipa-demedicalize-accommodation/Advocacy-Paper#feedback-block-a82f19c4`",
       "- Selected-text link: `https://pietlab.github.io/mcipa-demedicalize-accommodation/Advocacy-Paper#:~:text=Quoted%20passage`",
       "- Passage identifier: `feedback-block-a82f19c4`",
       "",
@@ -74,6 +80,8 @@ function testPageIssueFormatWithOmittedOptionalFields() {
   assert.equal(countTopLevelHeadings(result.body), 3)
   assert.ok(result.body.includes("- Page: `Site generally`"))
   assert.ok(result.body.includes("- Published page: `Not provided`"))
+  assert.ok(result.body.includes("- Published page commit: `Not provided`"))
+  assert.ok(result.body.includes("- Published page commit date: `Not provided`"))
   assert.ok(result.body.includes("> Please add a clearer feedback route."))
   assert.ok(result.body.includes("- Submitted by: `Anonymous`"))
 }

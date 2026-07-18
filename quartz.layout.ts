@@ -1,7 +1,22 @@
 import { PageLayout, SharedLayout } from "./quartz/cfg"
 import * as Component from "./quartz/components"
+import { execSync } from "node:child_process"
+
+function readGitMetadata(command: string) {
+  try {
+    return execSync(command, {
+      cwd: process.cwd(),
+      stdio: ["ignore", "pipe", "ignore"],
+      encoding: "utf8",
+    }).trim()
+  } catch {
+    return ""
+  }
+}
 
 const PUBLIC_FEEDBACK_WORKER_ENDPOINT = "https://mcipa-feedback.mcipa-feedback.workers.dev/submit-feedback"
+const PUBLISHED_COMMIT_IDENTIFIER = readGitMetadata("git rev-parse --short=12 HEAD")
+const PUBLISHED_COMMIT_DATE = readGitMetadata("git show -s --format=%cs HEAD")
 
 const PassageFeedbackControls = () => {
   const FeedbackControls = () => null
@@ -73,7 +88,7 @@ const PassageFeedbackControls = () => {
   }
   window.__mcipaFeedbackControlsInitialized = true
 
-  const FORM_SLUG = "/Provide-Feedback-on-the-Advocacy-Paper"
+  const FORM_SLUG = "/Provide-Segment-Feedback"
   const FEEDBACK_WORKER_ENDPOINT = "${PUBLIC_FEEDBACK_WORKER_ENDPOINT}"
   const STORAGE_KEY = "mcipa.feedbackContext"
   const CONTROL_SELECTOR = ".passage-feedback-control"
@@ -90,7 +105,7 @@ const PassageFeedbackControls = () => {
   }
 
   const buildAccessibleName = (quote) => {
-    const compact = quote.replace(/\s+/g, " ").trim()
+    const compact = quote.replace(/\\s+/g, " ").trim()
     const preview = compact.slice(0, 80)
     if (preview.length === 0) {
       return "Give feedback on this passage"
@@ -101,7 +116,7 @@ const PassageFeedbackControls = () => {
   }
 
   const normalizeText = (text) => {
-    return (text || "").replace(/\s+/g, " ").trim()
+    return (text || "").replace(/\\s+/g, " ").trim()
   }
 
   const safeIssueUrl = (value) => {
@@ -350,7 +365,7 @@ const PassageFeedbackControls = () => {
       }
 
       const rawText = block.textContent?.trim() ?? ""
-      const quotedText = rawText.replace(/\s+/g, " ").trim().slice(0, 1800)
+      const quotedText = rawText.replace(/\\s+/g, " ").trim().slice(0, 1800)
       const sectionHeading = getNearestHeadingText(block)
       const pageUrl = canonicalPageUrlFromLocation()
       const blockUrl = buildBlockLink(pageUrl, blockId)
@@ -438,9 +453,36 @@ const FeedbackFormHydration = () => {
   margin-bottom: 0.4rem;
 }
 
+.feedback-selected-text {
+  margin-top: 0.5rem;
+  padding: 0.7rem;
+  border: 1px solid var(--lightgray);
+  border-radius: 0.65rem;
+  background: var(--light);
+  white-space: pre-wrap;
+}
+
+.feedback-copy-action {
+  margin-top: -0.15rem;
+}
+
+.feedback-copy-button {
+  border: 1px solid var(--lightgray);
+  background: var(--light);
+  color: var(--dark);
+}
+
+.feedback-form .feedback-context-card + p {
+  margin-top: 0 !important;
+}
+
 .feedback-form {
   display: grid;
   gap: 0.8rem;
+}
+
+.feedback-form > p {
+  margin: 0;
 }
 
 .feedback-form label {
@@ -545,9 +587,10 @@ const FeedbackFormHydration = () => {
   window.__mcipaFeedbackFormHydrationInitialized = true
 
   const STORAGE_KEY = "mcipa.feedbackContext";
-  const FORM_PATHS = ["/provide-feedback-on-the-advocacy-paper"];
+  const FORM_PATHS = ["/provide-feedback-on-the-advocacy-paper", "/provide-segment-feedback"];
+  const SEGMENT_FEEDBACK_PATH = "/provide-segment-feedback";
   const FEEDBACK_WORKER_ENDPOINT = "${PUBLIC_FEEDBACK_WORKER_ENDPOINT}";
-  let initializedForm = false;
+  let initializedForm = null;
   let isSubmitting = false;
 
   const safeIssueUrl = (value) => {
@@ -579,6 +622,11 @@ const FeedbackFormHydration = () => {
   const isFeedbackPage = () => {
     const current = normalizePath(window.location.pathname).toLowerCase();
     return FORM_PATHS.some((path) => path.toLowerCase() === current);
+  };
+
+  const isSegmentFeedbackPage = () => {
+    const current = normalizePath(window.location.pathname).toLowerCase();
+    return current === SEGMENT_FEEDBACK_PATH;
   };
 
   const setStatus = (message, type) => {
@@ -620,8 +668,21 @@ const FeedbackFormHydration = () => {
     ensurePageLevelTitle();
   };
 
+  const syncCopySegmentButton = (text) => {
+    const copyBtn = document.querySelector("#copy-segment-to-feedback");
+    if (!copyBtn) {
+      return;
+    }
+
+    const normalizedText = (text || "").trim();
+    const hasText = normalizedText.length > 0;
+    copyBtn.dataset.copyText = normalizedText;
+    copyBtn.hidden = !hasText;
+    copyBtn.disabled = !hasText;
+  };
+
   const bindFormInteractions = () => {
-    if (initializedForm || !isFeedbackPage()) {
+    if (!isFeedbackPage()) {
       return;
     }
 
@@ -630,14 +691,20 @@ const FeedbackFormHydration = () => {
       return;
     }
 
+    if (initializedForm === form) {
+      return;
+    }
+
     form.setAttribute("data-endpoint", FEEDBACK_WORKER_ENDPOINT)
     ensurePageLevelTitle()
 
-    initializedForm = true;
+    initializedForm = form;
 
     const modePage = document.querySelector("#mode-page");
     const modePassage = document.querySelector("#mode-passage");
     const clearBtn = document.querySelector("#clear-passage-context");
+    const copyBtn = document.querySelector("#copy-segment-to-feedback");
+    const commentField = document.querySelector("#field-feedback-comment");
     const submitBtn = document.querySelector("#feedback-submit-button");
     const issueLink = document.querySelector("#feedback-created-issue-link");
 
@@ -656,6 +723,24 @@ const FeedbackFormHydration = () => {
     clearBtn?.addEventListener("click", () => {
       clearPassageContext();
       setStatus("Passage context cleared. Submission is now page-level.", null);
+    });
+
+    copyBtn?.addEventListener("click", () => {
+      const chosenText = (copyBtn.dataset.copyText || document.querySelector("#field-selected-text")?.value || "").trim();
+      if (!chosenText || !commentField) {
+        return;
+      }
+
+      const current = commentField.value.trim();
+      if (!current) {
+        commentField.value = chosenText;
+      } else if (!current.includes(chosenText)) {
+        commentField.value = current + "\\n\\n" + chosenText;
+      }
+
+      commentField.dispatchEvent(new Event("input", { bubbles: true }));
+      commentField.focus();
+      setStatus("Segment copied into feedback field.", null);
     });
 
     form.addEventListener("submit", async (event) => {
@@ -747,6 +832,11 @@ const FeedbackFormHydration = () => {
     }
   };
 
+  const ensurePublishedBuildMetadata = () => {
+    setValue("#field-published-commit", "${PUBLISHED_COMMIT_IDENTIFIER}");
+    setValue("#field-published-commit-date", "${PUBLISHED_COMMIT_DATE}");
+  };
+
   const ensurePageLevelTitle = () => {
     const titleField = document.querySelector("#field-title");
     if (titleField && !titleField.value) {
@@ -763,6 +853,8 @@ const FeedbackFormHydration = () => {
     if (pageTitleField && !pageTitleField.value) {
       pageTitleField.value = "Advocacy Paper";
     }
+
+    ensurePublishedBuildMetadata();
   };
 
   const hydrateFeedbackForm = () => {
@@ -782,23 +874,53 @@ const FeedbackFormHydration = () => {
     }
 
     if (!payload || typeof payload !== "object") {
-      if (statusEl) statusEl.textContent = "Ready to submit page-level feedback.";
-      if (missingEl) missingEl.hidden = true;
+      syncCopySegmentButton("");
+      if (isSegmentFeedbackPage()) {
+        if (statusEl) statusEl.textContent = "Open this page from a passage feedback button to include context.";
+        if (missingEl) missingEl.hidden = false;
+      } else {
+        if (statusEl) statusEl.textContent = "Ready to submit page-level feedback.";
+        if (missingEl) missingEl.hidden = true;
+      }
       if (fromPassageEl) fromPassageEl.hidden = true;
       ensurePageLevelTitle();
       bindFormInteractions();
       return;
     }
 
-    if (statusEl) statusEl.textContent = "Ready to submit page-level feedback.";
+    if (statusEl) statusEl.textContent = "";
     if (missingEl) missingEl.hidden = true;
     if (fromPassageEl) fromPassageEl.hidden = false;
 
+    const chosenText = payload.selectedText || payload.quotedText || "";
+  syncCopySegmentButton(chosenText);
+
     setValue("#field-feedback-type", payload.feedbackType || "passage");
+    setValue("#field-title", payload.pageTitle ? "Feedback on passage from " + payload.pageTitle : "");
     setValue("#field-page-title", payload.pageTitle || "");
     setValue("#field-page-url", payload.pageUrl || "");
+    setValue("#field-published-commit", "${PUBLISHED_COMMIT_IDENTIFIER}");
+    setValue("#field-published-commit-date", "${PUBLISHED_COMMIT_DATE}");
+    setValue("#field-section-heading", payload.sectionHeading || "");
+    setValue("#field-block-id", payload.blockId || "");
+    setValue("#field-block-url", payload.blockUrl || "");
+    setValue("#field-text-fragment-url", payload.textFragmentUrl || "");
+    setValue("#field-quoted-text", payload.quotedText || "");
+    setValue("#field-selected-text", payload.selectedText || "");
+    setValue("#field-full-block-text", payload.fullBlockText || "");
+    setValue("#field-start-context", payload.startContext || "");
+    setValue("#field-end-context", payload.endContext || "");
 
     setValue("#field-page-url-editable", payload.pageUrl || "");
+    setValue("#field-section-heading-display", payload.sectionHeading || "");
+    setValue("#field-selected-passage-display", chosenText);
+
+    setText("#feedback-feedback-type", payload.feedbackType || "passage");
+    setText("#feedback-page-url", payload.pageUrl || "");
+    setText("#feedback-section-heading", payload.sectionHeading || "");
+    setText("#feedback-block-id", payload.blockId || "");
+    setText("#feedback-selected-text", chosenText);
+
     ensurePageLevelTitle()
     bindFormInteractions();
   };
