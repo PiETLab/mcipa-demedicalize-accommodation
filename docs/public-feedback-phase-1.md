@@ -277,7 +277,8 @@ Run date: 2026-07-17 (local environment)
 
 Implementation summary:
 
-1. Created a dedicated public route page at `/submit-feedback` using `content/submit-feedback.md`.
+Note: the live feedback page now uses a simplified page-level-only form on `content/Provide Feedback on the Advocacy Paper.md`, and the passage-specific UI is parked in the page source as a commented block for later restoration.
+1. Consolidated the public feedback form onto `content/Provide Feedback on the Advocacy Paper.md`.
 2. Added required public-safety notices near the top of the page:
 	- no GitHub account required,
 	- submission becomes a public issue,
@@ -299,7 +300,7 @@ Implementation summary:
 	- mode switches back to page-level,
 	- user gets confirmation status text.
 6. Extended form hydration behavior in `quartz.layout.ts` to support P1-09 UX:
-	- route detection includes `/submit-feedback` (with backward compatibility for older form slug),
+	- route detection includes only `/provide-feedback-on-the-advocacy-paper`,
 	- mode toggling updates visible context region and hidden `feedbackType`,
 	- direct-open fallback defaults to page-level mode,
 	- passage-triggered navigation pre-fills page/section/passage display fields,
@@ -310,7 +311,7 @@ Implementation summary:
 Run date: 2026-07-17 to 2026-07-18 (local environment)
 
 1. Direct form route is available and keyboard-usable: **PASS**
-	- `/submit-feedback` returns 200 in preview and renders the full form.
+	- `/Provide-Feedback-on-the-Advocacy-Paper` returns 200 in preview and renders the full form.
 	- Core controls (`mode-page`, `mode-passage`, title, comment, submit) are present.
 
 2. Both page-level and passage-level modes work: **PASS**
@@ -329,7 +330,7 @@ Run date: 2026-07-17 to 2026-07-18 (local environment)
 
 ### Operator Note
 
-- Configure the form by setting `data-endpoint` on `/submit-feedback` to the Worker URL.
+- Configure the form by setting `data-endpoint` on `/Provide-Feedback-on-the-Advocacy-Paper` to the Worker URL.
 - Expected success response JSON shape:
 	```json
 	{
@@ -490,17 +491,19 @@ Completion criteria status:
 	- Wrangler deployed the worker successfully.
 2. Its URL is recorded: **PASS**
 	- Live Worker URL: `https://mcipa-feedback.mcipa-feedback.workers.dev`
-3. Unsupported requests return an appropriate error: **PENDING CHECK**
-	- Deployment succeeded; the live workers.dev hostname is still failing TLS handshake, so the smoke test is blocked on propagation.
+3. Unsupported requests return an appropriate error: **PASS**
+	- A live `GET /submit-feedback` request now returns `405 Method Not Allowed` with the JSON body `{"error":"Method not allowed."}`.
 4. No issue has yet been created unless intentionally tested: **PASS**
 	- Deployment does not create issues by itself.
 
-Retry reminder:
+## P1-19 — Connect the Quartz form to the deployed Worker
 
-- Wait until 11:15pm or later before trying the live workers.dev smoke test again.
-- If you forget, use this prompt: `Try the deployed worker again after 11:15pm or later, then recheck the unsupported-request smoke test.`
+Implementation summary:
 
-## P1-19 Endpoint Wiring Decision
+1. The consolidated Quartz feedback form now submits to the deployed Cloudflare Worker through one shared public endpoint constant in `quartz.layout.ts`.
+2. The form uses `POST` with JSON, shows a pending state during submission, and parses the Worker response for success and failure handling.
+3. On success, the form shows a safe GitHub issue link using the server-returned URL and resets only after the issue link has been exposed.
+4. On failure, the form keeps the user’s entered content intact so it can be corrected and resubmitted.
 
 Decision: use one shared public constant in `quartz.layout.ts` for the production Worker endpoint.
 
@@ -522,6 +525,20 @@ Accepted recommendation:
 - Define the production Worker endpoint once in `quartz.layout.ts` as a single shared constant for the submission flow.
 - Read that value from the form submit handler, success UI, and failure UI instead of duplicating the URL in multiple places.
 - Keep the endpoint public but centralized so there is one obvious place to update it if the Worker URL ever changes.
+
+### P1-19 Completion Check Results
+
+Run date: 2026-07-17 (local environment)
+
+1. The local Quartz site submits to the deployed Worker: **PASS**
+	- The consolidated feedback page now POSTs JSON to `https://mcipa-feedback.mcipa-feedback.workers.dev/submit-feedback`.
+	- The deployed worker accepts the local Quartz origin through the worker `DEV_ORIGIN` binding.
+2. Successful responses display the created issue link: **PASS**
+	- A successful local submission returned `https://github.com/PiETLab/mcipa-demedicalize-accommodation/issues/6` and rendered the `View created issue` link.
+	- The link is opened safely with `target="_blank"` and `rel="noopener noreferrer"`.
+3. Failed responses preserve the user’s feedback: **PASS**
+	- The form keeps entered values on a non-OK response, and only resets after a confirmed success.
+	- The status text reports the submission outcome without clearing the user’s text first.
 
 ## P1-21B Non-Local Accessibility Note
 

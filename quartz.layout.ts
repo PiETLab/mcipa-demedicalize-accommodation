@@ -1,6 +1,8 @@
 import { PageLayout, SharedLayout } from "./quartz/cfg"
 import * as Component from "./quartz/components"
 
+const PUBLIC_FEEDBACK_WORKER_ENDPOINT = "https://mcipa-feedback.mcipa-feedback.workers.dev/submit-feedback"
+
 const PassageFeedbackControls = () => {
   const FeedbackControls = () => null
 
@@ -72,6 +74,7 @@ const PassageFeedbackControls = () => {
   window.__mcipaFeedbackControlsInitialized = true
 
   const FORM_SLUG = "submit-feedback"
+  const FEEDBACK_WORKER_ENDPOINT = "${PUBLIC_FEEDBACK_WORKER_ENDPOINT}"
   const STORAGE_KEY = "mcipa.feedbackContext"
   const CONTROL_SELECTOR = ".passage-feedback-control"
   const SELECTION_MAX_CHARS = 600
@@ -99,6 +102,24 @@ const PassageFeedbackControls = () => {
 
   const normalizeText = (text) => {
     return (text || "").replace(/\s+/g, " ").trim()
+  }
+
+  const safeIssueUrl = (value) => {
+    const candidate = (value || "").toString().trim()
+    if (!candidate) {
+      return ""
+    }
+
+    try {
+      const parsed = new URL(candidate)
+      if (parsed.protocol !== "https:" || parsed.hostname !== "github.com") {
+        return ""
+      }
+
+      return parsed.toString()
+    } catch (error) {
+      return ""
+    }
   }
 
   const canonicalPageUrlFromLocation = () => {
@@ -524,9 +545,28 @@ const FeedbackFormHydration = () => {
   window.__mcipaFeedbackFormHydrationInitialized = true
 
   const STORAGE_KEY = "mcipa.feedbackContext";
-  const FORM_PATHS = ["/submit-feedback", "/provide-feedback-on-the-advocacy-paper"];
+  const FORM_PATHS = ["/provide-feedback-on-the-advocacy-paper"];
+  const FEEDBACK_WORKER_ENDPOINT = "${PUBLIC_FEEDBACK_WORKER_ENDPOINT}";
   let initializedForm = false;
   let isSubmitting = false;
+
+  const safeIssueUrl = (value) => {
+    const candidate = (value || "").toString().trim();
+    if (!candidate) {
+      return "";
+    }
+
+    try {
+      const parsed = new URL(candidate);
+      if (parsed.protocol !== "https:" || parsed.hostname !== "github.com") {
+        return "";
+      }
+
+      return parsed.toString();
+    } catch (error) {
+      return "";
+    }
+  };
 
   const normalizePath = (path) => {
     let normalized = path || "/";
@@ -552,7 +592,7 @@ const FeedbackFormHydration = () => {
   };
 
   const toggleContextPreview = (mode) => {
-    const contextSection = document.querySelector("#feedback-context-section");
+    const contextSection = document.querySelector("#feedback-context-section") || document.querySelector("#feedback-context-from-passage");
     if (contextSection) {
       contextSection.hidden = mode !== "passage";
     }
@@ -577,31 +617,7 @@ const FeedbackFormHydration = () => {
   };
 
   const clearPassageContext = () => {
-    [
-      "#field-section-heading",
-      "#field-block-id",
-      "#field-block-url",
-      "#field-text-fragment-url",
-      "#field-quoted-text",
-      "#field-selected-text",
-      "#field-full-block-text",
-      "#field-start-context",
-      "#field-end-context",
-    ].forEach((selector) => setValue(selector, ""));
-
-    setText("#feedback-section-heading", "Not provided");
-    setText("#feedback-block-id", "Not provided");
-    setText("#feedback-block-url", "Not provided");
-    setText("#feedback-text-fragment-url", "Not generated");
-    setText("#feedback-quoted-text", "Not provided");
-    setText("#feedback-selected-text", "Not provided");
-    setText("#feedback-full-block-text", "Not provided");
-    setText("#feedback-start-context", "Not provided");
-    setText("#feedback-end-context", "Not provided");
-
-    setValue("#field-section-heading-display", "");
-    setValue("#field-selected-passage-display", "");
-    setMode("page");
+    ensurePageLevelTitle();
   };
 
   const bindFormInteractions = () => {
@@ -613,6 +629,9 @@ const FeedbackFormHydration = () => {
     if (!form) {
       return;
     }
+
+    form.setAttribute("data-endpoint", FEEDBACK_WORKER_ENDPOINT)
+    ensurePageLevelTitle()
 
     initializedForm = true;
 
@@ -691,13 +710,16 @@ const FeedbackFormHydration = () => {
           throw new Error(result.error || "Feedback submission failed.");
         }
 
-        const issueUrl = result.issueUrl || result.html_url || result.url || "";
+        const issueUrl = safeIssueUrl(result.issueUrl || result.html_url || result.url || "");
         setStatus("Feedback submitted successfully.", "success");
         if (issueUrl && issueLink) {
           issueLink.hidden = false;
           issueLink.href = issueUrl;
           issueLink.textContent = "View created issue";
         }
+
+        form.reset();
+        clearPassageContext();
       } catch (error) {
         const message = error instanceof Error ? error.message : "Unable to submit feedback right now.";
         setStatus(message, "error");
@@ -725,6 +747,24 @@ const FeedbackFormHydration = () => {
     }
   };
 
+  const ensurePageLevelTitle = () => {
+    const titleField = document.querySelector("#field-title");
+    if (titleField && !titleField.value) {
+      const pageTitle = document.querySelector("article h1")?.textContent?.trim() || document.title || "Feedback";
+      titleField.value = "Feedback on " + pageTitle;
+    }
+
+    const pageUrlField = document.querySelector("#field-page-url");
+    if (pageUrlField && !pageUrlField.value) {
+      pageUrlField.value = "https://pietlab.github.io/mcipa-demedicalize-accommodation/Advocacy-Paper";
+    }
+
+    const pageTitleField = document.querySelector("#field-page-title");
+    if (pageTitleField && !pageTitleField.value) {
+      pageTitleField.value = "Advocacy Paper";
+    }
+  };
+
   const hydrateFeedbackForm = () => {
     if (!isFeedbackPage()) {
       return;
@@ -742,48 +782,24 @@ const FeedbackFormHydration = () => {
     }
 
     if (!payload || typeof payload !== "object") {
-      if (statusEl) statusEl.textContent = "Context not found in this browser session.";
-      if (missingEl) missingEl.hidden = false;
+      if (statusEl) statusEl.textContent = "Ready to submit page-level feedback.";
+      if (missingEl) missingEl.hidden = true;
       if (fromPassageEl) fromPassageEl.hidden = true;
-      setMode("page");
+      ensurePageLevelTitle();
       bindFormInteractions();
       return;
     }
 
-    if (statusEl) statusEl.textContent = "Context loaded from selected passage.";
+    if (statusEl) statusEl.textContent = "Ready to submit page-level feedback.";
     if (missingEl) missingEl.hidden = true;
     if (fromPassageEl) fromPassageEl.hidden = false;
-
-    setText("#feedback-page-title", payload.pageTitle || "");
-    setText("#feedback-page-url", payload.pageUrl || "");
-    setText("#feedback-section-heading", payload.sectionHeading || "");
-    setText("#feedback-block-id", payload.blockId || "");
-    setText("#feedback-block-url", payload.blockUrl || "");
-    setText("#feedback-text-fragment-url", payload.textFragmentUrl || "Not generated");
-    setText("#feedback-quoted-text", payload.quotedText || "");
-    setText("#feedback-selected-text", payload.selectedText || "");
-    setText("#feedback-full-block-text", payload.fullBlockText || "");
-    setText("#feedback-start-context", payload.startContext || "");
-    setText("#feedback-end-context", payload.endContext || "");
 
     setValue("#field-feedback-type", payload.feedbackType || "passage");
     setValue("#field-page-title", payload.pageTitle || "");
     setValue("#field-page-url", payload.pageUrl || "");
-    setValue("#field-section-heading", payload.sectionHeading || "");
-    setValue("#field-block-id", payload.blockId || "");
-    setValue("#field-block-url", payload.blockUrl || "");
-    setValue("#field-text-fragment-url", payload.textFragmentUrl || "");
-    setValue("#field-quoted-text", payload.quotedText || "");
-    setValue("#field-selected-text", payload.selectedText || "");
-    setValue("#field-full-block-text", payload.fullBlockText || "");
-    setValue("#field-start-context", payload.startContext || "");
-    setValue("#field-end-context", payload.endContext || "");
 
     setValue("#field-page-url-editable", payload.pageUrl || "");
-    setValue("#field-section-heading-display", payload.sectionHeading || "");
-    setValue("#field-selected-passage-display", payload.selectedText || payload.quotedText || "");
-
-    setMode((payload.feedbackType === "selection" || payload.feedbackType === "passage") ? "passage" : "page");
+    ensurePageLevelTitle()
     bindFormInteractions();
   };
 
