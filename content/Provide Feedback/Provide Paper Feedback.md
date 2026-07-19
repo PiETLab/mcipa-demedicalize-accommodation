@@ -16,7 +16,8 @@ Use this page to submit feedback about the Advocacy Paper.  For information abou
 <label for="field-feedback-comment">Feedback</label>
 <textarea id="field-feedback-comment" name="comment" maxlength="4000" required placeholder="Describe your feedback and suggested changes."></textarea>
 
-<input name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden;" />
+<label for="field-website" style="position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden;">Leave this field blank</label>
+<input id="field-website" name="website" type="text" tabindex="-1" autocomplete="off" style="position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden;" />
 
 <input id="field-feedback-type" type="hidden" name="feedbackType" value="page" />
 <input id="field-page-title" type="hidden" name="pageTitle" value="" />
