@@ -119,7 +119,6 @@ This produces five recurring harms:
 4. **Faculty inconsistency** in implementation
 
 5. **Institutional reputational risk** where equity rhetoric is contradicted by student experience
-
 # 5. Theory of Change
 
 If institutions reduce unnecessary documentation barriers, shift responsibility for access from individual students to campus systems, and build transparent equitable processes, then more students will access support earlier, retention and trust will improve, and campuses will better align practice with public commitments.
