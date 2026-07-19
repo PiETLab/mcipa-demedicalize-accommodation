@@ -12,6 +12,10 @@ const TARGET_PAGE_KEYS = new Set([
 const ELIGIBLE_TAGS = new Set(["p", "ul", "ol", "dl"])
 const LIST_CONTAINER_TAGS = new Set(["ul", "ol", "dl", "li"])
 
+function collapseWhitespace(text: string): string {
+  return text.replace(/\s+/g, " ").trim()
+}
+
 function normalizeCandidate(value: unknown): string | null {
   if (typeof value !== "string") {
     return null
@@ -84,6 +88,16 @@ function nodeText(node: any): string {
   }
 
   return ""
+}
+
+function buildTaskCheckboxLabel(text: string): string {
+  const normalized = collapseWhitespace(text)
+  if (normalized.length === 0) {
+    return "Task list item"
+  }
+
+  const preview = normalized.length > 120 ? `${normalized.slice(0, 117).trimEnd()}...` : normalized
+  return `Task: ${preview}`
 }
 
 function walkElements(node: any, visitor: (element: any, ancestors: any[]) => void, ancestors: any[] = []): void {
@@ -179,6 +193,40 @@ const PassageIdentifierTransformer = () => ({
   },
 })
 
+const TaskListAccessibilityTransformer = () => ({
+  name: "TaskListAccessibilityTransformer",
+  htmlPlugins() {
+    return [
+      () => {
+        return (tree: any) => {
+          walkElements(tree, (element, ancestors) => {
+            const tagName = typeof element.tagName === "string" ? element.tagName : ""
+            if (tagName !== "input") {
+              return
+            }
+
+            const properties = (element.properties ??= {})
+            if (properties.type !== "checkbox") {
+              return
+            }
+
+            const existingLabel = typeof properties["aria-label"] === "string" ? properties["aria-label"].trim() : ""
+            if (existingLabel.length > 0) {
+              return
+            }
+
+            const listItemAncestor = [...ancestors]
+              .reverse()
+              .find((ancestor) => typeof ancestor?.tagName === "string" && ancestor.tagName === "li")
+
+            properties["aria-label"] = buildTaskCheckboxLabel(nodeText(listItemAncestor))
+          })
+        }
+      },
+    ]
+  },
+})
+
 /**
  * Quartz 4 configuration for mcipa-demedicalize-accommodation.
  * Public prototype — provisional/in-progress framing is intentional.
@@ -246,6 +294,7 @@ const config: QuartzConfig = {
       }),
       Plugin.ObsidianFlavoredMarkdown({ enableInHtmlEmbed: false }),
       Plugin.GitHubFlavoredMarkdown(),
+      TaskListAccessibilityTransformer(),
       PassageIdentifierTransformer(),
       Plugin.TableOfContents(),
       Plugin.CrawlLinks({ markdownLinkResolution: "shortest" }),

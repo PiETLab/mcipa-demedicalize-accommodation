@@ -95,6 +95,17 @@ const clipboardStylePath = path.join(
   "clipboard.scss",
 )
 
+const baseStylePath = path.join(
+  __dirname,
+  "..",
+  "node_modules",
+  "@jackyzha0",
+  "quartz",
+  "quartz",
+  "styles",
+  "base.scss",
+)
+
 function fail(message) {
   throw new Error(`[patch-quartz-render-page-cache-bust] ${message}`)
 }
@@ -309,6 +320,28 @@ function patchClipboardContrast() {
   console.log("Applied Quartz clipboard.scss contrast patch.")
 }
 
+function patchTaskListContrast() {
+  if (!fs.existsSync(baseStylePath)) {
+    fail(`Target file not found: ${baseStylePath}`)
+  }
+
+  let source = fs.readFileSync(baseStylePath, "utf8")
+
+  if (source.includes('text-decoration-color: var(--darkgray);\n      color: var(--darkgray);')) {
+    console.log("Quartz base.scss task-list contrast patch already applied.")
+    return
+  }
+
+  const needle = 'text-decoration-color: var(--gray);\n      color: var(--gray);'
+  if (!source.includes(needle)) {
+    fail("Could not find completed task-list color rule")
+  }
+
+  source = source.replace(needle, 'text-decoration-color: var(--darkgray);\n      color: var(--darkgray);')
+  fs.writeFileSync(baseStylePath, source)
+  console.log("Applied Quartz base.scss task-list contrast patch.")
+}
+
 patchRenderPage()
 patchExplorerAccessibility()
 patchTableOfContentsHeadingLevel()
@@ -316,3 +349,4 @@ patchBacklinksHeadingLevel()
 patchPageListHeadingLevel()
 patchSearchContrast()
 patchClipboardContrast()
+patchTaskListContrast()
