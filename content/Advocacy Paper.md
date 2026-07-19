@@ -32,9 +32,9 @@ This Advocacy Paper argues that postsecondary institutions should move from a na
 
 1. Reduce reliance on medical documentation and accept broader forms of evidence, including self-attestation in appropriate cases.
 
-2. Create case-by-case review systems grounded in access, equity, and good faith.
+2. Create case-by-case review systems grounded in access, equity, and good faith.
 
-3. Introduce transparent appeal and conflict-resolution mechanisms.
+3. Introduce transparent appeal and conflict-resolution mechanisms.
 
 4. Expand faculty responsibility for inclusive pedagogy and access-centered course design.
 
@@ -70,7 +70,7 @@ Most postsecondary accommodation systems follow a common sequence:
 
 6. Student negotiates implementation with faculty or staff
 
-7. Student re-engages system on an annual basis 
+7. Student re-engages system on an annual basis 
 
 This model appears neutral and orderly. In practice, each stage creates obstacles.
 
