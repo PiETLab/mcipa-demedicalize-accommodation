@@ -36,6 +36,17 @@ const tableOfContentsPath = path.join(
   "TableOfContents.tsx",
 )
 
+const backlinksPath = path.join(
+  __dirname,
+  "..",
+  "node_modules",
+  "@jackyzha0",
+  "quartz",
+  "quartz",
+  "components",
+  "Backlinks.tsx",
+)
+
 const searchStylePaths = [
   path.join(
     __dirname,
@@ -191,6 +202,28 @@ function patchTableOfContentsHeadingLevel() {
   console.log("Applied Quartz TableOfContents.tsx heading-level patch.")
 }
 
+function patchBacklinksHeadingLevel() {
+  if (!fs.existsSync(backlinksPath)) {
+    fail(`Target file not found: ${backlinksPath}`)
+  }
+
+  let source = fs.readFileSync(backlinksPath, "utf8")
+
+  if (source.includes("<h2>{i18n(cfg.locale).components.backlinks.title}</h2>")) {
+    console.log("Quartz Backlinks.tsx heading-level patch already applied.")
+    return
+  }
+
+  const needle = "<h3>{i18n(cfg.locale).components.backlinks.title}</h3>"
+  if (!source.includes(needle)) {
+    fail("Could not find Backlinks title heading anchor")
+  }
+
+  source = source.replace(needle, "<h2>{i18n(cfg.locale).components.backlinks.title}</h2>")
+  fs.writeFileSync(backlinksPath, source)
+  console.log("Applied Quartz Backlinks.tsx heading-level patch.")
+}
+
 function patchSearchContrast() {
   const searchStylePath = searchStylePaths.find((candidate) => fs.existsSync(candidate))
   if (!searchStylePath) {
@@ -243,5 +276,6 @@ function patchClipboardContrast() {
 patchRenderPage()
 patchExplorerAccessibility()
 patchTableOfContentsHeadingLevel()
+patchBacklinksHeadingLevel()
 patchSearchContrast()
 patchClipboardContrast()
