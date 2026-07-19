@@ -92,7 +92,7 @@ const PassageFeedbackControls = () => {
   }
   window.__mcipaFeedbackControlsInitialized = true
 
-  const FORM_SLUG = "/Provide-Feedback/Provide-Segment-Feedback"
+  const FORM_SLUG = "./Provide-Feedback/Provide-Segment-Feedback"
   const FEEDBACK_WORKER_ENDPOINT = "${PUBLIC_FEEDBACK_WORKER_ENDPOINT}"
   const STORAGE_KEY = "mcipa.feedbackContext"
   const STORAGE_SOURCE_KEY = "mcipa.feedbackContextSource"
