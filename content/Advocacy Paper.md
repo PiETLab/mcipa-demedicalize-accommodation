@@ -300,14 +300,11 @@ Heavy documentation requirements disproportionately burden low-income students, 
 Allow students to receive interim accommodations while review is underway.
 
 Examples:
-
 - note-taking supports
-
 - short-term flexibility
-
 - testing adjustments
-
 - attendance flexibility where reasonable
+
 
 ### Rationale
 
@@ -348,16 +345,12 @@ Many current systems depend on informal negotiation where power favors instituti
 Move some access supports upstream through accessible pedagogy and course design.
 
 Examples:
-
 - flexible assessment formats
-
 - captioned media
-
 - accessible documents
-
 - reasonable deadline flexibility frameworks
-
 - multiple participation pathways
+
 
 ### Rationale
 
