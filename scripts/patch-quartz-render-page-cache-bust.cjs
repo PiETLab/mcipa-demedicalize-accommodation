@@ -25,6 +25,17 @@ const explorerPath = path.join(
   "Explorer.tsx",
 )
 
+const tableOfContentsPath = path.join(
+  __dirname,
+  "..",
+  "node_modules",
+  "@jackyzha0",
+  "quartz",
+  "quartz",
+  "components",
+  "TableOfContents.tsx",
+)
+
 const searchStylePaths = [
   path.join(
     __dirname,
@@ -158,6 +169,28 @@ function patchExplorerAccessibility() {
   console.log("Applied Quartz Explorer.tsx accessibility patch.")
 }
 
+function patchTableOfContentsHeadingLevel() {
+  if (!fs.existsSync(tableOfContentsPath)) {
+    fail(`Target file not found: ${tableOfContentsPath}`)
+  }
+
+  let source = fs.readFileSync(tableOfContentsPath, "utf8")
+
+  if (source.includes("<h2>{i18n(cfg.locale).components.tableOfContents.title}</h2>")) {
+    console.log("Quartz TableOfContents.tsx heading-level patch already applied.")
+    return
+  }
+
+  const needle = "<h3>{i18n(cfg.locale).components.tableOfContents.title}</h3>"
+  if (!source.includes(needle)) {
+    fail("Could not find TableOfContents title heading anchor")
+  }
+
+  source = source.split(needle).join("<h2>{i18n(cfg.locale).components.tableOfContents.title}</h2>")
+  fs.writeFileSync(tableOfContentsPath, source)
+  console.log("Applied Quartz TableOfContents.tsx heading-level patch.")
+}
+
 function patchSearchContrast() {
   const searchStylePath = searchStylePaths.find((candidate) => fs.existsSync(candidate))
   if (!searchStylePath) {
@@ -209,5 +242,6 @@ function patchClipboardContrast() {
 
 patchRenderPage()
 patchExplorerAccessibility()
+patchTableOfContentsHeadingLevel()
 patchSearchContrast()
 patchClipboardContrast()
