@@ -6,7 +6,7 @@ const { execSync } = require("node:child_process")
 const repoRoot = path.resolve(__dirname, "..")
 const publicDir = path.join(repoRoot, "public")
 const advocacyHtmlPath = path.join(publicDir, "Advocacy-Paper.html")
-const eligibleTags = new Set(["p"])
+const eligibleTags = new Set(["p", "ul", "ol", "dl"])
 
 function run(command) {
   execSync(command, {

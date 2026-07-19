@@ -9,7 +9,8 @@ const TARGET_PAGE_KEYS = new Set([
   "advocacy paper.md",
 ])
 
-const ELIGIBLE_TAGS = new Set(["p"])
+const ELIGIBLE_TAGS = new Set(["p", "ul", "ol", "dl"])
+const LIST_CONTAINER_TAGS = new Set(["ul", "ol", "dl", "li"])
 
 function normalizeCandidate(value: unknown): string | null {
   if (typeof value !== "string") {
@@ -85,18 +86,18 @@ function nodeText(node: any): string {
   return ""
 }
 
-function walkElements(node: any, visitor: (element: any) => void): void {
+function walkElements(node: any, visitor: (element: any, ancestors: any[]) => void, ancestors: any[] = []): void {
   if (!node || typeof node !== "object") {
     return
   }
 
   if (node.type === "element") {
-    visitor(node)
+    visitor(node, ancestors)
   }
 
   if (Array.isArray(node.children)) {
     for (const child of node.children) {
-      walkElements(child, visitor)
+      walkElements(child, visitor, node.type === "element" ? [...ancestors, node] : ancestors)
     }
   }
 }
@@ -114,10 +115,22 @@ const PassageIdentifierTransformer = () => ({
           const pageKey = getFileCandidates(file)[0] ?? "advocacy-paper"
           const usedIds = new Set<string>()
 
-          walkElements(tree, (element) => {
+          walkElements(tree, (element, ancestors) => {
             const tagName = typeof element.tagName === "string" ? element.tagName : ""
             if (!ELIGIBLE_TAGS.has(tagName)) {
               return
+            }
+
+            if (tagName === "p") {
+              const insideListContainer = ancestors.some((ancestor) => {
+                const ancestorTag = typeof ancestor?.tagName === "string" ? ancestor.tagName : ""
+                return LIST_CONTAINER_TAGS.has(ancestorTag)
+              })
+
+              // Lists are handled as whole-leaf targets on the list container.
+              if (insideListContainer) {
+                return
+              }
             }
 
             const elementText = nodeText(element)

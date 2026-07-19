@@ -55,10 +55,18 @@ PassageIdentifierTransformer does not parse raw markdown text directly. It reads
 
 ### Eligible HTML Tags
 
-Only this tag is marked as a feedback leaf block:
+These tags are marked as feedback leaf blocks:
 - p
+- ul
+- ol
+- dl
 
-Headings are not feedback leaves.
+Headings and list items (`li`) are not feedback leaves.
+
+List policy:
+- A list container (`ul`/`ol`/`dl`) is treated as one leaf.
+- Individual list items are not treated as separate leaves.
+- If markdown renders list-item paragraphs (`li > p`), those nested paragraphs are excluded from marking so a single button is attached for the whole list.
 
 List-like paragraph lines can participate in paragraph-like leaves, for example:
 - numbered lines such as `1. ...`
@@ -95,6 +103,7 @@ What it does on each run:
 7. Adds an aria-label based on a quote preview from the block text.
 8. Inserts the wrapper:
 - after the paragraph itself for plain paragraph leaves
+- after the list container itself for list leaves (`ul`/`ol`/`dl`)
 - after the trailing list-like entity for paragraph-like leaves (contiguous list-like paragraph run)
 
 ### Reattachment Behavior
@@ -113,7 +122,8 @@ Button insertion is governed by the intersection of these rules:
 - The page must be identified as Advocacy Paper by isTargetPage().
 
 2. Tag eligibility gate (build time):
-- The element must be p.
+- The element must be one of: `p`, `ul`, `ol`, `dl`.
+- Nested list-item paragraphs are excluded so list containers own list feedback insertion.
 
 2.5. Heading-parent gate (runtime):
 - The paragraph leaf must resolve to a nearest levelled heading (h2-h6) inside the article.
@@ -132,6 +142,7 @@ Button insertion is governed by the intersection of these rules:
 
 7. Placement rule (runtime):
 - For paragraph leaves, insertion target is immediately after the paragraph.
+- For list leaves, insertion target is immediately after the list container.
 - For list-like paragraph runs, only the first paragraph in the run emits a control and insertion target is the end of that run.
 
 Only when all of the above pass will the button be injected.
@@ -139,7 +150,7 @@ Only when all of the above pass will the button be injected.
 ## Why This Design Exists
 
 - Predictable placement: only explicitly eligible content blocks get controls.
-- Accessibility and clarity: buttons are tied to paragraph leaves and paragraph-like content units.
+- Accessibility and clarity: buttons are tied to paragraph leaves and whole-list leaves (not individual items).
 - Stability: deterministic ids support durable references and feedback metadata.
 - SPA resilience: controls reattach after client-side navigation.
 
