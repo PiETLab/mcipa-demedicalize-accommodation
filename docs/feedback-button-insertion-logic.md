@@ -67,6 +67,7 @@ List policy:
 - A list container (`ul`/`ol`/`dl`) is treated as one leaf.
 - Individual list items are not treated as separate leaves.
 - If markdown renders list-item paragraphs (`li > p`), those nested paragraphs are excluded from marking so a single button is attached for the whole list.
+- Paragraph leaves do not absorb adjacent list containers; paragraph and list leaves are handled independently.
 
 List-like paragraph lines can participate in paragraph-like leaves, for example:
 - numbered lines such as `1. ...`

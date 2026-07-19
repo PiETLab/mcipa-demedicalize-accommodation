@@ -200,7 +200,7 @@ const PassageFeedbackControls = () => {
     }
 
     let cursor = start.nextElementSibling
-    while (cursor && (isListLikeParagraph(cursor) || isListContainer(cursor))) {
+    while (cursor && isListLikeParagraph(cursor)) {
       if (isListLikeParagraph(cursor)) {
         return true
       }
@@ -217,7 +217,7 @@ const PassageFeedbackControls = () => {
 
     let last = start
     let cursor = start.nextElementSibling
-    while (cursor && (isListLikeParagraph(cursor) || isListContainer(cursor))) {
+    while (cursor && isListLikeParagraph(cursor)) {
       last = cursor
       cursor = cursor.nextElementSibling
     }
@@ -277,8 +277,8 @@ const PassageFeedbackControls = () => {
     let lastNodeInLeaf = block
     let cursor = block.nextElementSibling
 
-    // A p-like leaf may include immediately trailing list-like entities.
-    while (cursor && (isListContainer(cursor) || isListLikeParagraph(cursor))) {
+    // A p-like leaf may include immediately trailing list-like paragraphs.
+    while (cursor && isListLikeParagraph(cursor)) {
       lastNodeInLeaf = cursor
       cursor = cursor.nextElementSibling
     }
