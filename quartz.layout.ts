@@ -439,10 +439,21 @@ const PassageFeedbackControls = () => {
   }
 
   const canonicalPageUrlFromLocation = () => {
+    const rawSiteBasePath = new URL(CANONICAL_SITE_BASE).pathname || "/"
+    const siteBasePath = rawSiteBasePath.length > 1 && rawSiteBasePath.endsWith("/")
+      ? rawSiteBasePath.slice(0, -1)
+      : rawSiteBasePath
     let path = window.location.pathname || "/"
     while (path.length > 1 && path.endsWith("/")) {
       path = path.slice(0, -1)
     }
+
+    if (siteBasePath && path === siteBasePath) {
+      path = "/"
+    } else if (siteBasePath && path.startsWith(siteBasePath + "/")) {
+      path = path.slice(siteBasePath.length)
+    }
+
     const safePath = path.startsWith("/") ? path : "/" + path
     return CANONICAL_SITE_BASE + safePath
   }
