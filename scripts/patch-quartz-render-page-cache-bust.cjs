@@ -25,17 +25,30 @@ const explorerPath = path.join(
   "Explorer.tsx",
 )
 
-const searchStylePath = path.join(
-  __dirname,
-  "..",
-  "node_modules",
-  "@jackyzha0",
-  "quartz",
-  "quartz",
-  "components",
-  "styles",
-  "Search.scss",
-)
+const searchStylePaths = [
+  path.join(
+    __dirname,
+    "..",
+    "node_modules",
+    "@jackyzha0",
+    "quartz",
+    "quartz",
+    "components",
+    "styles",
+    "Search.scss",
+  ),
+  path.join(
+    __dirname,
+    "..",
+    "node_modules",
+    "@jackyzha0",
+    "quartz",
+    "quartz",
+    "components",
+    "styles",
+    "search.scss",
+  ),
+]
 
 function fail(message) {
   throw new Error(`[patch-quartz-render-page-cache-bust] ${message}`)
@@ -134,8 +147,13 @@ function patchExplorerAccessibility() {
 }
 
 function patchSearchContrast() {
-  if (!fs.existsSync(searchStylePath)) {
-    fail(`Target file not found: ${searchStylePath}`)
+  const searchStylePath = searchStylePaths.find((candidate) => fs.existsSync(candidate))
+  if (!searchStylePath) {
+    fail(
+      `Target file not found: ${searchStylePaths
+        .map((candidate) => path.basename(candidate))
+        .join(" or ")}`,
+    )
   }
 
   let source = fs.readFileSync(searchStylePath, "utf8")
