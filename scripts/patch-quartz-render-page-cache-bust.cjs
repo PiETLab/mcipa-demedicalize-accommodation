@@ -50,6 +50,18 @@ const searchStylePaths = [
   ),
 ]
 
+const clipboardStylePath = path.join(
+  __dirname,
+  "..",
+  "node_modules",
+  "@jackyzha0",
+  "quartz",
+  "quartz",
+  "components",
+  "styles",
+  "clipboard.scss",
+)
+
 function fail(message) {
   throw new Error(`[patch-quartz-render-page-cache-bust] ${message}`)
 }
@@ -173,6 +185,29 @@ function patchSearchContrast() {
   console.log("Applied Quartz Search.scss contrast patch.")
 }
 
+function patchClipboardContrast() {
+  if (!fs.existsSync(clipboardStylePath)) {
+    fail(`Target file not found: ${clipboardStylePath}`)
+  }
+
+  let source = fs.readFileSync(clipboardStylePath, "utf8")
+
+  if (source.includes("color: var(--darkgray);")) {
+    console.log("Quartz clipboard.scss contrast patch already applied.")
+    return
+  }
+
+  const needle = "  color: var(--gray);"
+  if (!source.includes(needle)) {
+    fail("Could not find clipboard button text color rule")
+  }
+
+  source = source.replace(needle, "  color: var(--darkgray);")
+  fs.writeFileSync(clipboardStylePath, source)
+  console.log("Applied Quartz clipboard.scss contrast patch.")
+}
+
 patchRenderPage()
 patchExplorerAccessibility()
 patchSearchContrast()
+patchClipboardContrast()
