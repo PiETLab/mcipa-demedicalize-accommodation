@@ -848,5 +848,29 @@ P1-25 completion status:
 
 - **READY TO MERGE PENDING GITHUB CHECKS/REVIEW** — branch is pushed, PR is open, local validation passed, and merge is gated only by final GitHub checks and reviewer approval.
 
+## Post-merge accessibility disposition — redundant link alert
+
+Run date: 2026-07-18 (deployed site + WAVE)
+
+Disposition:
+
+1. Remaining WAVE alert category: Redundant link (count: 1).
+2. The flagged pair is the expected Home navigation duplication in the left navigation area:
+	- site title link (MCIPA · Demedicalize Accommodation (Prototype))
+	- explorer Home link
+3. Both links intentionally resolve to the same site root destination.
+4. This is accepted as non-blocking and not a release blocker for Phase 1.
+
+Rationale:
+
+1. The two links are intentional, user-facing navigation affordances in distinct sidebar contexts.
+2. They do not create a keyboard trap, focus failure, contrast failure, or name/role/value failure.
+3. WAVE reports this as an alert (review item), not an error.
+
+Decision:
+
+- Keep current behavior for Phase 1.
+- Revisit only if future navigation redesign consolidates title and explorer entry points.
+
 
 
