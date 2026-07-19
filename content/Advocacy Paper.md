@@ -13,34 +13,34 @@ This Advocacy Paper argues that postsecondary institutions should move from a na
 
 ## Core Findings
 
-1.     **Medical documentation requirements function as structural barriers.**  
-They impose financial, administrative, and emotional costs on students, particularly those already marginalized.  
+1. **Medical documentation requirements function as structural barriers.**  
+   They impose financial, administrative, and emotional costs on students, particularly those already marginalized.  
 
-2.     **Current systems often privilege students with economic and cultural capital.**  
-Students who can afford assessments, understand bureaucratic processes, or advocate confidently are more likely to succeed.  
+2. **Current systems often privilege students with economic and cultural capital.**  
+   Students who can afford assessments, understand bureaucratic processes, or advocate confidently are more likely to succeed.  
 
-3.     **Disclosure-based systems create avoidable harm.**  
-Many students avoid accommodations because of stigma, fear of retaliation, or concern that they will be perceived as less capable.
+3. **Disclosure-based systems create avoidable harm.**  
+   Many students avoid accommodations because of stigma, fear of retaliation, or concern that they will be perceived as less capable.
 
-4.     **Alternative models already exist.**  
-Several universities have adopted flexible, non-medicalized approaches without compromising academic standards.
+4. **Alternative models already exist.**  
+   Several universities have adopted flexible, non-medicalized approaches without compromising academic standards.
 
-5.     **Access must move beyond compliance.**  
-Institutions should treat accessibility as a campus-wide responsibility rather than the isolated function of a disability office.
+5. **Access must move beyond compliance.**  
+   Institutions should treat accessibility as a campus-wide responsibility rather than the isolated function of a disability office.
 
 ## Key Recommendations
 
-1.     Reduce reliance on medical documentation and accept broader forms of evidence, including self-attestation in appropriate cases.
+1. Reduce reliance on medical documentation and accept broader forms of evidence, including self-attestation in appropriate cases.
 
-2.     Create case-by-case review systems grounded in access, equity, and good faith.
+2. Create case-by-case review systems grounded in access, equity, and good faith.
 
-3.     Introduce transparent appeal and conflict-resolution mechanisms.
+3. Introduce transparent appeal and conflict-resolution mechanisms.
 
-4.     Expand faculty responsibility for inclusive pedagogy and access-centered course design.
+4. Expand faculty responsibility for inclusive pedagogy and access-centered course design.
 
-5.     Collect equity data to monitor racialized, class-based, and disability-based disparities in academic accommodation access.
+5. Collect equity data to monitor racialized, class-based, and disability-based disparities in academic accommodation access.
 
-6.     Advocate provincially for funding models that do not incentivize restrictive gatekeeping.
+6. Advocate provincially for funding models that do not incentivize restrictive gatekeeping.
 
 ## Why Action Is Urgent
 
@@ -58,19 +58,19 @@ The issue is not whether accommodations matter; they do. Research consistently s
 
 Most postsecondary accommodation systems follow a common sequence:
 
-1.     Student experiences barriers to access 
+1. Student experiences barriers to access 
 
-2.     Student is compelled to seek diagnosis or medical documentation
+2. Student is compelled to seek diagnosis or medical documentation
 
-3.     Student is compelled to disclose medical documentation, disability, and/or "functional limitations" to accessibility office
+3. Student is compelled to disclose medical documentation, disability, and/or "functional limitations" to accessibility office
 
-4.     Accessibility Office determines eligibility
+4. Accessibility Office determines eligibility
 
-5.     Accommodation letter issued
+5. Accommodation letter issued
 
-6.     Student negotiates implementation with faculty or staff
+6. Student negotiates implementation with faculty or staff
 
-7.     Student re-engages system on an annual basis 
+7. Student re-engages system on an annual basis 
 
 This model appears neutral and orderly. In practice, each stage creates obstacles.
 
@@ -110,15 +110,15 @@ The core policy problem is not simply insufficient accommodations. It is that ma
 
 This produces five recurring harms:
 
-1.     **Delayed support** due to documentation and intake timelines
+1. **Delayed support** due to documentation and intake timelines
 
-2.     **Unequal access** based on class, race, immigration status, and cultural capital
+2. **Unequal access** based on class, race, immigration status, and cultural capital
 
-3.     **Underutilization** because students avoid stigmatizing processes
+3. **Underutilization** because students avoid stigmatizing processes
 
-4.     **Faculty inconsistency** in implementation
+4. **Faculty inconsistency** in implementation
 
-5.     **Institutional reputational risk** where equity rhetoric is contradicted by student experience
+5. **Institutional reputational risk** where equity rhetoric is contradicted by student experience
 
 # 5. Theory of Change
 
@@ -133,7 +133,6 @@ The following sections review evidence, comparative models, policy options, and 
 # 6. Methodology
 
 This Advocacy Paper draws on three complementary evidence sources:
-
 ## Source 1. Comparative Institutional Policy Scan
 
 A targeted review was conducted of postsecondary institutions that have adopted less medicalized accommodation practices or alternative documentation standards. Examples include Portland State University, University of Arizona, Syracuse University, Cornell University, Ohio State University, UCLA, and University of Guelph-Humber. These cases were examined to identify reform pathways, administrative models, and implementation risks.
@@ -145,7 +144,6 @@ This paper synthesizes interdisciplinary scholarship from disability studies, hi
 ## Source 3. Critical Policy Analysis
 
 Beyond describing barriers, this Advocacy Paper evaluates how accommodation systems distribute burden, power, and legitimacy. It asks not only whether a system exists, but who benefits from its design, who is filtered out, and what assumptions are embedded in its procedures.
-
 # 7. Literature Review: What Research Shows
 
 ## 7.1 Students Face Significant Barriers Accessing Accommodations
@@ -277,15 +275,15 @@ The evidence suggests that meaningful reform requires more than administrative e
 
 Adopt a proportional evidence model in which students may establish need through multiple pathways, including:
 
-·      student self-attestation
+- student self-attestation
 
-·      prior accommodation history
+- prior accommodation history
 
-·      functional impact statements
+- functional impact statements
 
-·      existing records already on file
+- existing records already on file
 
-·      professional documentation where absolutely necessary/as a last resort
+- professional documentation where absolutely necessary/as a last resort
 
 ### Rationale
 
@@ -293,13 +291,13 @@ Heavy documentation requirements disproportionately burden low-income students, 
 
 ### Implementation Steps
 
-1.     Revise documentation policy language.
+1. Revise documentation policy language.
 
-2.     Eliminate repeated proof for longterm disabilities and chronic illnesses.
+2. Eliminate repeated proof for longterm disabilities and chronic illnesses.
 
-3.     Create functional-needs as opposed to functional limitations intake forms.
+3. Create functional-needs as opposed to functional limitations intake forms.
 
-4.     Define limited circumstances requiring specialist documentation.
+4. Define limited circumstances requiring specialist documentation.
 
 ## Recommendation 2: Introduce Immediate Temporary Supports
 
@@ -309,13 +307,13 @@ Allow students to receive interim accommodations while review is underway.
 
 Examples:
 
-·      note-taking supports
+- note-taking supports
 
-·      short-term flexibility
+- short-term flexibility
 
-·      testing adjustments
+- testing adjustments
 
-·      attendance flexibility where reasonable
+- attendance flexibility where reasonable
 
 ### Rationale
 
@@ -323,11 +321,11 @@ Students should not lose academic standing while waiting weeks or months for pap
 
 ### Implementation Steps
 
-1.     Establish automatic 30–60 day interim supports.
+1. Establish automatic 30–60 day interim supports.
 
-2.     Create emergency intake pathway.
+2. Create emergency intake pathway.
 
-3.     Fast-track urgent cases mid-semester.
+3. Fast-track urgent cases mid-semester.
 
 ## Recommendation 3: Build Transparent Appeals and Conflict Resolution
 
@@ -341,13 +339,13 @@ Many current systems depend on informal negotiation where power favors instituti
 
 ### Implementation Steps
 
-1.     Publish appeal timelines.
+1. Publish appeal timelines.
 
-2.     Create independent review panel.
+2. Create independent review panel.
 
-3.     Permit student advocates/support persons.
+3. Permit student advocates/support persons.
 
-4.     Track recurring dispute themes.
+4. Track recurring dispute themes.
 
 ## Recommendation 4: Shift Faculty Responsibility Toward Inclusive Course Design
 
@@ -357,15 +355,15 @@ Move some access supports upstream through accessible pedagogy and course design
 
 Examples:
 
-·      flexible assessment formats
+- flexible assessment formats
 
-·      captioned media
+- captioned media
 
-·      accessible documents
+- accessible documents
 
-·      reasonable deadline flexibility frameworks
+- reasonable deadline flexibility frameworks
 
-·      multiple participation pathways
+- multiple participation pathways
 
 ### Rationale
 
@@ -373,13 +371,13 @@ Not every barrier should require an individual accommodation letter.
 
 ### Implementation Steps
 
-1.     Faculty training modules.
+1. Faculty training modules.
 
-2.     Department accessibility infrastructure.
+2. Department accessibility infrastructure.
 
-3.     Incentives in teaching evaluations and grants.
+3. Incentives in teaching evaluations and grants.
 
-4.     Include access reviews in curriculum approvals.
+4. Include access reviews in curriculum approvals.
 
 ## Recommendation 5: Embed Intersectional Equity Review
 ### Action
@@ -388,13 +386,13 @@ Audit accommodation systems for disparities linked to race, class, gender, migra
 Race-neutral systems can still produce unequal outcomes (Stapleton & James, 2020; Baker, 2019).
 ### Implementation Steps
 
-1.     Collect voluntary demographic data.
+1. Collect voluntary demographic data.
 
-2.     Review approval rates, delays, appeals, withdrawals.
+2. Review approval rates, delays, appeals, withdrawals.
 
-3.     Conduct student climate surveys.
+3. Conduct student climate surveys.
 
-4.     Publish annual equity reports.
+4. Publish annual equity reports.
 
 ## Recommendation 6: Create Student Co-Governance Structures
 
@@ -408,13 +406,13 @@ Students possess lived expertise often absent from administrative design.
 
 ### Implementation Steps
 
-1.     Establish Accessibility Advisory Council.
+1. Establish Accessibility Advisory Council.
 
-2.     Compensate student members for their labor and expertise.
+2. Compensate student members for their labor and expertise.
 
-3.     Include graduate, undergraduate, international, and multiply marginalized students.
+3. Include graduate, undergraduate, international, and multiply marginalized students.
 
-4.     Require consultation on major policy changes.
+4. Require consultation on major policy changes.
 
 ## Recommendation 7: Advocate for Provincial/Funder Reform
 
@@ -428,69 +426,69 @@ Some institutional gatekeeping is driven by external compliance and funding stru
 
 ### Implementation Steps
 
-1.     Joint submissions through university associations.
+1. Joint submissions through university associations.
 
-2.     Provincial roundtables with students and institutions.
+2. Provincial roundtables with students and institutions.
 
-3.     Recommend broader eligibility criteria.
+3. Recommend broader eligibility criteria.
 
 # 16. Resource Requirements
 
 ## Moderate Investments
 
-·      staff training
+- staff training
 
-·      policy redesign
+- policy redesign
 
-·      data systems
+- data systems
 
-·      advisory compensation
+- advisory compensation
 
-·      accessibility supports infrastructure
+- accessibility supports infrastructure
 
 ## Likely Returns
 
-·      improved retention
+- improved retention
 
-·      fewer crises and disputes
+- fewer crises and disputes
 
-·      stronger student satisfaction
+- stronger student satisfaction
 
-·      reputational gains
+- reputational gains
 
-·      better legal risk management
+- better legal risk management
 
 # 17. Measuring Success
 
 Institutions should track:
 
-1.     Time from intake to support implementation
+1. Time from intake to support implementation
 
-2.     Number of students accessing services
+2. Number of students accessing services
 
-3.     Appeal and dispute rates
+3. Appeal and dispute rates
 
-4.     Student satisfaction and trust
+4. Student satisfaction and trust
 
-5.     Retention and completion outcomes
+5. Retention and completion outcomes
 
-6.     Equity gaps across demographic groups
+6. Equity gaps across demographic groups
 
-7.     Faculty compliance with accessibility standards
+7. Faculty compliance with accessibility standards
 
 # 18. What Not to Do
 
 Reform efforts often fail when institutions:
 
-·      rename offices without changing rules
+- rename offices without changing rules
 
-·      increase discretion without accountability
+- increase discretion without accountability
 
-·      overburden faculty without support
+- overburden faculty without support
 
-·      consult students symbolically only
+- consult students symbolically only
 
-·      treat access as a niche service issue rather than campus governance issue
+- treat access as a niche service issue rather than campus governance issue
 
 # 19. Conclusion
 
