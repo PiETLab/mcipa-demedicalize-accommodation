@@ -419,7 +419,7 @@ Some institutional gatekeeping is driven by external compliance and funding stru
 
 3. Recommend broader eligibility criteria.
 
-# 16. Resource Requirements
+# 17. Resource Requirements
 
 ## Moderate Investments
 
@@ -445,7 +445,7 @@ Some institutional gatekeeping is driven by external compliance and funding stru
 
 - better legal risk management
 
-# 17. Measuring Success
+# 18. Measuring Success
 
 Institutions should track:
 
@@ -463,7 +463,7 @@ Institutions should track:
 
 7. Faculty compliance with accessibility standards
 
-# 18. What Not to Do
+# 19. What Not to Do
 
 Reform efforts often fail when institutions:
 
@@ -477,7 +477,7 @@ Reform efforts often fail when institutions:
 
 - treat access as a niche service issue rather than campus governance issue
 
-# 19. Conclusion
+# 20. Conclusion
 
 Postsecondary institutions increasingly position themselves as leaders in equity, inclusion, and accessibility. Yet many accommodation systems continue to rely on documentation-heavy models that require students to prove disability, disclose personal information, and navigate complex administrative processes before receiving support that is often inadequate. The evidence reviewed in this Advocacy Paper suggests that these systems can reproduce class inequality, racial inequity, and disability stigma while delaying access to necessary supports.
 
@@ -485,7 +485,7 @@ At the same time, the literature, comparative institutional examples, and studen
 
 The central question is no longer whether reform is possible, but whether institutions are willing to shift responsibility for access from individual students to the systems that shape educational participation.
 
-# 20. Limitations and Future Research
+# 21. Limitations and Future Research
 
 This Advocacy Paper draws on published research, publicly available institutional policies, and documented student advocacy initiatives to identify barriers within accommodation systems and examine emerging reform models. While the environmental scan identifies a range of promising practices, it also reveals important gaps in the available evidence. In particular, limited information exists regarding how institutions developed, approved, implemented, and evaluated the policy changes described in this report. Publicly available policies rarely document the governance processes, stakeholder consultations, resource investments, organizational changes, or implementation challenges that shaped reform efforts. As a result, while this paper is able to identify alternative approaches and potential policy directions, it is less able to assess how reforms were achieved or how effectively they function in practice over time.
 
