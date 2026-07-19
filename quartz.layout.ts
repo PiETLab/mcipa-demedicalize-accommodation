@@ -491,36 +491,32 @@ const PassageFeedbackControls = () => {
     }
   }
 
-  const getNearestHeadingText = (el) => {
+  const getRelevantHeadingsBeforeElement = (el) => {
     const article = el.closest("article")
-    if (!article) return ""
+    if (!article) return []
 
-    const headings = article.querySelectorAll("h2, h3, h4, h5, h6")
-    let nearest = ""
+    const headings = Array.from(article.querySelectorAll("h1, h2, h3, h4, h5, h6"))
+      .filter((heading) => heading.offsetTop <= el.offsetTop)
 
-    headings.forEach((heading) => {
-      if (heading.offsetTop <= el.offsetTop) {
-        nearest = heading.textContent?.trim() ?? ""
-      }
-    })
+    const firstDocumentHeading = article.querySelector("h1")
+    if (headings.length > 1 && firstDocumentHeading && headings[0] === firstDocumentHeading) {
+      headings.shift()
+    }
 
-    return nearest
+    return headings
+  }
+
+  const getNearestHeadingText = (el) => {
+    const headings = getRelevantHeadingsBeforeElement(el)
+    if (headings.length === 0) return ""
+
+    return headings[headings.length - 1]?.textContent?.trim() ?? ""
   }
 
   const getNearestHeadingAnchorId = (el) => {
-    const article = el.closest("article")
-    if (!article) return ""
-
-    const headings = article.querySelectorAll("h2, h3, h4, h5, h6")
-    let nearestId = ""
-
-    headings.forEach((heading) => {
-      if (heading.offsetTop <= el.offsetTop) {
-        nearestId = heading.getAttribute("id") || ""
-      }
-    })
-
-    return nearestId
+    const headings = getRelevantHeadingsBeforeElement(el)
+    const nearestHeading = headings[headings.length - 1]
+    return nearestHeading?.getAttribute("id") || ""
   }
 
   const getHeadingLevel = (element) => {
