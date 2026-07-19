@@ -1,4 +1,4 @@
-## Public Feedback Policy
+# Public Feedback Policy
 
 We welcome your feedback on this project. Whether you have a general comment about the paper or would like to respond to a specific passage, you can use the [[Provide Feedback/Provide Paper Feedback|Provide Paper Feedback]]  or [[Provide Feedback/Provide Segment Feedback]] forms.
 
