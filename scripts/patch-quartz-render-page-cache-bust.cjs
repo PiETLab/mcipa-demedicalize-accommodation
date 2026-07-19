@@ -47,6 +47,17 @@ const backlinksPath = path.join(
   "Backlinks.tsx",
 )
 
+const pageListPath = path.join(
+  __dirname,
+  "..",
+  "node_modules",
+  "@jackyzha0",
+  "quartz",
+  "quartz",
+  "components",
+  "PageList.tsx",
+)
+
 const searchStylePaths = [
   path.join(
     __dirname,
@@ -224,6 +235,31 @@ function patchBacklinksHeadingLevel() {
   console.log("Applied Quartz Backlinks.tsx heading-level patch.")
 }
 
+function patchPageListHeadingLevel() {
+  if (!fs.existsSync(pageListPath)) {
+    fail(`Target file not found: ${pageListPath}`)
+  }
+
+  let source = fs.readFileSync(pageListPath, "utf8")
+
+  if (source.includes("<h2>\n                  <a href={resolveRelative(fileData.slug!, page.slug!)} class=\"internal\">")) {
+    console.log("Quartz PageList.tsx heading-level patch already applied.")
+    return
+  }
+
+  const openNeedle = "                <h3>"
+  const closeNeedle = "                </h3>"
+  if (!source.includes(openNeedle) || !source.includes(closeNeedle)) {
+    fail("Could not find PageList item heading anchors")
+  }
+
+  source = source.replace(openNeedle, "                <h2>")
+  source = source.replace(closeNeedle, "                </h2>")
+  source = source.replace(".section h3 {", ".section h2 {")
+  fs.writeFileSync(pageListPath, source)
+  console.log("Applied Quartz PageList.tsx heading-level patch.")
+}
+
 function patchSearchContrast() {
   const searchStylePath = searchStylePaths.find((candidate) => fs.existsSync(candidate))
   if (!searchStylePath) {
@@ -277,5 +313,6 @@ patchRenderPage()
 patchExplorerAccessibility()
 patchTableOfContentsHeadingLevel()
 patchBacklinksHeadingLevel()
+patchPageListHeadingLevel()
 patchSearchContrast()
 patchClipboardContrast()
