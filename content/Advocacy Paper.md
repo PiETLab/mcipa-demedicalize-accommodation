@@ -123,8 +123,8 @@ This produces five recurring harms:
 
 If institutions reduce unnecessary documentation barriers, shift responsibility for access from individual students to campus systems, and build transparent equitable processes, then more students will access support earlier, retention and trust will improve, and campuses will better align practice with public commitments.
 
-This Advocacy Paper therefore advances a shift:
-**From:** medically proving disability to receive retrofitted academic accommodations
+This Advocacy Paper therefore advances a shift:  
+**From:** medically proving disability to receive retrofitted academic accommodations  
 **To:** designing equitable systems that remove barriers proactively and center access
 
 The following sections review evidence, comparative models, policy options, and recommendations for implementation.
