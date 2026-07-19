@@ -1069,12 +1069,15 @@ const FeedbackFormHydration = () => {
 
   const isFeedbackPage = () => {
     const current = normalizePath(window.location.pathname).toLowerCase();
-    return FORM_PATHS.some((path) => path.toLowerCase() === current);
+    return FORM_PATHS.some((path) => {
+      const normalizedPath = path.toLowerCase();
+      return current === normalizedPath || current.endsWith(normalizedPath);
+    });
   };
 
   const isSegmentFeedbackPage = () => {
     const current = normalizePath(window.location.pathname).toLowerCase();
-    return current === SEGMENT_FEEDBACK_PATH;
+    return current === SEGMENT_FEEDBACK_PATH || current.endsWith(SEGMENT_FEEDBACK_PATH);
   };
 
   const setStatus = (message, type) => {
