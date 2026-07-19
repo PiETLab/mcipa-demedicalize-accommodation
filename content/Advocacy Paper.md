@@ -272,16 +272,11 @@ The evidence suggests that meaningful reform requires more than administrative e
 
 ### Action
 
-Adopt a proportional evidence model in which students may establish need through multiple pathways, including:
-
+Adopt a proportional evidence model in which students may establish need through multiple pathways, including:  
 - student self-attestation
-
 - prior accommodation history
-
 - functional impact statements
-
 - existing records already on file
-
 - professional documentation where absolutely necessary/as a last resort
 
 ### Rationale
