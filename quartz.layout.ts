@@ -262,8 +262,35 @@ const PassageFeedbackControls = () => {
     return sentenceCount > 0 && sentenceCount <= 2
   }
 
+  const getIntroParagraphForListLeaf = (element) => {
+    if (!isListContainer(element)) {
+      return null
+    }
+
+    const intro = element.previousElementSibling
+    if (
+      intro &&
+      intro.tagName &&
+      intro.tagName.toUpperCase() === "P" &&
+      !isListLikeParagraph(intro) &&
+      !isHeadingElement(intro)
+    ) {
+      return intro
+    }
+
+    return null
+  }
+
   const getInsertionTarget = (block) => {
-    if (!block || !block.tagName || block.tagName.toUpperCase() !== "P") {
+    if (!block || !block.tagName) {
+      return block
+    }
+
+    if (isListContainer(block)) {
+      return block
+    }
+
+    if (block.tagName.toUpperCase() !== "P") {
       return block
     }
 
@@ -317,6 +344,10 @@ const PassageFeedbackControls = () => {
       return block
     }
 
+    if (isListContainer(block)) {
+      return getIntroParagraphForListLeaf(block) || block
+    }
+
     if (!isListLikeParagraph(block)) {
       return block
     }
@@ -345,10 +376,16 @@ const PassageFeedbackControls = () => {
       return true
     }
 
-    // If this paragraph immediately introduces a multi-item list-set,
-    // fold it into that same leaf and let the list-set anchor emit the control.
+    // If this paragraph immediately introduces a list leaf,
+    // fold it into that leaf and let the list emit the control.
     if (!isListLikeParagraph(block)) {
       const next = block.nextElementSibling
+      if (isListContainer(next)) {
+        return false
+      }
+
+      // If this paragraph immediately introduces a multi-item list-set,
+      // fold it into that same leaf and let the list-set anchor emit the control.
       if (isListLikeParagraph(next)) {
         const listStart = getContiguousListLikeRunStart(next)
         if (listStart === next && hasAdditionalContiguousListLike(listStart)) {

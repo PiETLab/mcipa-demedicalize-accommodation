@@ -65,9 +65,10 @@ Headings and list items (`li`) are not feedback leaves.
 
 List policy:
 - A list container (`ul`/`ol`/`dl`) is treated as one leaf.
+- A plain paragraph immediately preceding a list container is folded into that same list leaf.
 - Individual list items are not treated as separate leaves.
 - If markdown renders list-item paragraphs (`li > p`), those nested paragraphs are excluded from marking so a single button is attached for the whole list.
-- Paragraph leaves do not absorb adjacent list containers; paragraph and list leaves are handled independently.
+- When this paragraph-plus-list pattern occurs, the paragraph does not emit its own separate control; the list leaf emits one control for the combined unit.
 
 List-like paragraph lines can participate in paragraph-like leaves, for example:
 - numbered lines such as `1. ...`
@@ -104,7 +105,7 @@ What it does on each run:
 7. Adds an aria-label based on a quote preview from the block text.
 8. Inserts the wrapper:
 - after the paragraph itself for plain paragraph leaves
-- after the list container itself for list leaves (`ul`/`ol`/`dl`)
+- after the list container itself for list leaves (`ul`/`ol`/`dl`), including leaves that begin with an immediately preceding introductory paragraph
 - after the trailing list-like entity for paragraph-like leaves (contiguous list-like paragraph run)
 
 ### Reattachment Behavior
@@ -144,6 +145,7 @@ Button insertion is governed by the intersection of these rules:
 7. Placement rule (runtime):
 - For paragraph leaves, insertion target is immediately after the paragraph.
 - For list leaves, insertion target is immediately after the list container.
+- If a plain paragraph immediately precedes a list container, that paragraph becomes the start of the list leaf and the button is still inserted after the list container.
 - For list-like paragraph runs, only the first paragraph in the run emits a control and insertion target is the end of that run.
 
 Only when all of the above pass will the button be injected.
@@ -151,7 +153,7 @@ Only when all of the above pass will the button be injected.
 ## Why This Design Exists
 
 - Predictable placement: only explicitly eligible content blocks get controls.
-- Accessibility and clarity: buttons are tied to paragraph leaves and whole-list leaves (not individual items).
+- Accessibility and clarity: buttons are tied to paragraph leaves and whole-list leaves (not individual items), with intro paragraph plus list treated as one unit when they belong together.
 - Stability: deterministic ids support durable references and feedback metadata.
 - SPA resilience: controls reattach after client-side navigation.
 
