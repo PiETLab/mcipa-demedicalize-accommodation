@@ -26,6 +26,10 @@ Object labels are unchanged by this mode:
 - Passage submission: `object: passage`
 - Page-level submission: `object: entire-paper`
 
+The success message also changes for confirmation:
+
+- `Thanks, your feedback was received. (FACILITATOR MODE)`
+
 ## Implementation notes
 
 - Front-end trigger: [quartz.layout.ts](/Users/mb/Documents/Vaults/mcipa-demedicalize-accommodation/quartz.layout.ts)

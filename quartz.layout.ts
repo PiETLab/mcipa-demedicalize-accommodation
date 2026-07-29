@@ -1349,7 +1349,10 @@ const FeedbackFormHydration = () => {
         }
 
         const issueUrl = safeIssueUrl(result.issueUrl || result.html_url || result.url || "");
-        setStatus("Thanks, your feedback was received.", "success");
+        const successMessage = sourceForSubmit === "facilitator"
+          ? "Thanks, your feedback was received. (FACILITATOR MODE)"
+          : "Thanks, your feedback was received.";
+        setStatus(successMessage, "success");
         if (issueUrl && issueLink) {
           issueLink.hidden = false;
           issueLink.href = issueUrl;
