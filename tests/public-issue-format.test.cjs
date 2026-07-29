@@ -34,7 +34,7 @@ function testPassageIssueFormat() {
   })
 
   assert.equal(result.title, "Clarify the section heading")
-  assert.deepEqual(result.labels, ["public-submission", "passage-feedback"])
+  assert.deepEqual(result.labels, ["source: public", "object: passage"])
   assert.equal(
     result.body,
     [
@@ -78,7 +78,7 @@ function testPageIssueFormatWithOmittedOptionalFields() {
   })
 
   assert.equal(result.title, "Site-wide accessibility note")
-  assert.deepEqual(result.labels, ["public-submission", "page-feedback"])
+  assert.deepEqual(result.labels, ["source: public", "object: entire-paper"])
   assert.equal(countTopLevelHeadings(result.body), 3)
   assert.ok(result.body.includes("- Page: `Site generally`"))
   assert.ok(result.body.includes("- Published page: Not provided"))
@@ -176,6 +176,17 @@ function testIncludesReportedBlockFallbackWhenDifferent() {
   assert.ok(result.body.includes("- Passage identifier (reported block): `feedback-block-item456`"))
 }
 
+function testFacilitatorSourceLabel() {
+  const result = renderPublicIssue({
+    feedbackType: "page",
+    submissionSource: "facilitator",
+    title: "Facilitated submission",
+    comment: "Captured by a facilitator during a session.",
+  })
+
+  assert.deepEqual(result.labels, ["source: facilitator", "object: entire-paper"])
+}
+
 function main() {
   testPassageIssueFormat()
   testPageIssueFormatWithOmittedOptionalFields()
@@ -184,6 +195,7 @@ function main() {
   testSelectedPassagePreservesEscapedLinebreaks()
   testSelectedTextLinkMissingReasonIncludesMaxLength()
   testIncludesReportedBlockFallbackWhenDifferent()
+  testFacilitatorSourceLabel()
 
   console.log("Public issue format tests passed.")
 }

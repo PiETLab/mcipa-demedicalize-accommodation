@@ -88,9 +88,14 @@ function normalizeSubmissionType(feedbackType) {
     : "Page-level feedback"
 }
 
+function normalizeSubmissionSource(submissionSource) {
+  return submissionSource === "facilitator" ? "source: facilitator" : "source: public"
+}
+
 function renderPublicIssue(input = {}) {
   const feedbackType = normalizeSubmissionType(input.feedbackType)
   const isPassage = feedbackType === "Passage-level feedback"
+  const sourceLabel = normalizeSubmissionSource(input.submissionSource)
   const issueTitle = sanitizeInline(
     input.title || input.briefTitle || (isPassage ? input.pageTitle || "Passage feedback" : input.pageTitle || "Site generally"),
     LIMITS.title,
@@ -168,8 +173,8 @@ function renderPublicIssue(input = {}) {
     title: issueTitle,
     body,
     labels: isPassage
-      ? ["source: public", "object: passage"]
-      : ["source: public", "object: entire-paper"],
+      ? [sourceLabel, "object: passage"]
+      : [sourceLabel, "object: entire-paper"],
   }
 }
 

@@ -85,7 +85,7 @@ async function testValidPassageSubmission() {
 
   const issueBody = JSON.parse(githubCalls[0].init.body)
   assert.equal(issueBody.title, "Clarify this paragraph")
-  assert.deepEqual(issueBody.labels, ["public-submission", "passage-feedback"])
+  assert.deepEqual(issueBody.labels, ["source: public", "object: passage"])
   assert.ok(issueBody.body.includes("## Selected passage"))
   assert.ok(issueBody.body.includes("## Passage location"))
   assert.ok(issueBody.body.includes("- Published page branch: `main`"))
@@ -227,6 +227,39 @@ async function testGithubFailureIsGeneric() {
   assert.equal(response.status, 502)
   const payload = await response.json()
   assert.equal(payload.error, "Invalid submission.")
+  assert.equal(payload.code, "github_request_failed")
+  assert.equal(payload.upstreamStatus, 403)
+  assert.equal(payload.upstreamMessage, "rate limited")
+}
+
+async function testFacilitatorSubmissionSourceLabel() {
+  const githubCalls = []
+  const response = await handleFeedbackRequest(
+    jsonRequest({
+      feedbackType: "page",
+      submissionSource: "facilitator",
+      title: "Facilitated site-level note",
+      comment: "Captured in a facilitated session.",
+      pageTitle: "Site generally",
+      pageUrl: "https://pietlab.github.io/mcipa-demedicalize-accommodation/submit-feedback",
+      website: "",
+    }),
+    env,
+    {
+      fetchImpl: async (url, init) => {
+        githubCalls.push({ url, init })
+        return new Response(JSON.stringify({ html_url: "https://github.com/PiETLab/mcipa-demedicalize-accommodation/issues/126", number: 126 }), {
+          status: 201,
+          headers: { "Content-Type": "application/json" },
+        })
+      },
+    },
+  )
+
+  assert.equal(response.status, 201)
+  assert.equal(githubCalls.length, 1)
+  const issueBody = JSON.parse(githubCalls[0].init.body)
+  assert.deepEqual(issueBody.labels, ["source: facilitator", "object: entire-paper"])
 }
 
 async function testUnexpectedFailuresStayGeneric() {
@@ -290,6 +323,7 @@ async function main() {
   await testRejectsInvalidInputs()
   await testValidatesPageUrlAndBodySize()
   await testGithubFailureIsGeneric()
+  await testFacilitatorSubmissionSourceLabel()
   await testUnexpectedFailuresStayGeneric()
   await testPassageSubmissionPreservesMultilineFeedback()
   console.log("Public feedback worker tests passed.")

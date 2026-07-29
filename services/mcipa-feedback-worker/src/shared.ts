@@ -13,6 +13,7 @@ const FORM_KEYS = new Set([
   "title",
   "feedbackMode",
   "feedbackType",
+  "submissionSource",
   "comment",
   "feedback",
   "pageTitle",
@@ -45,6 +46,7 @@ export interface WorkerEnv {
 
 export interface NormalizedSubmission {
   feedbackType: "page" | "passage"
+  submissionSource: "public" | "facilitator"
   title: string
   displayName?: string
   comment: string
@@ -66,11 +68,13 @@ export interface NormalizedSubmission {
 class SubmissionError extends Error {
   status: number
   code: string
+  details?: Record<string, unknown>
 
-  constructor(status: number, code: string, message: string) {
+  constructor(status: number, code: string, message: string, details?: Record<string, unknown>) {
     super(message)
     this.status = status
     this.code = code
+    this.details = details
   }
 }
 
@@ -216,6 +220,19 @@ function normalizeFeedbackType(raw: unknown) {
   throw new SubmissionError(400, "invalid_feedback_type", "Feedback type is missing or invalid.")
 }
 
+function normalizeSubmissionSource(raw: unknown) {
+  const candidate = collapseInlineWhitespace(raw).toLowerCase()
+  if (!candidate || candidate === "public") {
+    return "public" as const
+  }
+
+  if (candidate === "facilitator") {
+    return "facilitator" as const
+  }
+
+  throw new SubmissionError(400, "invalid_submission_source", "Submission source is invalid.")
+}
+
 function checkUnknownKeys(raw: Record<string, unknown>) {
   const unknownKeys = Object.keys(raw).filter((key) => !FORM_KEYS.has(key))
   if (unknownKeys.length > 0) {
@@ -227,6 +244,7 @@ export function normalizeSubmission(raw: Record<string, unknown>, env: Partial<W
   checkUnknownKeys(raw)
 
   const feedbackType = normalizeFeedbackType(raw.feedbackType ?? raw.feedbackMode)
+  const submissionSource = normalizeSubmissionSource(raw.submissionSource)
   const title = requireStringField(raw.title, "title", LIMITS.title)
   const displayName = optionalInlineField(raw.displayName ?? raw.name, "displayName", LIMITS.name)
   const comment = requireMultilineField(raw.comment ?? raw.feedback, "comment", LIMITS.feedback)
@@ -265,6 +283,7 @@ export function normalizeSubmission(raw: Record<string, unknown>, env: Partial<W
 
   return {
     feedbackType,
+    submissionSource,
     title,
     displayName,
     comment,
@@ -362,7 +381,12 @@ async function createGitHubIssue(submission: NormalizedSubmission, env: WorkerEn
   }
 
   if (!response.ok) {
-    throw new SubmissionError(502, "github_request_failed", "Unable to create issue.")
+    const upstreamMessage =
+      (typeof parsed.message === "string" && parsed.message.trim()) || response.statusText || "GitHub API request failed."
+    throw new SubmissionError(502, "github_request_failed", "Unable to create issue.", {
+      upstreamStatus: response.status,
+      upstreamMessage,
+    })
   }
 
   const issueUrl =
@@ -451,14 +475,26 @@ export async function handleFeedbackRequest(
     )
   } catch (error) {
     if (error instanceof SubmissionError) {
+      const details = error.details ?? {}
       logEvent(error.status >= 500 ? "error" : "warn", error.code, {
         origin: origin ?? "<unavailable>",
         method: request.method,
         code: error.code,
         status: error.status,
+        ...details,
       })
 
-      return jsonResponse(error.status, { error: "Invalid submission." }, commonHeaders)
+      const responseBody: Record<string, unknown> = {
+        error: "Invalid submission.",
+        code: error.code,
+      }
+      if (typeof details.upstreamStatus === "number") {
+        responseBody.upstreamStatus = details.upstreamStatus
+      }
+      if (typeof details.upstreamMessage === "string" && details.upstreamMessage.length > 0) {
+        responseBody.upstreamMessage = details.upstreamMessage
+      }
+      return jsonResponse(error.status, responseBody, commonHeaders)
     }
 
     logEvent("error", "unexpected_error", {

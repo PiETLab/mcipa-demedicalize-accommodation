@@ -1241,6 +1241,7 @@ const FeedbackFormHydration = () => {
     const commentField = document.querySelector("#field-feedback-comment");
     const submitBtn = document.querySelector("#feedback-submit-button");
     const issueLink = document.querySelector("#feedback-created-issue-link");
+    let submissionSource = "public";
 
     modePage?.addEventListener("change", () => {
       if (modePage.checked) {
@@ -1282,6 +1283,10 @@ const FeedbackFormHydration = () => {
       setStatus("Segment copied into feedback field.", null);
     });
 
+    submitBtn?.addEventListener("click", (event) => {
+      submissionSource = event.shiftKey ? "facilitator" : "public";
+    });
+
     form.addEventListener("submit", async (event) => {
       event.preventDefault();
       if (isSubmitting) {
@@ -1315,10 +1320,15 @@ const FeedbackFormHydration = () => {
         }
 
         const payload = Object.fromEntries(formData.entries());
+        const sourceForSubmit = submissionSource;
+        submissionSource = "public";
         // Backward compatibility: older deployed workers reject unknown fields.
         // Keep reported-block metadata in the form/runtime, but omit from submit payload.
         delete payload.reportedBlockId;
         delete payload.reportedBlockUrl;
+        if (sourceForSubmit === "facilitator") {
+          payload.submissionSource = "facilitator";
+        }
         const response = await fetch(endpoint, {
           method: "POST",
           headers: {
