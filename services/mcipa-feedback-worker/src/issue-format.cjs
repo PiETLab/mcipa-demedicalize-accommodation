@@ -168,8 +168,8 @@ function renderPublicIssue(input = {}) {
     title: issueTitle,
     body,
     labels: isPassage
-      ? ["public-submission", "passage-feedback"]
-      : ["public-submission", "page-feedback"],
+      ? ["source: public", "object: passage"]
+      : ["source: public", "object: entire-paper"],
   }
 }
 
