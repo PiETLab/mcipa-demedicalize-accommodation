@@ -103,6 +103,7 @@ Traditional systems often rely on a deficit model: disability is treated as an i
 ## Growing Peer Institution Innovation
 
 Multiple universities have already adopted more flexible approaches, demonstrating that reform is practical and administratively feasible.
+York University as an example of a Canadian University that while it hasn't moved to complete deemdicalization of accommodations, has moved away from a purely diagnosis-based model for academic accommodations (with accommodations still determined by a medical provider's assessment, but not by having a diagnostic label) which happened after Navi Dhanota made a successful Human Rights Commission complaint against York in 2016.
 
 # 4. Policy Problem Statement
 
