@@ -406,7 +406,7 @@ Students possess lived expertise often absent from administrative design.
 
 ### Action
 
-Work with governments and sector bodies to revise funding formulas and accessibility rules that incentivize restrictive documentation practices.
+Work with governments, Ministry funders, and instructional designers to revise funding formulas and accessibility rules that incentivize restrictive documentation practices.
 
 ### Rationale
 
