@@ -43,7 +43,7 @@ This verification record is intended for inclusion in a later repository snapsho
 After tagging, the tag’s target commit SHA can be resolved with:
 
 ```sh
-TAG_NAME= '<the Annotated tag name from Table 1>'
+TAG_NAME='<the Annotated tag name from Table 1>'
 git rev-parse "${TAG_NAME}^{commit}"
 ```
 
